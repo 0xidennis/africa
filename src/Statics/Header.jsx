@@ -12,13 +12,7 @@ const Header = () => {
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <a href="/" className="flex-shrink-0">
-            {/* <image
-              src={logo}
-              width={120}
-              height={40}
-              alt="From Africa Logo"
-              className="h-10 w-auto"
-            /> */}
+           
              <img src={logo} width={120} height={40} alt="" className='h-10 w-auto ml-3' />
           </a>
           

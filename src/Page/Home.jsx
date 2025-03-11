@@ -4,15 +4,21 @@ import { Search, MessageCircle, CheckCircle, ArrowRight } from "lucide-react"
 import image from '../assets/image.png'
 import image27 from '../assets/image 27.png'
 import Layout from '../Layout/Layout'
+import vector from '../assets/vector.png'
+import ship from '../assets/image/image 12.png'
+import sew from '../assets/image/sew.png'
+import magazine from '../assets/image/magazine.png'
+import logo from '../assets/logo/from.png'
+// import shoe from '../assets/shoe.png'
 
 const Home = () => {
     const categories = [
-        { name: "Clothing", icon: <span className="text-2xl">👕</span> },
-        { name: "Footwear", icon: <span className="text-2xl">👟</span> },
-        { name: "Accessories", icon: <span className="text-2xl">👜</span> },
-        { name: "Skin Care", icon: <span className="text-2xl">✨</span> },
-        { name: "Bags", icon: <span className="text-2xl">🎒</span> },
-        { name: "Traditional", icon: <span className="text-2xl">🏺</span> },
+        { name: "Clothing", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
+        { name: "Footwear" , icon: <span className="text-2xl "><img src={vector} alt="" /></span> },
+        { name: "Accessories", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
+        { name: "Skin Care", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
+        { name: "Bags", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
+        { name: "Traditional", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
       ]
 
   return (
@@ -101,12 +107,12 @@ const Home = () => {
             {categories.map((category) => (
               <div
                 key={category.name}
-                className="border rounded-lg p-4 flex flex-col items-center hover:shadow-md transition-shadow"
+                className="border border-[#523523] rounded-lg p-4 flex flex-col items-center hover:shadow-md transition-shadow"
               >
-                <div className="text-amber-500 mb-2">{category.icon}</div>
-                <h3 className="font-medium text-center mb-2">{category.name}</h3>
-                <a href="#" className="text-xs text-amber-500 flex items-center">
-                  Browse Product <ArrowRight className="h-3 w-3 ml-1" />
+                <div className="text-amber-500 mb-2 mr-30">{category.icon}</div>
+                <h3 className="font-medium text-center mb-2 mr-20">{category.name}</h3>
+                <a href="#" className="text-md text-[#523523] flex items-center">
+                  Browse Product <ArrowRight className="h-3 w-3 mr-5" />
                 </a>
               </div>
             ))}
@@ -115,40 +121,30 @@ const Home = () => {
       </section>
 
       {/* Bridge Gap Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-4 text-center">
+          <h2 className="text-2xl font-normal mb-4 text-center align-center mr-200">
             We bridge the gap{" "}
-            <span className="text-amber-500">between Africa's top manufacturers and global buyers.</span>
+            <span className="text-black font-bold">between Africa's top <br />manufacturers and global buyers.</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <div className="border rounded-lg overflow-hidden bg-white">
-              <image
-                src="/placeholder.svg?height=300&width=500"
-                width={500}
-                height={300}
-                alt="Shipping port with containers"
-                className="w-full h-48 object-cover"
-              />
+             
+              <img src={ship} width={500} height={300} alt="Shipping port with containers"  className='w-full h-65 object-cover'/>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">B2B Trade Platform</h3>
                 <p className="text-gray-600">
-                  Meet verified manufacturers for various categories of consumer goods in Africa.
+                  Meet verified manufacturers for various categories of <br />consumer goods in Africa.
                 </p>
               </div>
             </div>
             <div className="border rounded-lg overflow-hidden bg-white">
-              <image
-                src="/placeholder.svg?height=300&width=500"
-                width={500}
-                height={300}
-                alt="African women working in textile factory"
-                className="w-full h-48 object-cover"
-              />
+             
+               <img src={sew} width={500} height={300} alt="Shipping port with containers"  className='w-full h-65 object-cover'/>
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Source directly from The African Market</h3>
+                <h3 className="text-xl font-bold mb-2 text-[#523523]">Source directly from The African Market</h3>
                 <p className="text-gray-600">
-                  Meet verified manufacturers for various categories of consumer goods in Africa.
+                  Meet verified manufacturers for various categories of consumer <br /> goods in Africa.
                 </p>
               </div>
             </div>
@@ -159,38 +155,38 @@ const Home = () => {
       {/* How It Works */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-12 text-center">How It Works</h2>
+          <h2 className="text-2xl font-bold mb-12 text-center text-[#523523]">How It Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center">
-              <div className="bg-amber-100 rounded-full p-4 mb-4">
-                <Search className="h-6 w-6 text-amber-500" />
+              <div className="bg-[#523523] rounded-full p-4 mb-4">
+                <Search className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Search & Discover:</h3>
-              <p className="text-gray-600 text-sm">
-                Use our intuitive search to find manufacturers and products tailored to your needs.
+              <p className="text-gray-600 text-md">
+                Use our intuitive search to find <br />manufacturers and products <br /> tailored to your needs.
               </p>
             </div>
             <div className="flex flex-col items-center text-center relative">
               <div className="hidden md:block absolute top-8 -left-16 w-32">
-                <ArrowRight className="h-6 w-6 text-amber-500" />
+                <ArrowRight className="h-6 w-6 text-[#523523]" />
               </div>
-              <div className="bg-amber-100 rounded-full p-4 mb-4">
-                <MessageCircle className="h-6 w-6 text-amber-500" />
+              <div className="bg-[#523523] rounded-full p-4 mb-4">
+                <MessageCircle className="h-6 w-6 text-[white]" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Connect Instantly</h3>
-              <p className="text-gray-600 text-sm">
-                Initiate conversations with manufacturers through our built-in chat feature.
+              <p className="text-gray-600 text-md">
+                Initiate conversations with <br /> manufacturers through our <br /> built-in chat feature.
               </p>
             </div>
             <div className="flex flex-col items-center text-center relative">
               <div className="hidden md:block absolute top-8 -left-16 w-32">
-                <ArrowRight className="h-6 w-6 text-amber-500" />
+                <ArrowRight className="h-6 w-6 text-[#523523]" />
               </div>
-              <div className="bg-amber-100 rounded-full p-4 mb-4">
-                <CheckCircle className="h-6 w-6 text-amber-500" />
+              <div className="bg-[#523523] rounded-full p-4 mb-4">
+                <CheckCircle className="h-6 w-6 text-[white]" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Build Partnerships:</h3>
-              <p className="text-gray-600 text-sm">Start meaningful collaborations that drive success.</p>
+              <p className="text-gray-600 text-md">Start meaningful collaborations <br />that drive success.</p>
             </div>
           </div>
         </div>
@@ -217,14 +213,12 @@ const Home = () => {
                 Download
               </a>
             </div>
-            <div className="flex justify-center">
-              <image
-                src="/placeholder.svg?height=400&width=500"
-                width={500}
-                height={400}
-                alt="E-Magazine preview"
-                className="max-w-full h-auto"
-              />
+            <div className=" flex justify-center ">
+   
+              <div className="bg-[url('./assets/Africa.png')] bg-cover bg-center h-[50vh] w-[60%] ml-65">
+              <img src={magazine} width={500} height={300} alt="magazine"  className='max-w-full h-100 ml-[-400]'/>
+              </div>
+
             </div>
           </div>
         </div>
@@ -234,12 +228,12 @@ const Home = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Business?</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of businesses already connecting and trading on FromAfrica
+          <p className="text-[#523523] mb-8 max-w-2xl mx-auto text-md">
+            Join thousands of businesses already connecting and trading on <br /> FromAfrica
           </p>
           <a
             href="#"
-            className="bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 px-8 rounded-md transition-colors inline-block"
+            className="bg-[#523523] hover:bg-black text-white font-medium py-3 px-8 rounded-md transition-colors inline-block"
           >
             Get started Now
           </a>
@@ -251,14 +245,15 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <image
+              {/* <image
                 src="/placeholder.svg?height=50&width=150"
                 width={150}
                 height={50}
                 alt="From Africa Logo"
                 className="mb-4"
-              />
-              <p className="text-sm text-amber-100">
+              /> */}
+              <img src={logo} width={150} height={50} alt="" className='mb-4' />
+              <p className="text-sm text-gray-50">
                 Connecting African Manufacturers
                 <br />
                 Excellence to the World
@@ -300,7 +295,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-amber-100">
+              <ul className="space-y-2 text-gray-50">
                 <li>
                   <a href="#" className="hover:text-white">
                     About Us
@@ -320,7 +315,7 @@ const Home = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Categories</h3>
-              <ul className="space-y-2 text-amber-100">
+              <ul className="space-y-2 text-gray-50">
                 <li>
                   <a href="#" className="hover:text-white">
                     African Fashion
@@ -340,11 +335,11 @@ const Home = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <p className="text-amber-100 mb-2">support@fromafrica.com</p>
-              <p className="text-amber-100">+1 234 567 8900</p>
+              <p className="text-gray-50 mb-2">support@fromafrica.com</p>
+              <p className="text-gray-50">+1 234 567 8900</p>
             </div>
           </div>
-          <div className="border-t border-amber-800 mt-8 pt-8 text-center text-sm text-amber-200">
+          <div className="mb-100  ml-200 pt-8 text-center text-md">
             <p>© 2025 fromafrica2b.com. All rights reserved.</p>
           </div>
         </div>
