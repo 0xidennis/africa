@@ -22,7 +22,7 @@ const Home = () => {
       ]
 
   return (
-    <div>
+    <div className='overflow-x-hidden'>
         <Layout/>
         <main className="min-h-screen">
       {/* Hero Section */}
@@ -245,13 +245,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              {/* <image
-                src="/placeholder.svg?height=50&width=150"
-                width={150}
-                height={50}
-                alt="From Africa Logo"
-                className="mb-4"
-              /> */}
+              
               <img src={logo} width={150} height={50} alt="" className='mb-4' />
               <p className="text-sm text-gray-50">
                 Connecting African Manufacturers

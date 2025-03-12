@@ -6,7 +6,7 @@ import logo from '../assets/logo/from.png'
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
-    <div>
+    <div className='overflow-x-hidden'>
         <header className="bg-[#ffff] text-white">
       <div className="container mx-auto   bg-[#523523]">
         <div className="flex items-center justify-between py-2">
@@ -53,7 +53,7 @@ const Header = () => {
         </div>
 
         {/* Secondary Navigation */}
-        <div className="hidden md:flex items-center justify-between py-2  border-white-800 bg-white ">
+        <div className="hidden md:flex items-center justify-between py-1  border-white-800 bg-white ">
           <div className="flex items-center space-x-6">
             <div className="relative group">
               <button className="flex items-center space-x-1 py-2 text-black">
