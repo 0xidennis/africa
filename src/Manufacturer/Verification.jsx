@@ -1,11 +1,48 @@
-import React from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
+import React ,{ useState, useEffect, useRef } from "react";
 
-const Reg = () => {
+const Verification = () => {
+    const [code, setCode] = useState(["", "", "", ""]);
+    const [timeLeft, setTimeLeft] = useState(90); // 1:30 in seconds
+    const inputRefs = useRef([]);
+  
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+      }, 1000);
+  
+      return () => clearInterval(timer);
+    }, []);
+  
+    const handleChange = (index, value) => {
+      if (value.length <= 1) {
+        const newCode = [...code];
+        newCode[index] = value;
+        setCode(newCode);
+  
+        // Auto-focus next input after entering a digit
+        if (value && index < 3) {
+          inputRefs.current[index + 1]?.focus();
+        }
+      }
+    };
+  
+    const handleKeyDown = (index, e) => {
+      if (e.key === "Backspace" && !code[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    };
+  
+    const formatTime = (seconds) => {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+    };
+
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden">
+     <div className="flex min-h-screen flex-col overflow-x-hidden">
         {/* Header */}
         <header className="bg-white p-1.5">
           <div className="container mx-auto">
@@ -31,115 +68,44 @@ const Reg = () => {
                 </h2>
               </div>
     
-                {/* Sign Up Form */}
-          <div className="flex items-center justify-center ">
-            <card className="w-full max-w-md border-0 bg-[white] p-10 shadow-lg rounded-lg">
-              <div className="mb-6 text-start">
-                <h2 className="text-xl font-bold text-[#5c3c28] mb-3">Create Account</h2>
-                <p className="text-md text-black">Complete the details to create your account</p>
-              </div>
+              {/* Login Form */}
+              <div className="flex flex-col items-center justify-center rounded-lg bg-white p-4 w-130">
+      <div className="w-full max-w-md space-y-6">
+        <div className="text-start space-y-4">
+          <h1 className="text-2xl font-bold text-[#4A3F35]">Create Account</h1>
+          <p className="text-[black]">
+            A confirmation code has been sent to your mail
+            <br />
+            <span className="text-[#E6A817]">Olawale@gmail.com</span>
+          </p>
+        </div>
 
-              <form className="space-y-6">
-                {/* <radio defaultValue="seller" className="grid grid-cols-2 gap-4">
-                  <div>
-                    <radio value="seller" id="seller" className="peer sr-only" />
-                    <label
-                      htmlFor="seller"
-                      className="flex cursor-pointer justify-center rounded-md border border-black/20 p-1 text-center hover:bg-[#5a4639] peer-data-[state=checked]:border-white peer-data-[state=checked]:bg-[#5a4639]"
-                    >
-                      Seller/Manufacturer
-                    </label>
-                  </div>
-                  <div>
-                    <radio value="buyer" id="buyer" className="peer sr-only" />
-                    <label
-                      htmlFor="buyer"
-                      className="flex cursor-pointer justify-center rounded-md border border-black/20 p-1 text-center hover:bg-[#5a4639] peer-data-[state=checked]:border-white peer-data-[state=checked]:bg-[#5a4639]"
-                    >
-                      Buyer
-                    </label>
-                  </div>
-                </radio> */}
+        <div className="flex justify-center gap-4 my-8">
+          {code.map((digit, index) => (
+            <input
+              key={index}
+              ref={(el) => (inputRefs.current[index] = el)}
+              type="text"
+              inputMode="numeric"
+              maxLength={1}
+              value={digit}
+              onChange={(e) => handleChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(index, e)}
+              className="w-16 h-16 text-center text-xl border border-gray-300 rounded focus:border-[#E6A817] focus:ring-1 focus:ring-[#E6A817] focus:outline-none"
+            />
+          ))}
+        </div>
 
-<div className="grid grid-cols-2 gap-4">
-      {/* Seller Option */}
-      <div>
-       
-        <label
-          htmlFor="seller"
-          className="flex items-center gap-2 cursor-pointer rounded-md border border-black/20 p-2 text-center"
-        >
-          {/* Custom Radio Circle */}
-          <div className=" flex items-center justify-center peer-checked:border-white">
-            <div className=""> <input
-          type="radio"
-          name="role"
-          value="seller"
-          id="seller"
-          className="peer-checked:bg-[#eba91c]  peer-checked:border-white"
-        /> </div>
-          </div>
-          Seller/Manufacturer
-        </label>
-      </div>
+        <div className="text-center text-gray-500 mb-4">{formatTime(timeLeft)}</div>
 
-      {/* Buyer Option */}
-      <div>
-       
-        <label
-          htmlFor="buyer"
-          className="flex items-center gap-2 cursor-pointer rounded-md border border-black/20 p-2 text-center "
-        >
-          {/* Custom Radio Circle */}
-          <div className=" flex items-center justify-center ">
-            <div className=""> <input
-          type="radio"
-          name="role"
-          value="seller"
-          id="seller"
-          className="peer-checked:bg-[#eba91c]  peer-checked:border-white"
-        /> </div>
-          </div>
-          Buyer
-        </label>
+        <button className="w-full py-3 bg-[#eba91c] hover:bg-[#d99c14] text-white font-medium rounded">Next</button>
+
+        <div className="text-center mt-6 space-y-2 text-md">
+          <p className="text-[#5d3c21]">Having problems receiving mails?</p>
+          <p className="text-[black]">Please check your spam folder</p>
+        </div>
       </div>
     </div>
-
-                <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 mb-2">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter your Email Adress"
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#5d3c21]"
-                />
-              </div>
-
-                <button
-                type="submit"
-                className="w-full bg-[#eba91c] text-white py-3 rounded font-medium hover:bg-[#4a2e19] transition-colors"
-              >
-               Continue
-              </button>
-                <div className="text-center text-md  ">
-                  <p className='mb-6 text-black'>
-                    Already have an account,{" "}
-                    <a href="#" className="text-[#eba91c] hover:underline ">
-                      Log in
-                    </a>
-                  </p>
-                  <p className="mt-2 text-md text-gray-700">
-                    By continuing you agree to From Africa,{" "} <br />
-                    <a href="#" className="text-[#eba91c] hover:underline">
-                      Terms and Conditions
-                    </a>
-                  </p>
-                </div>
-              </form>
-            </card>
-          </div>
             </div>
           </div>
         </main>
@@ -237,4 +203,4 @@ const Reg = () => {
   )
 }
 
-export default Reg
+export default Verification
