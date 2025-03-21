@@ -8,9 +8,9 @@ const Navbar = () => {
        
     <input type="text" placeholder="Search..." className="bg-white rounded px-3 py-2 w-1/3" />
     <div className="flex items-center gap-4">
-       <button className="relative">
+       <button className="relative bg-white rounded-full">
                     <Bell size={20} className="cursor-pointer" />
-                    <span className="absolute -top-0 -right-0 bg-red-500 text-white text-xs rounded-full w-2 h-2 flex items-center justify-center">
+                    <span className="absolute -top-0 -right-0 bg-red-500 text-white text-xs rounded-full w-2 h-2 flex items-center justify-center ">
                       
                     </span>
                   </button>

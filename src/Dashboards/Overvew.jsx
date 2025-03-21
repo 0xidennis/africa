@@ -20,11 +20,11 @@ const Overvew = () => {
             <p className="text-gray-600 mt-2">Here’s Your Current Store Overview</p>
           </div>
     <h1 className="text-2xl font-bold p-4 ">Overview</h1>
-      <div className="grid grid-cols-4 gap-4 p-4">
+      <div className=" grid-cols-2 gap-4 p-4 space-y-2 lg:grid lg:grid-cols-4">
     {["Total Products", "Total Customers", "Total Orders", "Total Impressions"].map((title, index) => (
       <div key={index} className="bg-white p-4 rounded shadow">
         <h2 className="text-1xl font-sm">{title}</h2>
-        <p className="text-xl font-bold">{Math.floor(Math.random() * 25000)}  <span className="text-green-500 bg-green-100 text-xs px-2 py-1 rounded-md flex items-center w-max mt-2">
+        <p className="text-xl font-bold">{Math.floor(Math.random() * 25000)}  <span className="text-green-500 bg-green-100 text-xs px-2 py-1 rounded-md  items-center w-max mt-2 ml-23">
           10% ↑
         </span></p>
 
