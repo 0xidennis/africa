@@ -2,45 +2,62 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
 import React ,{ useState, useEffect, useRef } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const Verification = () => {
-    const [code, setCode] = useState(["", "", "", ""]);
-    const [timeLeft, setTimeLeft] = useState(90); // 1:30 in seconds
-    const inputRefs = useRef([]);
-  
-    useEffect(() => {
-      const timer = setInterval(() => {
-        setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-      }, 1000);
-  
-      return () => clearInterval(timer);
-    }, []);
-  
-    const handleChange = (index, value) => {
-      if (value.length <= 1) {
-        const newCode = [...code];
-        newCode[index] = value;
-        setCode(newCode);
-  
-        // Auto-focus next input after entering a digit
-        if (value && index < 3) {
-          inputRefs.current[index + 1]?.focus();
-        }
-      }
-    };
-  
-    const handleKeyDown = (index, e) => {
-      if (e.key === "Backspace" && !code[index] && index > 0) {
-        inputRefs.current[index - 1]?.focus();
-      }
-    };
-  
-    const formatTime = (seconds) => {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
-    };
+  const [code, setCode] = useState(["", "", "", ""]);
+  const [timeLeft, setTimeLeft] = useState(90);
+  const inputRefs = useRef([]);
+  const { sendOtp, verifyOtp, loading, error } = useAuth();
+  const email = "tope3@gmail.com"; // Replace this with dynamic email
 
+  // Auto-countdown for OTP expiration
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleChange = (index, value) => {
+    if (value.length <= 1) {
+      const newCode = [...code];
+      newCode[index] = value;
+      setCode(newCode);
+      if (value && index < 3) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  // Function to handle OTP verification
+  const handleVerify = async () => {
+    const otp = code.join(""); // Combine input fields into one OTP string
+    const response = await verifyOtp(email, otp);
+    if (response?.success) {
+      alert("OTP Verified Successfully!");
+    } else {
+      alert("Invalid OTP, please try again.");
+    }
+  };
+
+  // Function to resend OTP
+  const handleResendOtp = async () => {
+    setTimeLeft(90);
+    await sendOtp(email);
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
   return (
      <div className="flex min-h-screen flex-col overflow-x-hidden">
         {/* Header */}
@@ -76,7 +93,7 @@ const Verification = () => {
           <p className="text-[black]">
             A confirmation code has been sent to your mail
             <br />
-            <span className="text-[#E6A817]">Olawale@gmail.com</span>
+            <span className="text-[#E6A817]">{email}</span>
           </p>
         </div>
 
@@ -98,8 +115,21 @@ const Verification = () => {
 
         <div className="text-center text-gray-500 mb-4">{formatTime(timeLeft)}</div>
 
-        <button className="w-full py-3 bg-[#eba91c] hover:bg-[#d99c14] text-white font-medium rounded">Next</button>
+        <button 
+                  onClick={handleVerify}
+                  disabled={loading}
+        className="w-full py-3 bg-[#eba91c] hover:bg-[#d99c14] text-white font-medium rounded">{loading ? "Verifying..." : "Next"}</button>
+           {/* Resend OTP */}
+        <button
+          className="w-full mt-3 py-2 bg-gray-200 text-gray-700 font-semibold rounded hover:bg-gray-300"
+          onClick={handleResendOtp}
+          disabled={loading || timeLeft > 0}
+        >
+          Resend OTP
+        </button>
 
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-center mt-2">{error}</p>}
         <div className="text-center mt-6 space-y-2 text-md">
           <p className="text-[#5d3c21]">Having problems receiving mails?</p>
           <p className="text-[black]">Please check your spam folder</p>

@@ -2,8 +2,19 @@ import React from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
+import  { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Signin = () => {
+  const { login,loading,error } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(email, password);
+  };
+
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
     {/* Header */}
@@ -35,8 +46,9 @@ const Signin = () => {
           <div className="bg-white rounded-lg p-8 shadow-lg max-w-md w-full">
             <h2 className="text-2xl font-bold text-[#5c3c28] mb-2">Welcome back!</h2>
             <p className="text-gray-600 mb-6">Enter your e-mail to log in to your account</p>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="email" className="block text-gray-700 mb-2">
                   Email Address
@@ -44,8 +56,11 @@ const Signin = () => {
                 <input
                   type="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your Email Adress"
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#5d3c21]"
+                  required
                 />
               </div>
 
@@ -56,8 +71,11 @@ const Signin = () => {
                 <input
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your Password"
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#5d3c21]"
+                  required
                 />
               </div>
 
@@ -70,8 +88,10 @@ const Signin = () => {
               <button
                 type="submit"
                 className="w-full bg-[#5d3c21] text-white py-3 rounded font-medium hover:bg-[#4a2e19] transition-colors"
+                disabled={loading}
+                onSubmit={handleSubmit}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
 
               <div className="mt-4 text-center">

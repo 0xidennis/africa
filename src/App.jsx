@@ -1,5 +1,6 @@
 
 import React from 'react'
+// import { AuthProvider } from "./context/AuthContext";
 import Home from './Page/Home'
 import Signin from './Manufacturer/Signin'
 import Reg from './Manufacturer/Reg'
@@ -14,16 +15,19 @@ import Dashboard from './Dashboards/Dashboard'
 const App = () => {
   return (
     <div>
-      {/* <Home/> */}
-      {/* <Signin/>
-      <Reg/> */}
-      {/* <Verification/> */}
-      {/* <Buyerverif/> */}
+    
+      
+        {/* <Home/> */}
+        <Signin/>
+      <Reg/>
+      <Verification/>
+      <Buyerverif/>
       {/* <Businexinfo/> */}
       {/* <Businexdash/> */}
       {/* <Companyinfo/> */}
       {/* <Chartbar/> */}
-      <Dashboard/>
+      {/* <Dashboard/> */}
+    
     </div>
   )
 }

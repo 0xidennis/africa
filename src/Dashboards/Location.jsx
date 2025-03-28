@@ -8,7 +8,7 @@ const Location = () => {
   return (
     <div className="grid grid-cols-2 gap-6 p-6 bg-gray-100 min-h-screen">
     {/* Audience by Region */}
-    <div className="bg-white shadow-md rounded-2xl p-4 h-100">
+    <div className="bg-white shadow-md rounded-2xl p-4 h-133">
       <h2 className="text-gray-700 font-medium">Audience by Region</h2>
       <div className="relative mt-4">
         <img src="/world-map-placeholder.png" alt="World Map" className="w-full" />
@@ -21,7 +21,7 @@ const Location = () => {
     </div>
     
     {/* Upcoming Orders */}
-    <div className="bg-white shadow-md rounded-2xl p-4">
+    <div className="bg-white shadow-md rounded-2xl p-4 h-133">
       <div className="flex justify-between items-center">
         <h2 className="text-gray-700 font-medium">Upcoming Orders</h2>
         <button className="text-gray-500 text-sm">View More</button>

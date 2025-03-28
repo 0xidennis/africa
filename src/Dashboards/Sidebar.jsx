@@ -129,7 +129,7 @@ const [businessInfo, setBusinessInfo] = useState({
                 <LifeBuoy size={20} />
                 <span>Support</span>
               </a>
-              <header className="flex items-center justify-between px-4 md:px-6 py-3 border-b">
+              <header className="flex items-center justify-between px-4 md:px-6 py-3 ">
                         <button className="md:hidden" onClick={toggleMobileMenu}>
                           <Menu size={24} />
                         </button>

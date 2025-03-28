@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
+import { AuthContext} from "../context/AuthContext";
+import  { useState } from "react";
 
 const Reg = () => {
+  const { register } = useContext(AuthContext); // Get register function from context
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await register(email);
+      setSuccess("Registration successful! Check your email.");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
         {/* Header */}
@@ -37,29 +57,13 @@ const Reg = () => {
               <div className="mb-6 text-start">
                 <h2 className="text-xl font-bold text-[#5c3c28] mb-3">Create Account</h2>
                 <p className="text-md text-black">Complete the details to create your account</p>
+                 {/* Error & Success Messages */}
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
               </div>
 
-              <form className="space-y-6">
-                {/* <radio defaultValue="seller" className="grid grid-cols-2 gap-4">
-                  <div>
-                    <radio value="seller" id="seller" className="peer sr-only" />
-                    <label
-                      htmlFor="seller"
-                      className="flex cursor-pointer justify-center rounded-md border border-black/20 p-1 text-center hover:bg-[#5a4639] peer-data-[state=checked]:border-white peer-data-[state=checked]:bg-[#5a4639]"
-                    >
-                      Seller/Manufacturer
-                    </label>
-                  </div>
-                  <div>
-                    <radio value="buyer" id="buyer" className="peer sr-only" />
-                    <label
-                      htmlFor="buyer"
-                      className="flex cursor-pointer justify-center rounded-md border border-black/20 p-1 text-center hover:bg-[#5a4639] peer-data-[state=checked]:border-white peer-data-[state=checked]:bg-[#5a4639]"
-                    >
-                      Buyer
-                    </label>
-                  </div>
-                </radio> */}
+              <form onSubmit={handleSubmit}  className="space-y-6">
+              
 
 <div className="grid grid-cols-2 gap-4">
       {/* Seller Option */}
@@ -114,12 +118,16 @@ const Reg = () => {
                   id="email"
                   placeholder="Enter your Email Adress"
                   className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#5d3c21]"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
 
                 <button
                 type="submit"
                 className="w-full bg-[#eba91c] text-white py-3 rounded font-medium hover:bg-[#4a2e19] transition-colors"
+                onClick={handleSubmit}
               >
                Continue
               </button>
