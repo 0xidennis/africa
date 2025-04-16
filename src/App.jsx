@@ -11,22 +11,26 @@ import Businexdash from './Dashboards/Businexdash'
 import Companyinfo from './Dashboards/Companyinfo'
 import Chartbar from './Dashboards/Chartbar'
 import Dashboard from './Dashboards/Dashboard'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 const App = () => {
   return (
     <div>
     
-      
-        {/* <Home/> */}
-        <Signin/>
-      <Reg/>
-      <Verification/>
-      <Buyerverif/>
-      {/* <Businexinfo/> */}
-      {/* <Businexdash/> */}
-      {/* <Companyinfo/> */}
-      {/* <Chartbar/> */}
-      {/* <Dashboard/> */}
+      <BrowserRouter>
+      <Routes>
+         <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<Signin/>} />
+          <Route path="/reg" element={<Reg />} />
+          <Route path="/buyerverif" element={<Buyerverif/>} />
+          <Route path="/businexinfo" element={<Businexinfo />} />
+          <Route path="/businexdash" element={<Businexdash/>} />
+          <Route path="/companyinfo" element={<Companyinfo/>} />
+          <Route path="/chartbar" element={<Chartbar/>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
+        
+      </Routes>
+      </BrowserRouter>
     
     </div>
   )

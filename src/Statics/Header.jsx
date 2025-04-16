@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from "react"
 import { Search, Menu, X } from "lucide-react"
 import logo from '../assets/logo/from.png'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -11,10 +12,12 @@ const Header = () => {
       <div className="container mx-auto   bg-[#523523]">
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
+          <Link to="/">
           <a href="/" className="flex-shrink-0">
            
              <img src={logo} width={120} height={40} alt="" className='h-10 w-auto ml-3' />
           </a>
+          </Link>
           
 
           {/* Search Bar */}
@@ -35,15 +38,19 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4 mr-20">
+            <Link to="/signin">
             <a href="/signin" className="text-white hover:text-amber-200">
               Sign In
             </a>
+            </Link>
+            <Link to="/reg">
             <a
-              href="/signup"
+              href="/reg"
               className="bg-[#eba91c] hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors"
             >
               Sign Up
             </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -72,22 +79,30 @@ const Header = () => {
             
           </div>
          <div className='ml-200 justify-between  space-x-15 '>
+          <Link to="/reg">
          <a href="/manufacturers" className="py-2 hover:text-amber-300 text-black ">
               Manufacturers
             </a>
+            </Link>
+            <Link to="">
             <a href="/contact" className="py-2 hover:text-amber-300 text-black">
               Contact Us
             </a>
+            </Link>
+            <Link>
             <a href="/help" className="py-2 hover:text-amber-300 text-black">
               Help
             </a>
+            </Link>
          </div>
+         <Link to="/reg">
           <a
             href="/become-supplier"
             className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors mr-20"
           >
             Become a supplier
           </a>
+          </Link>
         </div>
 
         {/* Mobile Menu */}
@@ -109,28 +124,41 @@ const Header = () => {
               <a href="/all-categories" className="py-2 hover:text-amber-300">
                 All Categories
               </a>
+              <Link to="/reg">
               <a href="/manufacturers" className="py-2 hover:text-amber-300">
                 Manufacturers
               </a>
+              </Link>
+              <Link>
               <a href="/contact" className="py-2 hover:text-amber-300">
                 Contact Us
               </a>
+              </Link>
+              <Link>
               <a href="/help" className="py-2 hover:text-amber-300">
                 Help
               </a>
+              </Link>
+              <Link to="/reg">
               <a href="/become-supplier" className="py-2 hover:text-amber-300">
                 Become a supplier
               </a>
+              </Link>
+
               <div className="pt-2 flex space-x-4">
+              <Link to="/signin">
                 <a href="/signin" className="text-white hover:text-amber-200">
                   Sign In
                 </a>
+                </Link>
+                <Link to="/reg">
                 <a
                   href="/signup"
                   className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors"
                 >
                   Sign Up
                 </a>
+                </Link>
               </div>
             </nav>
           </div>

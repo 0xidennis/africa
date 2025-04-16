@@ -9,6 +9,7 @@ import ship from '../assets/image/image 12.png'
 import sew from '../assets/image/sew.png'
 import magazine from '../assets/image/magazine.png'
 import logo from '../assets/logo/from.png'
+import { Link } from 'react-router-dom'
 // import shoe from '../assets/shoe.png'
 
 const Home = () => {
@@ -41,19 +42,21 @@ const Home = () => {
                 Explore authentic quality products from verified manufacturers across Africa. Shop now and bring the
                 spirit of Africa home!
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 justify-center align-center">
                 <a
                   href="#"
                   className="bg-[#eba91c] hover:bg-amber-600 text-white font-medium py-2 px-6 rounded-md transition-colors"
                 >
                   Start Sourcing
                 </a>
+                <Link to="/reg">
                 <a
                   href="#"
                   className="border border-[black] text-[black] hover:bg-amber-50 font-medium py-2 px-6 rounded-md transition-colors"
                 >
                   Become a supplier
                 </a>
+                </Link>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
