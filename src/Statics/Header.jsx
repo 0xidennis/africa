@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className='overflow-x-hidden'>
-        <header className="bg-[#ffff] text-white">
-      <div className="container mx-auto   bg-[#523523]">
+    <div className='overflow-x-hidden w-full'>
+        <header className="bg-[#523523] text-white">
+      <div className="container    bg-[#523523]">
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <Link to="/">
-          <a href="/" className="flex-shrink-0">
+          <a href="/" className="flex-shrink-0 ">
            
-             <img src={logo} width={120} height={40} alt="" className='h-10 w-auto ml-3' />
+             <img src={logo} width={120} height={40} alt="" className='h-10 w-auto ml-3 ' />
           </a>
           </Link>
           
@@ -37,7 +38,7 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 mr-20">
+          <div className="hidden md:flex items-end space-x-4 mr-4 md:mr-[-3rem] ">
             <Link to="/signin">
             <a href="/signin" className="text-white hover:text-amber-200">
               Sign In
@@ -60,25 +61,40 @@ const Header = () => {
         </div>
 
         {/* Secondary Navigation */}
-        <div className="hidden md:flex items-center justify-between py-1  border-white-800 bg-white ">
+        <div className="hidden md:flex md:w-210  items-center justify-between py-2 px-4  border-white-800 bg-white  ">
           <div className="flex items-center space-x-6">
-            <div className="relative group">
-              <button className="flex items-center space-x-1 py-2 text-black">
-                <span>All Categories</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-            
+          <div className="relative group">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center space-x-1 py-2 text-black"
+      >
+        <span>All Categories</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10">
+          <ul className="py-2">
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 1</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 2</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 3</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 4</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 5</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 6</li>
+          </ul>
+        </div>
+      )}
+    </div>
           </div>
-         <div className='ml-200 justify-between  space-x-15 '>
+         <div className='ml-130 justify-between  space-x-15 md:ml-10  '>
           <Link to="/reg">
          <a href="/manufacturers" className="py-2 hover:text-amber-300 text-black ">
               Manufacturers
@@ -98,7 +114,7 @@ const Header = () => {
          <Link to="/reg">
           <a
             href="/become-supplier"
-            className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors mr-20"
+            className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors "
           >
             Become a supplier
           </a>
