@@ -23,9 +23,9 @@ const Home = () => {
       ]
 
   return (
-    <div className='overflow-x-hidden'>
+    <div className='overflow-x-hidden '>
         <Layout/>
-        <main className="min-h-screen">
+        <main className="min-h-screen mt-12">
       {/* Hero Section */}
       <section className="bg-white">
         <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">

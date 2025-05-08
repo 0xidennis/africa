@@ -8,7 +8,7 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
 
-  const categories = ['Technology', 'Health', 'Finance', 'Education', 'Travel'];
+  const categories = ['Clothing', 'Footwear', 'Accessories', 'Skincare', 'Bags', 'Traditionals'];
   return (
     <div className='overflow-x-hidden w-full fixed'>
         <header className="bg-[#523523] text-white">
