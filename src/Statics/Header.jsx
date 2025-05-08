@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom'
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
+
+  const categories = ['Technology', 'Health', 'Finance', 'Education', 'Travel'];
   return (
-    <div className='overflow-x-hidden w-full'>
+    <div className='overflow-x-hidden w-full fixed'>
         <header className="bg-[#523523] text-white">
       <div className="container    bg-[#523523]">
         <div className="flex items-center justify-between py-2">
@@ -38,7 +40,7 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-end space-x-4 mr-4 md:mr-[-3rem] ">
+          <div className="hidden md:flex items-end space-x-4 mr-4 md:mr-[-3rem] lg:mr-[1rem]">
             <Link to="/signin">
             <a href="/signin" className="text-white hover:text-amber-200">
               Sign In
@@ -61,40 +63,27 @@ const Header = () => {
         </div>
 
         {/* Secondary Navigation */}
-        <div className="hidden md:flex md:w-210  items-center justify-between py-2 px-4  border-white-800 bg-white  ">
+        <div className="hidden md:flex md:w-210 lg:w-338 items-center justify-between py-2 px-4  border-white-800 bg-white  relative">
           <div className="flex items-center space-x-6">
-          <div className="relative group">
+          <div className="relative inline-block text-left">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-1 py-2 text-black"
+        className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-black bg-white rounded-md hover:text-amber-300  border"
       >
-        <span>All Categories</span>
+        Categories
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          className="w-5 h-5 ml-2 -mr-1"
+          viewBox="0 0 20 20"
+          fill="currentColor"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" />
         </svg>
       </button>
 
-      {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10">
-          <ul className="py-2">
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 1</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 2</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 3</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 4</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 5</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Category 6</li>
-          </ul>
-        </div>
-      )}
+   
     </div>
-          </div>
-         <div className='ml-130 justify-between  space-x-15 md:ml-10  '>
+    </div>
+         <div className='mr-[-30rem] justify-between items-end space-x-13 md:ml-10 '>
           <Link to="/reg">
          <a href="/manufacturers" className="py-2 hover:text-amber-300 text-black ">
               Manufacturers
@@ -114,12 +103,13 @@ const Header = () => {
          <Link to="/reg">
           <a
             href="/become-supplier"
-            className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors "
+            className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors lg:mr-18 "
           >
             Become a supplier
           </a>
           </Link>
         </div>
+      
 
         {/* Mobile Menu */}
         {isMenuOpen && (
@@ -181,6 +171,21 @@ const Header = () => {
         )}
       </div>
     </header>
+    {isOpen && (
+        <div className="relative z-10 mt-2 w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg">
+          <div className="py-1">
+            {categories.map((category) => (
+              <a
+                key={category}
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                {category}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

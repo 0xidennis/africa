@@ -42,7 +42,7 @@ const Home = () => {
                 Explore authentic quality products from verified manufacturers across Africa. Shop now and bring the
                 spirit of Africa home!
               </p>
-              <div className="flex flex-wrap gap-4 justify-center align-center">
+              <div className="flex flex-wrap gap-4  align-center items-center">
                 <a
                   href="#"
                   className="bg-[#eba91c] hover:bg-amber-600 text-white font-medium py-2 px-6 rounded-md transition-colors"
