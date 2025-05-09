@@ -5,6 +5,11 @@ import image from '../assets/image.png'
 import image27 from '../assets/image 27.png'
 import Layout from '../Layout/Layout'
 import vector from '../assets/vector.png'
+import watch from '../assets/watch.png'
+import bags from '../assets/bags.png'
+import vect from '../assets/vect.png'
+import shoe from '../assets/shoe.png'
+import skinscare from '../assets/skinscare.png'
 import ship from '../assets/image/image 12.png'
 import sew from '../assets/image/sew.png'
 import magazine from '../assets/image/magazine.png'
@@ -15,11 +20,11 @@ import { Link } from 'react-router-dom'
 const Home = () => {
     const categories = [
         { name: "Clothing", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
-        { name: "Footwear" , icon: <span className="text-2xl "><img src={vector} alt="" /></span> },
-        { name: "Accessories", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
-        { name: "Skin Care", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
-        { name: "Bags", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
-        { name: "Traditional", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
+        { name: "Footwear" , icon: <span className="text-2xl "><img src={shoe} alt="" /></span> },
+        { name: "Accessories", icon: <span className="text-2xl"><img src={watch} alt="" /></span> },
+        { name: "Skin Care", icon: <span className="text-2xl"><img src={skinscare} alt="" /></span> },
+        { name: "Bags", icon: <span className="text-2xl"><img src={bags} alt="" /></span> },
+        { name: "Traditional", icon: <span className="text-2xl"><img src={vect} alt="" /></span> },
       ]
 
   return (
