@@ -119,7 +119,7 @@ const Header = () => {
                 <input
                   type="text"
                   placeholder="Search for product, brand or category"
-                  className="w-full py-2 pl-4 pr-10 rounded-md text-gray-800 focus:outline-none"
+                  className="w-full py-2 pl-4 pr-10 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-amber-500 bg-amber-50"
                 />
                 <button className="absolute right-0 top-0 h-full px-3 text-amber-500">
                   <Search className="h-5 w-5" />

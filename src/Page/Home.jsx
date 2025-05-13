@@ -4,10 +4,9 @@ import { Search, MessageCircle, CheckCircle, ArrowRight } from "lucide-react"
 import image from '../assets/image.png'
 import image27 from '../assets/image 27.png'
 import Layout from '../Layout/Layout'
-import vector from '../assets/vector.png'
+import vect from '../assets/vect.png'
 import watch from '../assets/watch.png'
 import bags from '../assets/bags.png'
-import vect from '../assets/vect.png'
 import shoe from '../assets/shoe.png'
 import skinscare from '../assets/skinscare.png'
 import ship from '../assets/image/image 12.png'
@@ -19,7 +18,7 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
     const categories = [
-        { name: "Clothing", icon: <span className="text-2xl"><img src={vector} alt="" /></span> },
+        { name: "Clothing", icon: <span className="text-2xl"><img src={vect} alt="" /></span> },
         { name: "Footwear" , icon: <span className="text-2xl "><img src={shoe} alt="" /></span> },
         { name: "Accessories", icon: <span className="text-2xl"><img src={watch} alt="" /></span> },
         { name: "Skin Care", icon: <span className="text-2xl"><img src={skinscare} alt="" /></span> },
@@ -131,7 +130,7 @@ const Home = () => {
       {/* Bridge Gap Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-normal mb-4 text-center align-center mr-200">
+          <h2 className="text-2xl font-normal mb-4 text-center align-center lg:mr-200 ">
             We bridge the gap{" "}
             <span className="text-black font-bold">between Africa's top <br />manufacturers and global buyers.</span>
           </h2>
@@ -223,9 +222,9 @@ const Home = () => {
             </div>
             <div className=" flex justify-center ">
    
-              <div className="bg-[url('./assets/Africa.png')] bg-cover bg-center h-[50vh] w-[60%] ml-65">
-              <img src={magazine} width={500} height={300} alt="magazine"  className='max-w-full h-100 ml-[-400]'/>
-              </div>
+              {/* <div className="bg-[url('./assets/Africa.png')] bg-cover bg-center h-[50vh] w-[60%] ml-65">
+              <img src={magazine} width={500} height={300} alt="magazine"  className='w-100 h-50 ml-[-400] lg:h-100 lg:max-w-full'/>
+              </div> */}
 
             </div>
           </div>
@@ -249,7 +248,7 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#5c3c28] text-white py-12">
+      <footer className="bg-[#5c3c28] text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -341,7 +340,7 @@ const Home = () => {
               <p className="text-gray-50">+1 234 567 8900</p>
             </div>
           </div>
-          <div className="mb-100  ml-200 pt-8 text-center text-md">
+          <div className="mb-100  ml-10 pt-8 text-center text-md">
             <p>© 2025 fromafrica2b.com. All rights reserved.</p>
           </div>
         </div>

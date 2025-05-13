@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
+import { Link } from 'react-router-dom';
 
 const Businexinfo =()=>{
     const [formData, setFormData] = useState({
@@ -27,9 +28,11 @@ const Businexinfo =()=>{
          <div className="flex min-h-screen flex-col overflow-x-hidden">
               {/* Header */}
               <header className="bg-white p-1.5">
+                <Link to="/">
                 <div className="container mx-auto">
                   <img src={logo} width={80} height={40} alt="" className='mt-2 ml-5 ' />
                 </div>
+                </Link>
               </header>
           
               {/* Main Content */}
