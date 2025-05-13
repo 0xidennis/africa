@@ -83,7 +83,7 @@ const Header = () => {
    
     </div>
     </div>
-         <div className='mr-[-30rem] justify-between items-end space-x-13 md:ml-10 '>
+         <div className='mr-[-30rem] justify-between items-end space-x-13 md:mr-18 '>
           <Link to="/reg">
          <a href="/manufacturers" className="py-2 hover:text-amber-300 text-black ">
               Manufacturers
@@ -103,7 +103,7 @@ const Header = () => {
          <Link to="/reg">
           <a
             href="/become-supplier"
-            className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors lg:mr-18 "
+            className="text-sm border border-black text-black px-3 py-1 rounded hover:bg-amber-400 hover:text-[#5c3c28] transition-colors lg:mr-18 md:mr-2"
           >
             Become a supplier
           </a>
