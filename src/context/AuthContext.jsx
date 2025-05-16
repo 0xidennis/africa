@@ -1,91 +1,76 @@
-
-import React,{ createContext, useState,useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { createContext, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [otpSent, setOtpSent] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-//   const navigate = useNavigate();
-const register = async (email) => {
+  const [emailForVerification, setEmailForVerification] = useState("");
+  const navigate = useNavigate();
+
+  const register = async (email) => {
+    setLoading(true);
+    setError(null);
     try {
-      const response = await fetch("http://localhost:3000/api/v1/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }), 
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
-      }
-
-      setUser(data.user); 
-      return data;
+      const response = await axios.post('http://localhost:3000/api/v1/initiateRegistration', { email });
+      setEmailForVerification(email);
+      setOtpSent(true);
+      navigate('/verify-otp');
+      return response.data;
     } catch (error) {
-      console.error("Registration Error:", error.message);
+      setError(error.response?.data?.message || "Registration failed");
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
-//   otp verification
-  const API_BASE_URL = "http://localhost:3000/api/v1/verifyOtp/tope3@gmail.com/552335";
-
-  // Function to send OTP to the user
   const sendOtp = async (email) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/send-otp`, { email });
-      setOtpSent(true);
+      const response = await axios.post('http://localhost:3000/api/v1/send-otp', { email });
+      setEmailForVerification(email);
       return response.data;
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      setError(err.response?.data?.message || "Failed to send OTP");
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
-  // Function to verify the entered OTP
   const verifyOtp = async (email, otp) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/verify-otp`, { email, otp });
+      const response = await axios.post('http://localhost:3000/api/v1/verifyOtp', { email, otp });
+      setUser(response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      navigate('/dashboard');
       return response.data;
     } catch (err) {
       setError(err.response?.data?.message || "Invalid OTP");
+      throw err;
     } finally {
       setLoading(false);
     }
   };
-
 
   const login = async (email, password) => {
     setLoading(true);
     setError(null);
-    
     try {
-      const response = await fetch("http://localhost:3000/api/v1/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      
-      if (!response.ok) throw new Error(data.message || "Login failed");
-
-      setUser(data.user);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      navigate("/dashboard"); 
+      const response = await axios.post("http://localhost:3000/api/v1/login", { email, password });
+      setUser(response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      navigate("/dashboard");
+      return response.data;
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || "Login failed");
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -93,14 +78,27 @@ const register = async (email) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ user,setUser, loading,setLoading, error,setError,
-     login, logout,register,otpSent,setOtpSent,sendOtp, verifyOtp }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      error, 
+      otpSent,
+      emailForVerification,
+      login, 
+      logout,
+      register,
+      sendOtp, 
+      verifyOtp,
+      setError
+    }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
 export const useAuth = () => useContext(AuthContext);
