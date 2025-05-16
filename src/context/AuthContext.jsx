@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const AuthContext = createContext();
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [emailForVerification, setEmailForVerification] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const register = async (email) => {
     setLoading(true);
