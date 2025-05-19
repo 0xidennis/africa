@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'

@@ -3,11 +3,12 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
 // import { AuthContext} from "../context/AuthContext";
+import { useAuth } from '../context/AuthContext';
 import  { useState } from "react";
 import { Link } from 'react-router-dom';
 
 const Buyerverif = () => {
-    const { login,loading,error } = useContext(AuthContext);
+    const { login,loading,error } = useAuth();
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
    

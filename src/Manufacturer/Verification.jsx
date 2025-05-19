@@ -9,6 +9,7 @@ const Verification = () => {
   const [timeLeft, setTimeLeft] = useState(90);
   const inputRefs = useRef([]);
   const { verifyOtp, sendOtp, loading, error, emailForVerification, role,setError } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
