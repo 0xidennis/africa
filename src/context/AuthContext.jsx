@@ -1,104 +1,135 @@
-import React, { createContext, useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// context/AuthContext.js
+import React, { createContext, useContext, useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [otpSent, setOtpSent] = useState(false);
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [emailForVerification, setEmailForVerification] = useState("");
-  // const navigate = useNavigate();
+  const [emailForVerification, setEmailForVerification] = useState('');
+  const [role, setRole] = useState(''); // 'seller' or 'buyer'
 
-  const register = async (email) => {
+
+  // Registration function
+  const register = async (email, role ,) => {
     setLoading(true);
     setError(null);
+    
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/initiateRegistration', { email });
+      // Call your registration API here
+      const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/initiateRegistration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, role }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+      
+      // Store email and role for verification
       setEmailForVerification(email);
-      setOtpSent(true);
-      navigate('/verify-otp');
-      return response.data;
-    } catch (error) {
-      setError(error.response?.data?.message || "Registration failed");
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
+      setRole(role);
 
-  const sendOtp = async (email) => {
-    setLoading(true);
-    try {
-      const response = await axios.post('http://localhost:3000/api/v1/send-otp', { email });
-      setEmailForVerification(email);
-      return response.data;
+      // If registration is successful
+      setUser({ email, role });
+      return data;
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to send OTP");
-      throw err;
+      setError(err.message || 'An error occurred during registration');
+      console.error('Registration error:', err);
     } finally {
       setLoading(false);
     }
-  };
-
-  const verifyOtp = async (email, otp) => {
-    setLoading(true);
-    try {
-      const response = await axios.post('http://localhost:3000/api/v1/verifyOtp', { email, otp });
-      setUser(response.data.user);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate('/dashboard');
-      return response.data;
-    } catch (err) {
-      setError(err.response?.data?.message || "Invalid OTP");
-      throw err;
-    } finally {
-      setLoading(false);
+  }
+  
+    // Verification function
+    const verifyOtp = async (email, otp) => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        // Call your verification API here
+        const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/verifyOtp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, otp }),
+        });
+  
+        const data = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(data.message || 'Verification failed');
+        }
+  
+        // Set user data after successful verification
+        setUser({ email, role });
+        
+        return data;
+      } catch (err) {
+        setError(err.message || 'An error occurred during verification');
+        console.error('Verification error:', err);
+        throw err; // Re-throw to handle in component
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    // Resend OTP function
+    const sendOtp = async (email) => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        // Call your resend OTP API here
+        const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/resendOtp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+  
+        const data = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to resend OTP');
+        }
+  
+        return data;
+      } catch (err) {
+        setError(err.message || 'An error occurred while resending OTP');
+        console.error('Resend OTP error:', err);
+        throw err; // Re-throw to handle in component
+      } finally {
+        setLoading(false);
+      }
     }
+
+  ;
+
+  const value = {
+    user,
+    loading,
+    error,
+    register,
+    verifyOtp,
+    sendOtp,
+    emailForVerification,
+    role,
+    setError,
   };
 
-  const login = async (email, password) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await axios.post("http://localhost:3000/api/v1/login", { email, password });
-      setUser(response.data.user);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate("/dashboard");
-      return response.data;
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-    navigate("/");
-  };
-
-  return (
-    <AuthContext.Provider value={{ 
-      user, 
-      loading, 
-      error, 
-      otpSent,
-      emailForVerification,
-      login, 
-      logout,
-      register,
-      sendOtp, 
-      verifyOtp,
-      setError
-    }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext);
+}

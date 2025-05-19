@@ -1,6 +1,6 @@
 
 import React from 'react'
-// import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import Home from './Page/Home'
 import Signin from './Manufacturer/Signin'
 import Reg from './Manufacturer/Reg'
@@ -11,26 +11,36 @@ import Businexdash from './Dashboards/Businexdash'
 import Companyinfo from './Dashboards/Companyinfo'
 import Chartbar from './Dashboards/Chartbar'
 import Dashboard from './Dashboards/Dashboard'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation  } from 'react-router-dom';
+import RegisterTest from './RegisterTest'
+import Personalinfo from './Manufacturer/Personalinfo';
 
 const App = () => {
   return (
     <div>
+         <AuthProvider>
     
-      <BrowserRouter>
+      <Router>
       <Routes>
          <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin/>} />
           <Route path="/reg" element={<Reg />} />
-          <Route path="/buyerverif" element={<Buyerverif/>} />
+          <Route path="/buyer" element={<Buyerverif/>} />
           <Route path="/businexinfo" element={<Businexinfo />} />
           <Route path="/businexdash" element={<Businexdash/>} />
           <Route path="/companyinfo" element={<Companyinfo/>} />
           <Route path="/chartbar" element={<Chartbar/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
-        
+          <Route path="/seller" element={<Personalinfo/>} />
+          
+      < Route path="/Verification" element={<Verification/>}/>
+    
       </Routes>
-      </BrowserRouter>
+      </Router>
+      </AuthProvider>
+      <RegisterTest/>
+
+      
     
     </div>
   )

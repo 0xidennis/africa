@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Products from '../assets/image/Products.png';
 import logo from '../assets/logo/from.png';
 
 const Reg = () => {
-  const { register, loading, error, setError } = useAuth();
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("buyer");
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('seller');
+  const { register, loading, error } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    
+    if (!role) {
+      alert('Please select a role (Seller/Manufacturer or Buyer)');
+      return;
+    }
+
     try {
-      await register(email);
+      await register(email, role);
+      // On successful registration, navigate to verification
+      navigate('/verification');
     } catch (err) {
       // Error is already set in the AuthContext
     }
@@ -139,8 +147,6 @@ const Reg = () => {
           </div>
         </div>
       </main>
-
-      {/* Footer - Keep your existing footer */}
     </div>
   );
 };

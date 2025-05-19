@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Products from '../assets/image/Products.png';
 import logo from '../assets/logo/from.png';
 
 const Verification = () => {
-  const [code, setCode] = useState(["", "", "", "", "", ""]);
+   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(90);
   const inputRefs = useRef([]);
-  const { verifyOtp, sendOtp, loading, error, emailForVerification, setError } = useAuth();
+  const { verifyOtp, sendOtp, loading, error, emailForVerification, role,setError } = useAuth();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -45,9 +45,15 @@ const Verification = () => {
     
     try {
       await verifyOtp(emailForVerification, otp);
-    } catch (err) {
-      // Error is already set in the AuthContext
+    // Navigate based on user role
+    if (role === 'seller') {
+      navigate('/seller');
+    } else if (role === 'buyer') {
+      navigate('/buyer');
     }
+  } catch (err) {
+    // Error is already set in the AuthContext
+  }
   };
 
   const handleResendOtp = async () => {
