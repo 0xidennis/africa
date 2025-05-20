@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
-import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Businexinfo =()=>{
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     companyName: "",
     country: "Nigeria",
     state: "",
@@ -14,14 +15,30 @@ const Businexinfo =()=>{
     socialMedia: "",
   });
 
+  const { 
+    user, 
+    loading, 
+    error, 
+    completeRegistration, 
+    setError 
+  } = useAuth();
+  
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    
+    try {
+      await completeRegistration(formData);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Registration completion error:', err);
+    }
   };
 
     return(
@@ -59,6 +76,7 @@ const Businexinfo =()=>{
         <div className="space-y-2">
           <h1 className="text-2xl font-semibold text-[#5D4037]">Business Information</h1>
           <p className="text-gray-600">Setup your business details</p>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,6 +89,7 @@ const Businexinfo =()=>{
               value={formData.companyName}
               onChange={handleChange}
               className="border-gray-300 w-full p-2 border rounded"
+              required
             />
           </div>
 
@@ -81,6 +100,7 @@ const Businexinfo =()=>{
               value={formData.country}
               onChange={handleChange}
               className="w-full p-2 border-gray-300 border rounded "
+              required
             >
               <option value="Nigeria">🇳🇬 Nigeria</option>
               <option value="Ghana">🇬🇭 Ghana</option>
@@ -96,6 +116,7 @@ const Businexinfo =()=>{
               value={formData.state}
               onChange={handleChange}
               className="w-full p-2 border-gray-300 border rounded"
+              required
             >
               <option value="">Select State</option>
               <option value="lagos">Lagos</option>
@@ -115,6 +136,7 @@ const Businexinfo =()=>{
               value={formData.shippingAddress}
               onChange={handleChange}
               className="border-gray-300 w-full p-2 border rounded"
+              required
             />
           </div>
 
@@ -133,8 +155,9 @@ const Businexinfo =()=>{
           <button
             type="submit"
             className="w-full bg-[#F1B929] hover:bg-[#E0A918] text-white font-medium py-2 rounded-md transition-colors"
+            disabled={loading}
           >
-            Submit
+            {loading ? "Submitting.." : "Submit"}
           </button>
 
           <div className="text-center text-sm text-gray-600 mt-4">

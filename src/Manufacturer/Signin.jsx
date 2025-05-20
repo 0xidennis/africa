@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Products from '../assets/image/Products.png';
@@ -7,14 +7,23 @@ import logo from '../assets/logo/from.png';
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, loading, error, setError } = useAuth();
+  const { user, login, loading, error, setError } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect if user is already logged in
+    if (user) {
+      navigate(user.role === 'seller' ? '/dashboard' : '/buyer');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    
     try {
       await login(email, password);
+      // The useEffect will handle the navigation based on user role
     } catch (err) {
       // Error is already set in the AuthContext
     }

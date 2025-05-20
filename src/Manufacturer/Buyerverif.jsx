@@ -2,20 +2,39 @@ import React, { useContext } from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
-// import { AuthContext} from "../context/AuthContext";
 import { useAuth } from '../context/AuthContext';
 import  { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate, } from 'react-router-dom'; 
 
 const Buyerverif = () => {
-    const { login,loading,error } = useAuth();
-     const [email, setEmail] = useState("");
-     const [password, setPassword] = useState("");
-   
-     const handleSubmit = async (e) => {
-       e.preventDefault();
-       await login(email, password);
-     };
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const { 
+    emailForVerification,  // Get email directly from context
+    loading, 
+    error, 
+    confirmPassword: confirmPasswordApi, 
+    setError 
+  } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Client-side validation
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+
+    try {
+      // Use emailForVerification from context instead of user.email
+      await confirmPasswordApi(emailForVerification, password, confirmPassword);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Password confirmation error:', err);
+    }
+  };
 
 
   return (
@@ -51,11 +70,11 @@ const Buyerverif = () => {
              <div className="bg-white rounded-lg p-8 shadow-lg max-w-md w-full">
                <h2 className="text-2xl font-bold text-[#5c3c28] mb-2">Create Account</h2>
                <p className="text-gray-600 mb-6">Complete the details to create your account</p>
-              
+               {error && <p className="text-red-500 mb-4">{error}</p>}
    
                <form onSubmit={handleSubmit}  className="space-y-6">
                  <div className="mb-4">
-                   <label htmlFor="email" className="block text-gray-700 mb-2">
+                   <label htmlFor="password" className="block text-gray-700 mb-2">
                    Password
                    </label>
                    <input
@@ -70,15 +89,15 @@ const Buyerverif = () => {
                  </div>
    
                  <div className="mb-2">
-                   <label htmlFor="password" className="block text-gray-700 mb-2">
+                   <label htmlFor="confirmPassword" className="block text-gray-700 mb-2">
                    Confirm Password
                    </label>
                    <input
                      type="password"
-                     id="password"
-                     value={password}
-                     onChange={(e) => setPassword(e.target.value)}
-                     placeholder="Password"
+                     id="confirmPassword"
+                     value={confirmPassword}
+                     onChange={(e) => setConfirmPassword(e.target.value)}
+                     placeholder="ConfirmPassword"
                      className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#5d3c21]"
                      required
                    />
@@ -89,7 +108,6 @@ const Buyerverif = () => {
                    type="submit"
                    className="w-full bg-[#eba91c] text-white py-3 rounded font-medium hover:bg-[#4a2e19] transition-colors mt-4"
                    disabled={loading}
-                onSubmit={handleSubmit}
                  >
                  {loading ? "Logging in..." : "Next"}
                  </button>

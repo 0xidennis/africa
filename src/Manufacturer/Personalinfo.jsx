@@ -2,47 +2,69 @@ import React,{useState} from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext';
 
 const Personalinfo = () => {
-        const [formData, setFormData] = useState({
-            fullName: "",
-            phoneNo: "",
-            password: "",
-            confirmPassword: "",
-          });
-        
-          const [errors, setErrors] = useState({
-            fullName: "",
-            phoneNo: "",
-            password: "",
-            confirmPassword: "",
-          });
-        
-          const handleChange = (e) => {
-            const { name, value } = e.target;
-            setFormData((prev) => ({
-              ...prev,
-              [name]: value,
-            }));
-          };
-        
-          const handleSubmit = (e) => {
-            e.preventDefault();
-        
-            const newErrors = {
-              fullName: formData.fullName ? "" : "Full name is required",
-              phoneNo: formData.phoneNo ? "" : "Phone number is required",
-              password: formData.password ? "" : "Password is required",
-              confirmPassword: formData.password !== formData.confirmPassword ? "Passwords do not match" : "",
-            };
-        
-            setErrors(newErrors);
-        
-            if (!Object.values(newErrors).some((error) => error)) {
-              console.log("Form submitted:", formData);
-            }
-          };
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phoneNo: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({
+    fullName: "",
+    phoneNo: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const { 
+    user, 
+    emailForVerification, 
+    loading, 
+    error, 
+    setError 
+  } = useAuth();
+  
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleNext = (e) => {
+    e.preventDefault();
+
+    // Validation
+    const newErrors = {
+      fullName: formData.fullName ? "" : "Full name is required",
+      phoneNo: formData.phoneNo ? "" : "Phone number is required",
+      password: formData.password ? "" : "Password is required",
+      confirmPassword: formData.password === formData.confirmPassword ? "" : "Passwords do not match",
+    };
+
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some(error => error)) {
+      return;
+    }
+
+    // Store the form data in context or local storage temporarily
+    // For this example, we'll just navigate to the next page
+    // In a real app, you might want to store this data in context
+    navigate('/businexinfo', {
+      state: {
+        personalInfo: formData,
+        email: user?.email || emailForVerification
+      }
+    });
+  };
 
   return (
    <div className="flex min-h-screen flex-col overflow-x-hidden">
@@ -78,9 +100,10 @@ const Personalinfo = () => {
          <div className="mb-6">
            <h1 className="text-2xl font-bold text-[#5c3c28] mb-2">Personal Information</h1>
            <p className="text-gray-600">Setup your password and provide your phone Number</p>
+           {error && <p className="text-red-500 mt-2">{error}</p>}
          </div>
    
-         <form onSubmit={handleSubmit} className="space-y-6">
+         <form onSubmit={handleNext}   className="space-y-6">
            <div className="space-y-2">
              <label htmlFor="fullName" className="block text-md font-medium">Full Name</label>
              <input
@@ -138,8 +161,10 @@ const Personalinfo = () => {
              {errors.confirmPassword && <p className="text-red-500 text-md">{errors.confirmPassword}</p>}
            </div>
    
-           <button type="submit" className="w-full p-3 bg-[#eba91c] hover:bg-[#D99A1F] text-white font-semibold rounded">
-             Next
+           <button type="submit" className="w-full p-3 bg-[#eba91c] 
+           hover:bg-[#D99A1F] text-white font-semibold rounded"
+           disabled={loading}>
+             {loading ? "Proceed..." : "Next"}
            </button>
          </form>
        </div>
