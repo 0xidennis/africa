@@ -128,50 +128,52 @@ export function AuthProvider({ children }) {
     }
   }
 
-    // Complete registration with personal and business info
-  const completeRegistration = async (businessInfo) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      if (!user) {
-        throw new Error("User information is missing");
-      }
-
-      const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          ...user,
-          ...businessInfo,
-          role: user.role
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration completion failed');
-      }
-
-      // Update user with complete registration status
-      setUser({ 
-        ...user, 
-        ...businessInfo,
-        isRegistrationComplete: true 
-      });
-      
-      return data;
-    } catch (err) {
-      setError(err.message || 'An error occurred during registration completion');
-      console.error('Registration completion error:', err);
-      throw err;
-    } finally {
-      setLoading(false);
+   // context/AuthContext.js
+const completeRegistration = async (personalInfo, businessInfo) => {
+  setLoading(true);
+  setError(null);
+  
+  try {
+    if (!user) {
+      throw new Error("User information is missing");
     }
-  } 
+
+    const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        ...user,
+        ...personalInfo,
+        ...businessInfo,
+        role: user.role
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Registration completion failed');
+    }
+
+    // Update user with complete registration status
+    setUser({ 
+      ...user, 
+      ...personalInfo,
+      ...businessInfo,
+      isRegistrationComplete: true 
+    });
+    
+    return data;
+  } catch (err) {
+    setError(err.message || 'An error occurred during registration completion');
+    console.error('Registration completion error:', err);
+    throw err;
+  } finally {
+    setLoading(false);
+  }
+}
   
     // Verification function
     const verifyOtp = async (email, otp) => {

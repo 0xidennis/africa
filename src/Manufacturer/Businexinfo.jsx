@@ -34,7 +34,15 @@ const Businexinfo =()=>{
     e.preventDefault();
     
     try {
-      await completeRegistration(formData);
+      // Get personal info from user context
+      const personalInfo = {
+        fullName: user.fullName,
+        phoneNo: user.phoneNo,
+        password: user.password
+      };
+  
+      // Combine with business info and submit
+      await completeRegistration(personalInfo, formData);
       navigate('/dashboard');
     } catch (err) {
       console.error('Registration completion error:', err);

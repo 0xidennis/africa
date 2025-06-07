@@ -20,51 +20,46 @@ const Personalinfo = () => {
     confirmPassword: "",
   });
 
-  const { 
-    user, 
-    emailForVerification, 
-    loading, 
-    error, 
-    setError 
-  } = useAuth();
-  
-  const navigate = useNavigate();
+ // components/Personalinfo.js
+const { 
+  user, 
+  emailForVerification, 
+  loading, 
+  error, 
+  setError,
+  setUser
+} = useAuth();
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({ ...prev, [name]: value }));
+};
+const handleNext = (e) => {
+  e.preventDefault();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  // Validation
+  const newErrors = {
+    fullName: formData.fullName ? "" : "Full name is required",
+    phoneNo: formData.phoneNo ? "" : "Phone number is required",
+    password: formData.password ? "" : "Password is required",
+    confirmPassword: formData.password === formData.confirmPassword ? "" : "Passwords do not match",
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
+  setErrors(newErrors);
 
-    // Validation
-    const newErrors = {
-      fullName: formData.fullName ? "" : "Full name is required",
-      phoneNo: formData.phoneNo ? "" : "Phone number is required",
-      password: formData.password ? "" : "Password is required",
-      confirmPassword: formData.password === formData.confirmPassword ? "" : "Passwords do not match",
-    };
+  if (Object.values(newErrors).some(error => error)) {
+    return;
+  }
 
-    setErrors(newErrors);
+  // Update user context with personal info
+  setUser(prev => ({
+    ...prev,
+    ...formData,
+    email: prev?.email || emailForVerification
+  }));
 
-    if (Object.values(newErrors).some(error => error)) {
-      return;
-    }
-
-    // Store the form data in context or local storage temporarily
-    // For this example, we'll just navigate to the next page
-    // In a real app, you might want to store this data in context
-    navigate('/businexinfo', {
-      state: {
-        personalInfo: formData,
-        email: user?.email || emailForVerification
-      }
-    });
-  };
+  // Navigate to business info page
+  navigate('/businexinfo');
+};
 
   return (
    <div className="flex min-h-screen flex-col overflow-x-hidden">
