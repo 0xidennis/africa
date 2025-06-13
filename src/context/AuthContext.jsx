@@ -255,6 +255,7 @@ const completeRegistration = async (personalInfo, businessInfo) => {
     completeRegistration,
     role,
     setError,
+    setUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

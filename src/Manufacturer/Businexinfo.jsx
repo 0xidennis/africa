@@ -1,12 +1,23 @@
 import React from 'react'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
 import { useAuth } from '../context/AuthContext';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link,useLocation,useNavigate} from 'react-router-dom';
 
 const Businexinfo =()=>{
+  const location = useLocation();
+  const navigate = useNavigate();
+  const personalInfo = location.state?.personalInfo;
+
+  useEffect(() => {
+    if (!personalInfo) {
+      navigate('/personalinfo');
+    }
+  }, [personalInfo, navigate]);
+
+
   const [formData, setFormData] = useState({
     companyName: "",
     country: "Nigeria",
@@ -23,7 +34,6 @@ const Businexinfo =()=>{
     setError 
   } = useAuth();
   
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,19 +43,23 @@ const Businexinfo =()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    if (!personalInfo) {
+      setError("Missing personal information. Please start from the beginning.");
+      return;
+    }
+
     try {
-      // Get personal info from user context
-      const personalInfo = {
-        fullName: user.fullName,
-        phoneNo: user.phoneNo,
-        password: user.password
+      // Combine personal and business info
+      const completeUserData = {
+        ...personalInfo,
+        ...formData
       };
   
-      // Combine with business info and submit
-      await completeRegistration(personalInfo, formData);
+      await completeRegistration(completeUserData);
       navigate('/dashboard');
     } catch (err) {
       console.error('Registration completion error:', err);
+      setError(err.message || "Registration failed");
     }
   };
 

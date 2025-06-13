@@ -31,14 +31,14 @@ const App = () => {
           <Route path="/companyinfo" element={<Companyinfo/>} />
           <Route path="/chartbar" element={<Chartbar/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/seller" element={<Personalinfo/>} />
+          <Route path="/personalinfo" element={<Personalinfo/>} />
           
       < Route path="/Verification" element={<Verification/>}/>
     
       </Routes>
       </Router>
       </AuthProvider>
-      <RegisterTest/>
+      {/* <RegisterTest/> */}
 
       
     

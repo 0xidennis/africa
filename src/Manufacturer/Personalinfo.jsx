@@ -27,8 +27,11 @@ const {
   loading, 
   error, 
   setError,
-  setUser
+  
 } = useAuth();
+
+const navigate = useNavigate();
+
 const handleChange = (e) => {
   const { name, value } = e.target;
   setFormData(prev => ({ ...prev, [name]: value }));
@@ -50,15 +53,17 @@ const handleNext = (e) => {
     return;
   }
 
-  // Update user context with personal info
-  setUser(prev => ({
-    ...prev,
-    ...formData,
-    email: prev?.email || emailForVerification
-  }));
+  
+  navigate('/businexinfo', { 
+    state: { 
+      personalInfo: {
+        ...formData,
+        email: emailForVerification
+      }
+    } 
+  });
 
-  // Navigate to business info page
-  navigate('/businexinfo');
+ 
 };
 
   return (
