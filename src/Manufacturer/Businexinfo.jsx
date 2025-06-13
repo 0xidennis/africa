@@ -13,7 +13,7 @@ const Businexinfo =()=>{
 
   useEffect(() => {
     if (!personalInfo) {
-      navigate('/personalinfo');
+      navigate('/seller');
     }
   }, [personalInfo, navigate]);
 
