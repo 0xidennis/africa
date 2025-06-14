@@ -114,9 +114,11 @@ const Buyerverif = () => {
    
                  <div className="mt-4 text-center">
                    <span className="text-gray-600">Already have an account, </span>
-                   <a href="/register" className="text-[#eba91c] hover:underline">
+                   <Link to="/signin">
+                   <a className="text-[#eba91c] hover:underline">
                      Login
                    </a>
+                   </Link>
                  </div>
                  <div className="mt-4 text-center">
                    <span className="text-gray-600">By continuing you agree to From Africa, </span> <br />

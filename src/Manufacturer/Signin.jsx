@@ -11,9 +11,15 @@ const Signin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect if user is already logged in
     if (user) {
-      navigate(user.role === 'seller' ? '/dashboard' : '/buyer');
+      
+      if (user.role === 'seller') {
+        navigate('/dashboard');
+      } else if (user.role === 'buyer') {
+        navigate('/buyerdash');
+      } else {
+        navigate('/buyerdash'); // Fallback for unknown roles
+      }
     }
   }, [user, navigate]);
 

@@ -12,8 +12,8 @@ import Companyinfo from './Dashboards/Companyinfo'
 import Chartbar from './Dashboards/Chartbar'
 import Dashboard from './Dashboards/Dashboard'
 import { BrowserRouter as Router, Routes, Route, useLocation  } from 'react-router-dom';
-import RegisterTest from './RegisterTest'
 import Personalinfo from './Manufacturer/Personalinfo';
+import BuyerDash from './Buyerdash/BuyerDash';
 
 const App = () => {
   return (
@@ -32,6 +32,7 @@ const App = () => {
           <Route path="/chartbar" element={<Chartbar/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/seller" element={<Personalinfo/>} />
+          <Route path="/buyerdash" element={<BuyerDash/>} />
           
       < Route path="/Verification" element={<Verification/>}/>
     
