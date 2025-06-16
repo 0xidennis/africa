@@ -27,9 +27,9 @@ const Home = () => {
       ]
 
   return (
-    <div className='overflow-x-hidden '>
+    <div className='overflow-x-hidden min-h-screen '>
         <Layout/>
-        <main className="min-h-screen mt-12">
+        <main className="min-h-screen">
       {/* Hero Section */}
       <section className="bg-white">
         <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
@@ -347,7 +347,7 @@ const Home = () => {
       </footer>
 
       {/* Live Chat Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-0 right-6 z-50">
         <button className="bg-amber-500 hover:bg-amber-600 text-white rounded-full p-4 shadow-lg flex items-center">
           <MessageCircle className="h-6 w-6 mr-2" />
           <span>Live Chat</span>
