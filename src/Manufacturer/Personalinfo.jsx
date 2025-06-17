@@ -2,10 +2,11 @@ import React,{useState} from 'react'
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Products from '../assets/image/Products.png'
 import logo from '../assets/logo/from.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate,useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext';
 
 const Personalinfo = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNo: "",
@@ -31,6 +32,7 @@ const {
 } = useAuth();
 
 const navigate = useNavigate();
+const { email, role } = location.state || {};
 
 const handleChange = (e) => {
   const { name, value } = e.target;
@@ -57,8 +59,9 @@ const handleNext = (e) => {
   navigate('/businexinfo', { 
     state: { 
       personalInfo: {
-        ...formData,
-        email: emailForVerification
+        email,
+        role,
+        ...formData
       }
     } 
   });

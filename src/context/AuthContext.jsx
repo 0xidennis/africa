@@ -129,52 +129,75 @@ export function AuthProvider({ children }) {
     }
   }
 
-   // context/AuthContext.js
-const completeRegistration = async (personalInfo, businessInfo) => {
-  setLoading(true);
-  setError(null);
+//    // context/AuthContext.js
+// const completeRegistration = async (personalInfo, businessInfo) => {
+//   setLoading(true);
+//   setError(null);
   
-  try {
-    if (!user) {
-      throw new Error("User information is missing");
-    }
+//   try {
+//     if (!user) {
+//       throw new Error("User information is missing");
+//     }
 
+//     const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ 
+//         ...user,
+//         ...personalInfo,
+//         ...businessInfo,
+//         role: user.role
+//       }),
+//     });
+
+//     const data = await response.json();
+
+//     if (!response.ok) {
+//       throw new Error(data.message || 'Registration completion failed');
+//     }
+
+//     // Update user with complete registration status
+//     setUser({ 
+//       ...user, 
+//       ...personalInfo,
+//       ...businessInfo,
+//       isRegistrationComplete: true 
+//     });
+    
+//     return data;
+//   } catch (err) {
+//     setError(err.message || 'An error occurred during registration completion');
+//     console.error('Registration completion error:', err);
+//     throw err;
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+const completeRegistration = async (completeUserData) => {
+  try {
+    setLoading(true);
+    // Send all user data to your backend
     const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ 
-        ...user,
-        ...personalInfo,
-        ...businessInfo,
-        role: user.role
-      }),
+      body: JSON.stringify(completeUserData)
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Registration completion failed');
-    }
-
-    // Update user with complete registration status
-    setUser({ 
-      ...user, 
-      ...personalInfo,
-      ...businessInfo,
-      isRegistrationComplete: true 
-    });
-    
-    return data;
+    // Handle response and login user
+    setUser(response.data);
+    return response.data;
   } catch (err) {
-    setError(err.message || 'An error occurred during registration completion');
-    console.error('Registration completion error:', err);
+    setError(err.response?.data?.message || err.message);
     throw err;
   } finally {
     setLoading(false);
   }
-}
+};
+
   
     // Verification function
     const verifyOtp = async (email, otp) => {

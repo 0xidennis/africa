@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate,useLocation } from "react-router-dom";
 import Products from '../assets/image/Products.png';
 import logo from '../assets/logo/from.png';
 
@@ -8,8 +8,9 @@ const Verification = () => {
    const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(90);
   const inputRefs = useRef([]);
-  const { verifyOtp, sendOtp, loading, error, emailForVerification, role,setError } = useAuth();
+  const { verifyOtp, sendOtp, loading, error, emailForVerification,setError } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -17,6 +18,8 @@ const Verification = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const { email, role } = location.state || {};
 
   const handleChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
@@ -48,7 +51,12 @@ const Verification = () => {
       await verifyOtp(emailForVerification, otp);
     // Navigate based on user role
     if (role === 'seller') {
-      navigate('/seller');
+      navigate('/seller', { 
+        state: { 
+          email, 
+          role 
+        } 
+      });
     } else if (role === 'buyer') {
       navigate('/buyer');
     }

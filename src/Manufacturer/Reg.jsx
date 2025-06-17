@@ -21,7 +21,12 @@ const Reg = () => {
     try {
       await register(email, role);
       // On successful registration, navigate to verification
-      navigate('/verification');
+      navigate('/verification', { 
+        state: { 
+          email,
+          role 
+        } 
+      });
     } catch (err) {
       // Error is already set in the AuthContext
     }
