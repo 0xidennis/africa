@@ -1,6 +1,7 @@
 import React from 'react'
 import { Search, Bell, MessageCircle, User } from "lucide-react"
 import logo from '../assets/logo/from.png'
+import group from '../assets/logo/Group.png'
 
 const Navbar = () => {
   return (
@@ -34,12 +35,12 @@ const Navbar = () => {
           </button>
 
           {/* Notification Icons */}
-          <button className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
-            <Bell className="h-5 w-5 text-white" />
+          <button className="bg-white hover:bg-white/20 p-2 rounded-full transition-colors">
+            <img src={group} alt="" />
           </button>
 
-          <button className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
-            <MessageCircle className="h-5 w-5 text-white" />
+          <button className="bg-white hover:bg-white/20 p-2 rounded-full transition-colors">
+          <Bell className="h-5 w-5 text-black" />
           </button>
 
           {/* User Profile */}
