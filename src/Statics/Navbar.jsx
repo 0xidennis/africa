@@ -1,12 +1,12 @@
 import React from 'react'
-import { Search, Bell, MessageCircle, User } from "lucide-react"
+import { Search, Bell, User } from "lucide-react"
 import logo from '../assets/logo/from.png'
 import group from '../assets/logo/Group.png'
 
 const Navbar = () => {
   return (
     <div>
-        <nav className="bg-[#523523] px-4 py-3 shadow-lg">
+        <nav className="bg-[#523523] px-4 py-3 shadow-lg sticky">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
@@ -30,8 +30,8 @@ const Navbar = () => {
         {/* Right Side Icons and Profile */}
         <div className="flex items-center space-x-3">
           {/* Mobile Search Button */}
-          <button className="md:hidden bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
-            <Search className="h-5 w-5 text-white" />
+          <button className="md:hidden bg-white hover:bg-white/20 p-2 rounded-full transition-colors">
+            <Search className="h-5 w-5 text-black" />
           </button>
 
           {/* Notification Icons */}

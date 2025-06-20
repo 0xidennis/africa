@@ -28,7 +28,7 @@ const SubNav = () => {
                 className="flex items-center space-x-2 text-gray-700   rounded-md px-3 py-2"
               >
                 <img src={menuicon} alt="" />
-                <span className="hidden sm:inline-block text-sm font-medium">All Categories</span>
+                <span className="flex sm:inline-block text-sm font-medium">All Categories</span>
                 <ChevronDown className="h-4 w-4" />
               </button>
 

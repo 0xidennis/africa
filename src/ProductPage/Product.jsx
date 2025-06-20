@@ -11,6 +11,7 @@ import boot from "../assets/image/boot.png"
 import Header from './Header'
 import SubNav from '../Statics/SubNav'
 import Navbar from '../Statics/Navbar'
+import Footer from '../Statics/Footer'
 
 const products = [
   {
@@ -173,11 +174,16 @@ const Product = () => {
     })
     
   return (
-    <div>
+    <div className='bg-gray-50'>
         <Navbar/>
         <SubNav/>
         <Header/>
-         <div className="min-h-screen bg-gray-50">
+         <div className="min-h-screen bg-gray-50 mt-5">
+            <div className='flex gap-15 lg:ml-30 '>
+            <h3 className=" font-semibold text-gray-800 mb-3 hidden lg:flex"> All Categories</h3>
+                <h3 className=" font-semibold text-gray-800 mb-3  text-center justify-center">Fashion Accessories & Footwear</h3>
+            </div>
+         
       <div className="flex">
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
@@ -186,17 +192,17 @@ const Product = () => {
 
         {/* Sidebar */}
         <div
-          className={`
-          fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out
+          className={` -mt-3
+          fixed lg:static inset-y-0 left-0 z-50 w-64 bg-gray-50  border-gray-200 transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
         >
           <div className="p-4 h-full overflow-y-auto">
             {/* Categories */}
             <div className="mb-6">
-              <h3 className="font-semibold text-gray-800 mb-3">Categories</h3>
+             
               {categories.map((category) => (
-                <div key={category} className="mb-2">
+                <div key={category} className="mb-2 lg:hidden">
                   <button
                     onClick={() => setSelectedCategory(category)}
                     className={`text-sm w-full text-left p-2 rounded ${
@@ -212,7 +218,7 @@ const Product = () => {
             </div>
 
             {/* Sub Categories */}
-            <div className="mb-6">
+            <div className="mb-6 bg-white rounded border-gray-200 border p-3">
               <h3 className="font-semibold text-[#eba91c] mb-3">Sub Categories</h3>
               <div className="space-y-1 max-h-48 overflow-y-auto">
                 {subCategories.map((subCategory) => (
@@ -225,7 +231,7 @@ const Product = () => {
             </div>
 
             {/* Search */}
-            <div className="mb-6">
+            <div className="mb-6  bg-white rounded border-gray-200 border p-3">
               <h3 className="font-semibold text-[#eba91c] mb-3">Search</h3>
               <div className="relative">
                 <input
@@ -240,7 +246,7 @@ const Product = () => {
             </div>
 
             {/* Min Order */}
-            <div className="mb-6">
+            <div className="mb-6  bg-white rounded border-gray-200 border p-3">
               <h3 className="font-semibold text-[#eba91c] mb-3">Min. order</h3>
               <input
                 type="text"
@@ -250,7 +256,7 @@ const Product = () => {
             </div>
 
             {/* Price Range */}
-            <div className="mb-6">
+            <div className="mb-6  bg-white rounded border-gray-200 border p-3">
               <h3 className="font-semibold text-[#eba91c] mb-3">Price</h3>
               <div className="flex gap-1 mb-3">
                 <input
@@ -285,10 +291,9 @@ const Product = () => {
         <div className="flex-1 lg:ml-0">
           {/* Mobile Header */}
           <div className="lg:hidden bg-white border-b border-gray-200 p-4">
-            <button onClick={() => setSidebarOpen(true)} className="text-gray-600 hover:text-gray-800">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            <button onClick={() => setSidebarOpen(true)} className="text-white hover:text-gray-800 bg-[#eba91c] w-8 h-8">
+
+              {">"}
             </button>
           </div>
 
@@ -304,14 +309,14 @@ const Product = () => {
                     <img
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-cover mt-5"
                     />
                     <button
                       onClick={() => toggleFavorite(product.id)}
-                      className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow"
+                      className="absolute top-0 right-2 p-1.5 bg-white rounded-full  hover:shadow-md transition-shadow"
                     >
                       <Heart
-                        className={`h-4 w-4 ${
+                        className={`h-6 w-6 -mt-4  ${
                           favorites.includes(product.id) ? "fill-[#eba91c] text-[#eba91c]" : "text-gray-400"
                         }`}
                       />
@@ -327,9 +332,10 @@ const Product = () => {
                     </div>
 
                     <div className="text-xs text-gray-500 mb-3">{product.pieces} Pieces (MOQ)</div>
+                    {/* <hr className='bg-white mb-3'/> */}
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between border-t border-gray-400 pt-3">
+                      <div className="flex items-center gap-2 ">
                         {product.isVerified && (
                           <div className="flex items-center gap-1 text-md text-black-600">
                             <div className="w-3 h-3 bg-[#eba91c] rounded-full flex items-center justify-center">
@@ -379,6 +385,7 @@ const Product = () => {
         </div>
       </div>
     </div>
+    <Footer/>
     </div>
   )
 }
