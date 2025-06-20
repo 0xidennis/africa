@@ -9,6 +9,8 @@ import earrings from "../assets/image/earrings.png"
 import facecap from "../assets/image/facecap.png"
 import boot from "../assets/image/boot.png"
 import Header from './Header'
+import SubNav from '../Statics/SubNav'
+import Navbar from '../Statics/Navbar'
 
 const products = [
   {
@@ -172,6 +174,8 @@ const Product = () => {
     
   return (
     <div>
+        <Navbar/>
+        <SubNav/>
         <Header/>
          <div className="min-h-screen bg-gray-50">
       <div className="flex">
