@@ -10,28 +10,43 @@ const Signin = () => {
   const { user, login, loading, error, setError } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
+  // useEffect(() => {
+  //   if (user) {
       
-      if (user.role === 'seller') {
-        navigate('/dashboard');
-      } else if (user.role === 'buyer') {
-        navigate('/buyerdash');
-      } else {
-        navigate('/buyerdash'); // Fallback for unknown roles
-      }
-    }
-  }, [user, navigate]);
+  //     if (user.role === 'seller') {
+  //       navigate('/dashboard');
+  //     } else if (user.role === 'buyer') {
+  //       navigate('/buyerdash');
+  //     } else {
+  //       navigate('/buyerdash'); // Fallback for unknown roles
+  //     }
+  //   }
+  // }, [user, navigate]);
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+    
+  //   try {
+  //     await login(email, password);
+  //     // The useEffect will handle the navigation based on user role
+  //   } catch (err) {
+  //     // Error is already set in the AuthContext
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    
     try {
       await login(email, password);
-      // The useEffect will handle the navigation based on user role
+      // Redirect based on role
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user.role === 'seller') {
+        navigate('/dashboard');
+      } else {
+        navigate('/buyerdash');
+      }
     } catch (err) {
-      // Error is already set in the AuthContext
+      console.error('Login failed:', err);
     }
   };
 

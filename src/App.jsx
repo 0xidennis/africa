@@ -14,11 +14,12 @@ import Dashboard from './Dashboards/Dashboard'
 import { BrowserRouter as Router, Routes, Route, useLocation  } from 'react-router-dom';
 import Personalinfo from './Manufacturer/Personalinfo';
 import BuyerDash from './Buyerdash/BuyerDash';
+import Product from './ProductPage/Product';
 
 const App = () => {
   return (
     <div>
-         <AuthProvider>
+         {/* <AuthProvider>
     
       <Router>
       <Routes>
@@ -38,8 +39,9 @@ const App = () => {
     
       </Routes>
       </Router>
-      </AuthProvider>
+      </AuthProvider> */}
       {/* <RegisterTest/> */}
+      <Product/>
 
       
     

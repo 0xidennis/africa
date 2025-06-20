@@ -1,5 +1,5 @@
 // context/AuthContext.js
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext,useEffect,useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -43,6 +43,14 @@ export function AuthProvider({ children }) {
         fullName: data.fullName,
         companyName: data.companyName
       });
+      // store user data in localStorage
+      localStorage.setItem('user', JSON.stringify({
+        email: data.email,
+        role: data.role,
+        token: data.token,
+        fullName: data.fullName,
+        companyName: data.companyName
+      }));
       
       return data;
     } catch (err) {
@@ -53,6 +61,13 @@ export function AuthProvider({ children }) {
       setLoading(false);
     }
   };
+   // Add this to check for existing session on app load
+   useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
   // Registration function
   const register = async (email, role ,) => {
     setLoading(true);
