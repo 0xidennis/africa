@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Menu, X, ChevronDown } from "lucide-react"
-import menuicon from '../assets/logo/vet.png'
+import menuicon from '../assets/vet.png'
 
 const SubNav = () => {
 
@@ -17,7 +17,7 @@ const SubNav = () => {
 
   return (
     <div>
-        <nav className="bg-white shadow-sm border-b-2 border-yellow-400">
+        <nav className="bg-white shadow-sm border-b-2 border-yellow-400 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left section - Categories */}
