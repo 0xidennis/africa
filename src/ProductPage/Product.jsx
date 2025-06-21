@@ -219,7 +219,7 @@ const Product = () => {
          <div className="min-h-screen bg-gray-50 mt-5">
             <div className='flex gap-15 lg:ml-30 lg:-mb-7'>
             <h3 className=" font-semibold text-gray-800 mb-3 hidden lg:flex z-10"> All Categories</h3>
-                <h3 className=" font-semibold text-gray-800 mb-3  text-center justify-center z-10">Fashion Accessories & Footwear</h3>
+                <h3 className=" font-semibold text-gray-800 mb-3  text-center justify-center ">Fashion Accessories & Footwear</h3>
             </div>
          
       <div className="flex">
