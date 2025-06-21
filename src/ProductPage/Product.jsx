@@ -12,6 +12,7 @@ import Header from './Header'
 import SubNav from '../Statics/SubNav'
 import Navbar from '../Statics/Navbar'
 import Footer from '../Statics/Footer'
+import { motion, AnimatePresence } from "framer-motion"
 
 const products = [
   {
@@ -161,6 +162,7 @@ const Product = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Categories")
     const [favorites, setFavorites] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    
   
     const toggleFavorite = (productId) => {
       setFavorites((prev) => (prev.includes(productId) ? prev.filter((id) => id !== productId) : [...prev, productId]))
@@ -187,6 +189,27 @@ const Product = () => {
         setCurrentPage(currentPage + 1)
       }
     }
+
+      // Animation variants
+  const sidebarVariants = {
+    open: { x: 0, transition: { type: "spring", stiffness: 300, damping: 30 } },
+    closed: { x: "-100%", transition: { type: "spring", stiffness: 300, damping: 30 } }
+  }
+
+  const productVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    },
+    hover: { scale: 1.02, transition: { duration: 0.2 } }
+  }
+
+  const overlayVariants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 }
+  }
 
   return (
     <div className='bg-gray-50'>
@@ -312,72 +335,129 @@ const Product = () => {
             </button>
           </div>
 
-          {/* Products Grid */}
+          {/* cards grid */}
+
           <div className="p-4 lg:p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
-              {filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+  <motion.div 
+    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6"
+    initial="hidden"
+    animate="visible"
+    variants={{
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          when: "beforeChildren",
+          staggerChildren: 0.1
+        }
+      }
+    }}
+  >
+    {filteredProducts.map((product, index) => (
+      <motion.div
+        key={product.id}
+        className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+        variants={{
+          hidden: { 
+            opacity: 0, 
+            x: 50,
+            scale: 0.95
+          },
+          visible: {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            transition: {
+              type: "spring",
+              stiffness: 100,
+              damping: 10
+            }
+          }
+        }}
+        initial="hidden"
+        animate="visible"
+        transition={{ delay: index * 0.05 }}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+          transition: { 
+            duration: 0.3,
+            ease: "easeOut"
+          }
+        }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <div className="relative">
+          <motion.img
+            src={product.image || "/placeholder.svg"}
+            alt={product.name}
+            className="w-full h-48 object-cover mt-5"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
+          />
+          <motion.button
+            onClick={() => toggleFavorite(product.id)}
+            className="absolute top-0 right-2 p-1.5 bg-white rounded-full hover:shadow-md transition-shadow"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Heart
+              className={`h-6 w-6 -mt-4 ${
+                favorites.includes(product.id) ? "fill-[#eba91c] text-[#eba91c]" : "text-gray-400"
+              }`}
+            />
+          </motion.button>
+        </div>
+
+        <div className="p-4">
+          <h3 className="font-medium text-gray-800 mb-2">{product.name}</h3>
+
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg font-semibold text-gray-900">US$ {product.price}</span>
+            <span className="text-xs text-gray-500">/ New Price Paid</span>
+          </div>
+
+          <div className="text-xs text-gray-500 mb-3">{product.pieces} Pieces (MOQ)</div>
+
+          <div className="flex items-center justify-between border-t border-gray-400 pt-3">
+            <div className="flex items-center gap-2">
+              {product.isVerified && (
+                <motion.div 
+                  className="flex items-center gap-1 text-md text-black-600"
+                  whileHover={{ scale: 1.05 }}
                 >
-                  <div className="relative">
-                    <img
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
-                      className="w-full h-48 object-cover mt-5"
-                    />
-                    <button
-                      onClick={() => toggleFavorite(product.id)}
-                      className="absolute top-0 right-2 p-1.5 bg-white rounded-full  hover:shadow-md transition-shadow"
-                    >
-                      <Heart
-                        className={`h-6 w-6 -mt-4  ${
-                          favorites.includes(product.id) ? "fill-[#eba91c] text-[#eba91c]" : "text-gray-400"
-                        }`}
+                  <div className="w-3 h-3 bg-[#eba91c] rounded-full flex items-center justify-center">
+                    <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
                       />
-                    </button>
+                    </svg>
                   </div>
-
-                  <div className="p-4">
-                    <h3 className="font-medium text-gray-800 mb-2">{product.name}</h3>
-
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-lg font-semibold text-gray-900">US$ {product.price}</span>
-                      <span className="text-xs text-gray-500">/ New Price Paid</span>
-                    </div>
-
-                    <div className="text-xs text-gray-500 mb-3">{product.pieces} Pieces (MOQ)</div>
-                    {/* <hr className='bg-white mb-3'/> */}
-
-                    <div className="flex items-center justify-between border-t border-gray-400 pt-3">
-                      <div className="flex items-center gap-2 ">
-                        {product.isVerified && (
-                          <div className="flex items-center gap-1 text-md text-black-600">
-                            <div className="w-3 h-3 bg-[#eba91c] rounded-full flex items-center justify-center">
-                              <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </div>
-                            <span>Verified <span>(NGN)</span></span>
-                          </div>
-                        )}
-                      </div>
-
-                      {product.isGoldSupplier && (
-                        <span className=" bg-[#eba91c] text-white text-md px-2 py-1 rounded">Chat Supplier</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  <span>Verified <span>(NGN)</span></span>
+                </motion.div>
+              )}
             </div>
 
+            {product.isGoldSupplier && (
+              <motion.span 
+                className="bg-[#eba91c] text-white text-md px-2 py-1 rounded"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Chat Supplier
+              </motion.span>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </motion.div>
+</div>
+
             {/* Pagination */}
-            <div className="flex items-end justify-center mt-6 ">
+            <div className="flex items-end justify-center mb-6 ">
       <div className="flex items-center space-x-1 bg-white rounded-lg shadow-sm border border-gray-200 p-1">
         {/* Previous Button */}
         <button
@@ -407,9 +487,8 @@ const Product = () => {
     </div>
           </div>
         </div>
-      </div>
-    </div>
     <Footer/>
+    </div>
     </div>
   )
 }
