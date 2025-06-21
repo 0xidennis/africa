@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Menu, X, ChevronDown } from "lucide-react"
-import menuicon from '../assets/logo/vector.png'
+import menuicon from '../assets/logo/vet.png'
 
 const SubNav = () => {
 
