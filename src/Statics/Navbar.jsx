@@ -6,7 +6,7 @@ import group from '../assets/logo/Group.png'
 const Navbar = () => {
   return (
     <div>
-        <nav className="bg-[#523523] px-4 py-3 shadow-lg sticky">
+        <nav className="bg-[#523523] px-4 py-3 shadow-lg  fixed top-0 left-0 right-0 z-50 ">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">

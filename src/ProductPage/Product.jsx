@@ -162,6 +162,7 @@ const Product = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Categories")
     const [favorites, setFavorites] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)
+      const [showAllSubCategories, setShowAllSubCategories] = useState(false);
     
   
     const toggleFavorite = (productId) => {
@@ -211,6 +212,12 @@ const Product = () => {
     hidden: { opacity: 0 }
   }
 
+   // Number of categories to show initially
+  const initialVisibleCount = 5;
+  const visibleSubCategories = showAllSubCategories 
+    ? subCategories 
+    : subCategories.slice(0, initialVisibleCount);
+
   return (
     <div className='bg-gray-50'>
         <Navbar/>
@@ -256,17 +263,27 @@ const Product = () => {
             </div>
 
             {/* Sub Categories */}
-            <div className="mb-6 bg-white rounded border-gray-200 border p-3">
-              <h3 className="font-semibold text-[#eba91c] mb-3">Sub Categories</h3>
-              <div className="space-y-1 max-h-48 overflow-y-auto">
-                {subCategories.map((subCategory) => (
-                  <div key={subCategory} className="text-sm text-gray-600 hover:text-orange-600 cursor-pointer p-1">
-                    {subCategory}
-                  </div>
-                ))}
-              </div>
-              <button className="text-[#eba91c] text-sm mt-2 hover:underline">View More</button>
-            </div>
+               <div className="mb-6 bg-white rounded border-gray-200 border p-3">
+      <h3 className="font-semibold text-[#eba91c] mb-3">Sub Categories</h3>
+      <div className="space-y-1">
+        {visibleSubCategories.map((subCategory) => (
+          <div 
+            key={subCategory} 
+            className="text-sm text-gray-600 hover:text-orange-600 cursor-pointer p-1"
+          >
+            {subCategory}
+          </div>
+        ))}
+      </div>
+      {subCategories.length > initialVisibleCount && (
+        <button 
+          className="text-[#eba91c] text-sm mt-2 hover:underline"
+          onClick={() => setShowAllSubCategories(!showAllSubCategories)}
+        >
+          {showAllSubCategories ? 'Show Less' : 'View More'}
+        </button>
+      )}
+    </div>
 
             {/* Search */}
             <div className="mb-6  bg-white rounded border-gray-200 border p-3">
