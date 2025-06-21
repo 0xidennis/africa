@@ -217,8 +217,8 @@ const Product = () => {
         <SubNav/>
         <Header/>
          <div className="min-h-screen bg-gray-50 mt-5">
-            <div className='flex gap-15 lg:ml-30 '>
-            <h3 className=" font-semibold text-gray-800 mb-3 hidden lg:flex"> All Categories</h3>
+            <div className='flex gap-15 lg:ml-30 -mb-7'>
+            <h3 className=" font-semibold text-gray-800 mb-3 hidden lg:flex z-10"> All Categories</h3>
                 <h3 className=" font-semibold text-gray-800 mb-3  text-center justify-center">Fashion Accessories & Footwear</h3>
             </div>
          
@@ -231,7 +231,7 @@ const Product = () => {
         {/* Sidebar */}
         <div
           className={` -mt-3
-          fixed lg:static inset-y-0 left-0 z-50 w-64 bg-gray-50  border-gray-200 transform transition-transform duration-300 ease-in-out
+          fixed lg:static inset-y-0 left-0  w-64 bg-gray-50  border-gray-200 transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
         >
