@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { Heart, Search ,ChevronLeft, ChevronRight} from "lucide-react"
 import bag from "../assets/armg.png"
 import handbag from "../assets/image/handbag.png"
@@ -163,6 +163,7 @@ const Product = () => {
     const [favorites, setFavorites] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)
       const [showAllSubCategories, setShowAllSubCategories] = useState(false);
+      const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(8); // Number of products per page
 
 
@@ -184,7 +185,7 @@ const Product = () => {
       return matchesSearch && matchesMinPrice && matchesMaxPrice
     })
     
-    const [currentPage, setCurrentPage] = useState(1)
+   
     const handlePrevious = () => {
       if (currentPage > 1) {
         setCurrentPage(currentPage - 1);
@@ -517,37 +518,45 @@ const Product = () => {
   </motion.div>
 </div>
 
-            {/* Pagination */}
-            <div className="flex items-end justify-center mb-6 ">
-      <div className="flex items-center space-x-1 bg-white rounded-lg shadow-sm border border-gray-200 p-1">
-        {/* Previous Button */}
-        <button
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-          className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-colors duration-200"
-          aria-label="Previous page"
-        >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
+       {/* Page Numbers */}
+       <div className='flex justify-center items-center mt-6 mb-10 space-x-1 sm:space-x-2'>
+         {/* Previous Button */}
+  <button
+    onClick={handlePrevious}
+    disabled={currentPage === 1}
+    className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-colors duration-200"
+    aria-label="Previous page"
+  >
+    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+  </button>
+       
+       {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
 
-        {/* Current Page Indicator */}
-        <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-md bg-[#eba91c] text-white font-medium text-sm sm:text-base">
-          {currentPage}
-        </div>
+                  <button
+                    key={pageNumber}
+                    onClick={() => goToPage(pageNumber)}
+                    className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-md text-sm sm:text-base ${
+                      currentPage === pageNumber
+                        ? 'bg-[#eba91c] text-white'
+                        : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {pageNumber}
+                  </button>
+                ))}
 
-        {/* Next Button */}
-        <button
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-          className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-colors duration-200"
-          aria-label="Next page"
-        >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-      </div>
-    </div>
-          </div>
-        </div>
+                {/* Next Button */}
+                <button
+                  onClick={handleNext}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-colors duration-200"
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+       </div>
+              </div>
+            </div>
     <Footer/>
     </div>
     </div>
