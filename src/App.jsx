@@ -41,7 +41,7 @@ const App = () => {
       </Router>
       </AuthProvider> */}
       {/* <RegisterTest/> */}
-      <Product/>
+      {/* <Product/> */}
       <BuyerDash/>
 
       

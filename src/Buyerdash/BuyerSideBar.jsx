@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from '../assets/logo/from.png'
 
 import { X, LayoutDashboard, MessageSquare, ShoppingCart, Settings, HelpCircle } from "lucide-react"
 
@@ -14,17 +15,13 @@ const BuyerSideBar = ({isOpen, onClose}) => {
   return (
     <div>
      {/* Desktop Sidebar */}
-     <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-amber-900">
+     <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-[#523523]">
         <div className="flex flex-col flex-1 min-h-0">
           {/* Logo */}
-          <div className="flex items-center h-16 px-4">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-yellow-500 rounded flex items-center justify-center mr-2">
-                <span className="text-white font-bold text-sm">F</span>
-              </div>
-              <div className="text-white">
-                <div className="font-bold text-sm">FROM</div>
-                <div className="font-bold text-sm">AFRICA</div>
+          <div className="flex items-center h-16 px-4  ">
+            <div className="flex items-center border-b border-[#ffffff33] w-full">
+              <div className="flex-shrink-0">
+                 <img src={logo} width={120} height={40} alt="" className='h-10 w-auto ml-3 ' />
               </div>
             </div>
           </div>
@@ -35,7 +32,7 @@ const BuyerSideBar = ({isOpen, onClose}) => {
               <button
                 key={index}
                 className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                  item.active ? "bg-amber-800 text-white" : "text-amber-100 hover:bg-amber-800 hover:text-white"
+                  item.active ? "bg-[#885434] text-white" : "text-white hover:bg-rgba(235, 169, 28, 0.2) hover:text-white"
                 }`}
               >
                 <item.icon className="mr-3 h-5 w-5" />
