@@ -163,6 +163,14 @@ const Product = () => {
     const [favorites, setFavorites] = useState([])
     const [sidebarOpen, setSidebarOpen] = useState(false)
       const [showAllSubCategories, setShowAllSubCategories] = useState(false);
+  const [productsPerPage] = useState(8); // Number of products per page
+
+
+   // Calculate pagination
+   const indexOfLastProduct = currentPage * productsPerPage;
+   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+   const totalPages = Math.ceil(products.length / productsPerPage);
     
   
     const toggleFavorite = (productId) => {
@@ -177,19 +185,45 @@ const Product = () => {
     })
     
     const [currentPage, setCurrentPage] = useState(1)
-    const totalPages = 10 // You can adjust this or make it dynamic
-  
     const handlePrevious = () => {
       if (currentPage > 1) {
-        setCurrentPage(currentPage - 1)
+        setCurrentPage(currentPage - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    }
+    };
   
     const handleNext = () => {
       if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1)
+        setCurrentPage(currentPage + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+    };
+  
+    const goToPage = (pageNumber) => {
+      if (pageNumber >= 1 && pageNumber <= totalPages) {
+        setCurrentPage(pageNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+     // Close sidebar when clicking on a link or button inside
+  const handleSidebarItemClick = () => {
+    if (window.innerWidth < 1024) {
+      setSidebarOpen(false);
     }
+  };
+
+    // Close sidebar when resizing to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
       // Animation variants
   const sidebarVariants = {
@@ -231,14 +265,24 @@ const Product = () => {
          
       <div className="flex">
         {/* Mobile Sidebar Overlay */}
-        {sidebarOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
-        )}
+        <AnimatePresence>
+            {sidebarOpen && (
+              <motion.div
+                className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={overlayVariants}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
+          </AnimatePresence>
 
         {/* Sidebar */}
         <div
           className={` -mt-3
-          fixed lg:static inset-y-0 left-0  w-64 bg-gray-50  border-gray-200 transform transition-transform duration-300 ease-in-out
+          fixed lg:static inset-y-0 left-0  w-64 bg-gray-50  border-gray-200 transform transition-transform duration-300 ease-in-out z-50 lg:z-0
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
         >
@@ -354,7 +398,7 @@ const Product = () => {
 
           {/* cards grid */}
 
-          <div className="p-4 lg:p-6">
+          <div className="p-4 lg:p-6 z-10">
   <motion.div 
     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6"
     initial="hidden"
