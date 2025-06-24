@@ -37,11 +37,12 @@ const Myinfo = () => {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Name Surname</label>
           <input
+          placeholder='3c fashion store'
             type="text"
             name="nameSurname"
             value={formData.nameSurname}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#eba91c] focus:border-[#eba91c]"
           />
         </div>
 
@@ -49,11 +50,12 @@ const Myinfo = () => {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Buyer Code</label>
           <input
+          placeholder='#ehndhfj'
             type="text"
             name="buyerCode"
             value={formData.buyerCode}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#eba91c] focus:border-[#eba91c]"
           />
         </div>
 
@@ -65,7 +67,7 @@ const Myinfo = () => {
               name="country"
               value={formData.country}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 appearance-none bg-white"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#eba91c] focus:border-[#eba91c] appearance-none bg-white"
             >
               <option value="Nigeria">🇳🇬 Nigeria</option>
               <option value="Ghana">🇬🇭 Ghana</option>
@@ -83,8 +85,8 @@ const Myinfo = () => {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleInputChange}
-            placeholder="3C Fashion STore"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            placeholder="phone number"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#eba91c] focus:border-[#eba91c]"
           />
         </div>
 
@@ -92,11 +94,12 @@ const Myinfo = () => {
         <div className="md:col-span-1">
           <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
           <input
+          placeholder='email address'
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#eba91c] focus:border-[#eba91c]"
           />
         </div>
 
@@ -104,12 +107,13 @@ const Myinfo = () => {
         <div className="md:col-span-1">
           <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
           <input
+         
             type="text"
             name="address"
             value={formData.address}
             onChange={handleInputChange}
-            placeholder="3C Fashion STore"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            placeholder="address"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#eba91c] focus:border-[#eba91c]"
           />
         </div>
       </div>
