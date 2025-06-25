@@ -15,6 +15,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation  } from 'react-rout
 import Personalinfo from './Manufacturer/Personalinfo';
 import BuyerDash from './Buyerdash/BuyerDash';
 import Product from './ProductPage/Product';
+import Order from './Page/Order';
 
 const App = () => {
   return (
@@ -42,7 +43,8 @@ const App = () => {
       </AuthProvider> */}
       {/* <RegisterTest/> */}
       {/* <Product/> */}
-      <BuyerDash/>
+      {/* <BuyerDash/> */}
+      <Order/>
 
       
     
