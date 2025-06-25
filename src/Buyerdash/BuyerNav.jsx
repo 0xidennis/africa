@@ -4,8 +4,8 @@ import React from 'react'
   import { Search,Bell,Mail,Menu} from "lucide-react"
 const BuyerNav = ({ onMenuClick }) => {
   return (
-    <div>
-        <header className="bg-gray-50   lg:ml-64">
+    <div className='relative z-10 '>
+        <header className="fixed top-0 left-0 right-0 bg-gray-50   lg:ml-64 z-50">
       <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
         {/* Mobile menu button */}
         <button

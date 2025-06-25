@@ -6,7 +6,7 @@ import SignedAggre from './SignedAggre'
 const MainContent = () => {
   return (
     <div>
-        <main className="flex-1 overflow-y-auto bg-gray-50 lg:ml-69 ">
+        <main className="flex-1 overflow-y-auto bg-gray-50 lg:ml-69 mt-10 ">
       <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
         {/* Welcome Section */}
         <div className="mb-8">
