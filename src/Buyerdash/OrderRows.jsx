@@ -7,7 +7,7 @@ const OrderRows = ({orders}) => {
   return (
     <div className="bg-white   border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-300 ">
+        <table className="min-w-full divide-y divide-gray-200 ">
           <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -36,7 +36,7 @@ const OrderRows = ({orders}) => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.items}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                  <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full text-yellow-800">
                     {order.status}
                   </span>
                 </td>
