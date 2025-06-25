@@ -19,7 +19,7 @@ const BuyerSideBar = ({isOpen, onClose}) => {
         <div className="flex flex-col flex-1 min-h-0">
           {/* Logo */}
           <div className="flex items-center h-16 px-4  ">
-            <div className="flex items-center border-b border-[#ffffff33] w-full">
+            <div className="flex items-center border-b border-[#523523] w-full">
               <div className="flex-shrink-0">
                  <img src={logo} width={120} height={40} alt="" className='h-10 w-auto ml-3 ' />
               </div>
@@ -45,7 +45,7 @@ const BuyerSideBar = ({isOpen, onClose}) => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-amber-900 transform transition-transform duration-300 ease-in-out ${
+        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-[#523523] transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -53,12 +53,10 @@ const BuyerSideBar = ({isOpen, onClose}) => {
           {/* Logo and Close Button */}
           <div className="flex items-center justify-between h-16 px-4">
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-yellow-500 rounded flex items-center justify-center mr-2">
-                <span className="text-white font-bold text-sm">F</span>
+              <div className="w-8 h-8 rounded flex items-center justify-center mr-2">
               </div>
-              <div className="text-white">
-                <div className="font-bold text-sm">FROM</div>
-                <div className="font-bold text-sm">AFRICA</div>
+              <div className="flex-shrink-0">
+                 <img src={logo}  height={10} alt="" className='h-8 w-auto ml-3 ' />
               </div>
             </div>
             <button onClick={onClose} className="text-white hover:text-gray-300">
@@ -72,7 +70,7 @@ const BuyerSideBar = ({isOpen, onClose}) => {
               <button
                 key={index}
                 className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                  item.active ? "bg-amber-800 text-white" : "text-amber-100 hover:bg-amber-800 hover:text-white"
+                  item.active ? "bg-[#885434] text-white" : "text-white hover:bg-[#885434] hover:text-white"
                 }`}
               >
                 <item.icon className="mr-3 h-5 w-5" />
