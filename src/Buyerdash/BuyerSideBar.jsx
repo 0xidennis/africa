@@ -32,7 +32,7 @@ const BuyerSideBar = ({isOpen, onClose}) => {
               <button
                 key={index}
                 className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                  item.active ? "bg-[#885434] text-white" : "text-white hover:bg-rgba(235, 169, 28, 0.2) hover:text-white"
+                  item.active ? "bg-[#885434] text-white" : "text-white hover:bg-[#885434] hover:text-white"
                 }`}
               >
                 <item.icon className="mr-3 h-5 w-5" />

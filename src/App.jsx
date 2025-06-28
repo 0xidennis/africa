@@ -16,6 +16,7 @@ import Personalinfo from './Manufacturer/Personalinfo';
 import BuyerDash from './Buyerdash/BuyerDash';
 import Product from './ProductPage/Product';
 import Order from './Page/Order';
+import SellerDash from './Page/SellerDash';
 
 const App = () => {
   return (
@@ -44,7 +45,9 @@ const App = () => {
       {/* <RegisterTest/> */}
       {/* <Product/> */}
       {/* <BuyerDash/> */}
-      <Order/>
+      {/* <Order/> */}
+      <SellerDash/>
+      
 
       
     

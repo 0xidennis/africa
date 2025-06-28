@@ -24,7 +24,7 @@ const BuyerNav = ({ onMenuClick }) => {
             <input
               type="text"
               placeholder="Search ..."
-              className="block w-full pl-10 pr-3 py-2  rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#eba91c] focus:border-[#eba91c] sm:text-sm"
+              className=" w-full pl-10 pr-3 py-2  rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#eba91c] focus:border-[#eba91c] sm:text-sm"
             />
           </div>
         </div>
