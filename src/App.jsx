@@ -17,6 +17,8 @@ import BuyerDash from './Buyerdash/BuyerDash';
 import Product from './ProductPage/Product';
 import Order from './Page/Order';
 import SellerDash from './Page/SellerDash';
+import Overvew from './Dashboards/Overvew';
+import SellerProduct from './Dashboards/SellerProduct';
 
 const App = () => {
   return (
@@ -46,7 +48,10 @@ const App = () => {
       {/* <Product/> */}
       {/* <BuyerDash/> */}
       {/* <Order/> */}
-      <SellerDash/>
+      {/* <SellerDash/> */}
+      {/* <Chartbar/> */}
+      {/* <Companyinfo/> */}
+      <SellerProduct/>
       
 
       
