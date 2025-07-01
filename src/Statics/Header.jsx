@@ -11,7 +11,7 @@ const Header = () => {
   const categories = ['Clothing', 'Footwear', 'Accessories', 'Skincare', 'Bags', 'Traditionals'];
   return (
     <div>
-      <header className="bg-amber-900 text-white shadow-lg">
+      <header className="bg-[#523523] text-white shadow-lg fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -27,7 +27,7 @@ const Header = () => {
                 placeholder="Search for products, brand or category"
                 className="w-full px-4 py-2 lg:py-3 pr-12 text-gray-800 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               />
-              <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-md transition-colors">
+              <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#523523] hover:bg-[#5c3c28] text-white p-2 rounded-md transition-colors">
                 <Search className="w-4 h-4 lg:w-5 lg:h-5" />
               </button>
             </div>
@@ -47,7 +47,7 @@ const Header = () => {
             </button>
 
             {/* Sign Up Button */}
-            <button className="flex items-center space-x-1 lg:space-x-2 px-3 lg:px-4 py-2 bg-orange-500 hover:bg-orange-600 rounded-lg transition-colors">
+            <button className="flex items-center space-x-1 lg:space-x-2 px-3 lg:px-4 py-2 bg-[#eba91c] hover:bg-[#eba91c] rounded-lg transition-colors">
               <UserPlus className="w-4 h-4 lg:w-5 lg:h-5" />
               <span className="hidden sm:inline text-sm lg:text-base">Sign Up</span>
             </button>
