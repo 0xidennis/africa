@@ -1,7 +1,10 @@
 import React from 'react'
 import image25 from '../assets/image 25.png'
 import { Search, MessageCircle, CheckCircle, ArrowRight } from "lucide-react"
+import { motion } from "framer-motion";
+import frame from '../assets/image/fram.png'
 import image from '../assets/image.png'
+import fram from '../assets/frame.png'
 import image27 from '../assets/image 27.png'
 import Layout from '../Layout/Layout'
 import vect from '../assets/vect.png'
@@ -14,9 +17,17 @@ import sew from '../assets/image/sew.png'
 import magazine from '../assets/image/magazine.png'
 import logo from '../assets/logo/from.png'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import LoadingSpinner from '../Spinner/LoadingSpinner';
 // import shoe from '../assets/shoe.png'
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2500); // 2.5 seconds
+    return () => clearTimeout(timer);
+  }, []);
     const categories = [
         { name: "Clothing", icon: <span className="text-2xl"><img src={vect} alt="" /></span> },
         { name: "Footwear" , icon: <span className="text-2xl "><img src={shoe} alt="" /></span> },
@@ -27,137 +38,267 @@ const Home = () => {
       ]
 
   return (
+    <>{loading ? (
+      <LoadingSpinner />
+    ) : (
     <div className='overflow-x-hidden min-h-screen '>
         <Layout/>
         <main className="min-h-screen">
       {/* Hero Section */}
       <section className="bg-white">
-        <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                <span className="text-[#eba91c]">Connecting</span> African
-                <br />
-                Manufacturers to
-                <br />
-                <span className="text-[#eba91c]">Global Market</span>
-              </h1>
-              <p className="text-gray-700 mb-8 max-w-lg">
-                Explore authentic quality products from verified manufacturers across Africa. Shop now and bring the
-                spirit of Africa home!
-              </p>
-              <div className="flex flex-wrap gap-4  align-center items-center">
-                <a
-                  href="#"
-                  className="bg-[#eba91c] hover:bg-amber-600 text-white font-medium py-2 px-6 rounded-md transition-colors"
-                >
-                  Start Sourcing
-                </a>
-                <Link to="/reg">
+      <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          
+          {/* Text Column Animation */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <span className="text-[#eba91c]">Connecting</span> African
+              <br />
+              Manufacturers to
+              <br />
+              <span className="text-[#eba91c]">Global Market</span>
+            </h1>
+            <p className="text-gray-700 mb-8 max-w-lg">
+              Explore authentic quality products from verified manufacturers across Africa. Shop now and bring the
+              spirit of Africa home!
+            </p>
+            <div className="flex flex-wrap gap-4 align-center items-center">
+              <a
+                href="#"
+                className="bg-[#eba91c] hover:bg-amber-600 text-white font-medium py-2 px-6 rounded-md transition-colors"
+              >
+                Start Sourcing
+              </a>
+              <Link to="/reg">
                 <a
                   href="#"
                   className="border border-[black] text-[black] hover:bg-amber-50 font-medium py-2 px-6 rounded-md transition-colors"
                 >
                   Become a supplier
                 </a>
-                </Link>
-              </div>
+              </Link>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-             
-                      <img src={image25} width={300} height={300} alt="" className="rounded-lg w-full h-auto object-cover"/>
-             
-                      <img src={image} width={300} height={300} alt="" className="rounded-lg w-full h-auto object-cover"/>
-             
-                      <img src={image27} width={300} height={300} alt=""className="rounded-lg w-full h-auto mx-auto object-cover col-span-2" />
-            </div>
-          </div>
-        </div>
-      </section>
+          </motion.div>
 
-      {/* Features Section */}
-      <section className="bg-[#5c3c28] text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-center">
-            <div className="flex flex-col items-center">
-              <div className="bg-white rounded-full p-4 mb-4">
-                <MessageCircle className="h-8 w-8 text-[#eba91c]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Global Reach</h3>
-              <p className="text-white text-sm">
-                Connect with verified african <br />suppliers and buyers from around <br /> the world
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="bg-white rounded-full p-4 mb-4">
-                <MessageCircle className="h-8 w-8 text-[#eba91c]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Direct Communication</h3>
-              <p className="text-white text-sm">Built-in messaging system for <br />seamless business negotiations</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="bg-white rounded-full p-4 mb-4">
-                <CheckCircle className="h-8 w-8 text-[#eba91c]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Verified Manufacturers</h3>
-              <p className="text-white text-sm">Access to authenticated African <br /> manufacturing companies</p>
-            </div>
-          </div>
+          {/* Image Column Animation */}
+          <motion.div
+            className="grid grid-cols-2 gap-4"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <img
+              src={image25}
+              width={300}
+              height={300}
+              alt=""
+              className="rounded-lg w-full h-auto object-cover"
+            />
+            <img
+              src={image}
+              width={300}
+              height={300}
+              alt=""
+              className="rounded-lg w-full h-auto object-cover"
+            />
+            <img
+              src={image27}
+              width={300}
+              height={300}
+              alt=""
+              className="rounded-lg w-full h-auto mx-auto object-cover col-span-2"
+            />
+          </motion.div>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <section className="bg-[#5c3c28] text-white py-16">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-center">
+
+          {/* Feature 1 */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
+            <div className="bg-white rounded-full p-4 mb-4">
+              {/* <MessageCircle className="h-8 w-8 text-[#eba91c]" /> */}
+              <img src={fram} alt="" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Global Reach</h3>
+            <p className="text-white text-sm">
+              Connect with verified African <br /> suppliers and buyers from around <br /> the world
+            </p>
+          </motion.div>
+
+          {/* Feature 2 */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeInOut", delay: 0.1 }}
+          >
+            <div className="bg-white rounded-full p-4 mb-4">
+              <MessageCircle className="h-8 w-8 text-[#eba91c]" />
+              
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Direct Communication</h3>
+            <p className="text-white text-sm">
+              Built-in messaging system for <br /> seamless business negotiations
+            </p>
+          </motion.div>
+
+          {/* Feature 3 */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
+          >
+            <div className="bg-white rounded-full p-4 mb-4">
+            <img src={frame} alt="" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Verified Manufacturers</h3>
+            <p className="text-white text-sm">
+              Access to authenticated African <br /> manufacturing companies
+            </p>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
 
       {/* Product Categories */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8">Product Categories</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categories.map((category) => (
-              <div
-                key={category.name}
-                className="border border-[#523523] rounded-lg p-4 flex flex-col items-center hover:shadow-md transition-shadow"
-              >
-                <div className="text-amber-500 mb-2 mr-30">{category.icon}</div>
-                <h3 className="font-medium text-center mb-2 mr-20">{category.name}</h3>
-                <a href="#" className="text-md text-[#523523] flex items-center">
-                  Browse Product <ArrowRight className="h-3 w-3 mr-5" />
-                </a>
-              </div>
-            ))}
-          </div>
+  <div className="container mx-auto px-4">
+    <h2 className="text-2xl font-bold mb-8">Product Categories</h2>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {categories.map((category) => (
+        <div
+          key={category.name}
+          className="border border-[#523523] rounded-lg p-4 flex flex-col items-center 
+                   hover:shadow-md transition-all duration-300 ease-out
+                   transform hover:-translate-y-1 hover:scale-105
+                   opacity-0 animate-fadeInUp"
+          style={{
+            animationFillMode: 'forwards',
+            animationDuration: '0.6s',
+            animationTimingFunction: 'ease-out'
+          }}
+        >
+          <div className="text-amber-500 mb-2">{category.icon}</div>
+          <h3 className="font-medium text-center mb-2">{category.name}</h3>
+          <a href="#" className="text-md text-[#523523] flex items-center">
+            Browse Product <ArrowRight className="h-3 w-3 ml-1" />
+          </a>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+  
+  {/* Add this to your global CSS or Tailwind config */}
+  <style jsx global>{`
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fadeInUp {
+      animation-name: fadeInUp;
+    }
+  `}</style>
+</section>
 
       {/* Bridge Gap Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-normal mb-4 text-center align-center lg:mr-200 ">
-            We bridge the gap{" "}
-            <span className="text-black font-bold">between Africa's top <br />manufacturers and global buyers.</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-            <div className="border rounded-lg overflow-hidden bg-white">
-             
-              <img src={ship} width={500} height={300} alt="Shipping port with containers"  className='w-full h-65 object-cover'/>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">B2B Trade Platform</h3>
-                <p className="text-gray-600">
-                  Meet verified manufacturers for various categories of <br />consumer goods in Africa.
-                </p>
-              </div>
+      <div className="container mx-auto px-4">
+
+        {/* Heading Animation */}
+        <motion.h2
+          className="text-2xl font-normal mb-4 text-left"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          We bridge the gap{" "}
+          <span className="text-black font-bold">
+            between Africa's top <br />
+            manufacturers and global buyers.
+          </span>
+        </motion.h2>
+
+        {/* Card Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          
+          {/* Card 1 */}
+          <motion.div
+            className="border rounded-lg overflow-hidden bg-white"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <img
+              src={ship}
+              width={500}
+              height={300}
+              alt="Shipping port with containers"
+              className="w-full h-65 object-cover"
+            />
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">B2B Trade Platform</h3>
+              <p className="text-gray-600">
+                Meet verified manufacturers for various categories of <br />
+                consumer goods in Africa.
+              </p>
             </div>
-            <div className="border rounded-lg overflow-hidden bg-white">
-             
-               <img src={sew} width={500} height={300} alt="Shipping port with containers"  className='w-full h-65 object-cover'/>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-[#523523]">Source directly from The African Market</h3>
-                <p className="text-gray-600">
-                  Meet verified manufacturers for various categories of consumer <br /> goods in Africa.
-                </p>
-              </div>
+          </motion.div>
+
+          {/* Card 2 */}
+          <motion.div
+            className="border rounded-lg overflow-hidden bg-white"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+          >
+            <img
+              src={sew}
+              width={500}
+              height={300}
+              alt="Sewing production line"
+              className="w-full h-65 object-cover"
+            />
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2 text-[#523523]">
+                Source directly from The African Market
+              </h3>
+              <p className="text-gray-600">
+                Meet verified manufacturers for various categories of consumer <br />
+                goods in Africa.
+              </p>
             </div>
-          </div>
+          </motion.div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* How It Works */}
       <section className="py-16 bg-white">
@@ -350,11 +491,13 @@ const Home = () => {
       <div className="fixed bottom-0 right-6 z-50">
         <button className="bg-amber-500 hover:bg-amber-600 text-white rounded-full p-4 shadow-lg flex items-center">
           <MessageCircle className="h-6 w-6 mr-2" />
-          <span>Live Chat</span>
+          {/* <span>Live Chat</span> */}
         </button>
       </div>
     </main>
     </div>
+    )}
+    </>
   )
 }
 
