@@ -19,11 +19,13 @@ import Order from './Page/Order';
 import SellerDash from './Page/SellerDash';
 import Overvew from './Dashboards/Overvew';
 import SellerProduct from './Dashboards/SellerProduct';
+import ProductForm from './Dashboards/ProductForm';
+import ChatRoom from './Dashboards/ChatRoom';
 
 const App = () => {
   return (
     <div>
-         {/* <AuthProvider>
+         <AuthProvider>
     
       <Router>
       <Routes>
@@ -43,7 +45,7 @@ const App = () => {
     
       </Routes>
       </Router>
-      </AuthProvider> */}
+      </AuthProvider>
       {/* <RegisterTest/> */}
       {/* <Product/> */}
       {/* <BuyerDash/> */}
@@ -51,7 +53,9 @@ const App = () => {
       {/* <SellerDash/> */}
       {/* <Chartbar/> */}
       {/* <Companyinfo/> */}
-      <SellerProduct/>
+      {/* <SellerProduct/> */}
+      {/* <ProductForm/> */}
+      {/* <ChatRoom/> */}
       
 
       

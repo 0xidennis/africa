@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react";
 import Header from '../Statics/Header';
+import SubNav from "../Statics/SubNav";
 
 const Layout = ({ children }) => {
     useEffect(() => {
@@ -19,6 +20,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Header />
+      <SubNav/>
       <main>{children}</main>
     </div>
   )
