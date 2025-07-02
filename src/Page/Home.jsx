@@ -7,6 +7,7 @@ import image from '../assets/image.png'
 import fram from '../assets/frame.png'
 import image27 from '../assets/image 27.png'
 import Layout from '../Layout/Layout'
+import Footer from '../Statics/Footer'
 import vect from '../assets/vect.png'
 import watch from '../assets/watch.png'
 import bags from '../assets/bags.png'
@@ -302,80 +303,150 @@ const Home = () => {
 
       {/* How It Works */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-12 text-center text-[#523523]">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-[#523523] rounded-full p-4 mb-4">
-                <Search className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Search & Discover:</h3>
-              <p className="text-gray-600 text-md">
-                Use our intuitive search to find <br />manufacturers and products <br /> tailored to your needs.
-              </p>
+      <div className="container mx-auto px-4">
+
+        {/* Section Title */}
+        <motion.h2
+          className="text-2xl font-bold mb-12 text-center text-[#523523]"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          How It Works
+        </motion.h2>
+
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          {/* Step 1 */}
+          <motion.div
+            className="flex flex-col items-center text-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-[#523523] rounded-full p-4 mb-4 transition-transform duration-300 ease-out hover:scale-110">
+              <Search className="h-6 w-6 text-white" />
             </div>
-            <div className="flex flex-col items-center text-center relative">
-              <div className="hidden md:block absolute top-8 -left-16 w-32">
-                <ArrowRight className="h-6 w-6 text-[#523523]" />
-              </div>
-              <div className="bg-[#523523] rounded-full p-4 mb-4">
-                <MessageCircle className="h-6 w-6 text-[white]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Connect Instantly</h3>
-              <p className="text-gray-600 text-md">
-                Initiate conversations with <br /> manufacturers through our <br /> built-in chat feature.
-              </p>
+            <h3 className="text-lg font-semibold mb-2">Search & Discover:</h3>
+            <p className="text-gray-600 text-md">
+              Use our intuitive search to find <br />
+              manufacturers and products <br />
+              tailored to your needs.
+            </p>
+          </motion.div>
+
+          {/* Step 2 */}
+          <motion.div
+            className="flex flex-col items-center text-center relative"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <div className="hidden md:block absolute top-8 -left-16 w-32">
+              <ArrowRight className="h-6 w-6 text-[#523523]" />
             </div>
-            <div className="flex flex-col items-center text-center relative">
-              <div className="hidden md:block absolute top-8 -left-16 w-32">
-                <ArrowRight className="h-6 w-6 text-[#523523]" />
-              </div>
-              <div className="bg-[#523523] rounded-full p-4 mb-4">
-                <CheckCircle className="h-6 w-6 text-[white]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Build Partnerships:</h3>
-              <p className="text-gray-600 text-md">Start meaningful collaborations <br />that drive success.</p>
+            <div className="bg-[#523523] rounded-full p-4 mb-4 transition-transform duration-300 ease-out hover:scale-110">
+              <MessageCircle className="h-6 w-6 text-white" />
             </div>
-          </div>
+            <h3 className="text-lg font-semibold mb-2">Connect Instantly</h3>
+            <p className="text-gray-600 text-md">
+              Initiate conversations with <br />
+              manufacturers through our <br />
+              built-in chat feature.
+            </p>
+          </motion.div>
+
+          {/* Step 3 */}
+          <motion.div
+            className="flex flex-col items-center text-center relative"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="hidden md:block absolute top-8 -left-16 w-32">
+              <ArrowRight className="h-6 w-6 text-[#523523]" />
+            </div>
+            <div className="bg-[#523523] rounded-full p-4 mb-4 transition-transform duration-300 ease-out hover:scale-110">
+              <CheckCircle className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Build Partnerships:</h3>
+            <p className="text-gray-600 text-md">
+              Start meaningful collaborations <br />
+              that drive success.
+            </p>
+          </motion.div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* E-Magazine Section */}
       <section className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-4">
-                Explore Africa's Marketplace-
-                <br />
-                Download Our Free E-Magazine
-              </h2>
-              <p className="text-gray-300 mb-6">
-                Discover exclusive content, interviews with top brands, and expert insights into Africa's booming
-                e-commerce scene. Click here to download the latest issue.
-              </p>
-              <a
-                href="#"
-                className="bg-white text-gray-900 hover:bg-gray-100 font-medium py-2 px-6 rounded-md transition-colors inline-block"
-              >
-                Download
-              </a>
-            </div>
-            <div className=" flex justify-center ">
-   
-              {/* <div className="bg-[url('./assets/Africa.png')] bg-cover bg-center h-[50vh] w-[60%] ml-65">
-              <img src={magazine} width={500} height={300} alt="magazine"  className='w-100 h-50 ml-[-400] lg:h-100 lg:max-w-full'/>
-              </div> */}
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
-            </div>
-          </div>
+          {/* Text Block Animation */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-4">
+              Explore Africa's Marketplace-
+              <br />
+              Download Our Free E-Magazine
+            </h2>
+            <p className="text-gray-300 mb-6">
+              Discover exclusive content, interviews with top brands, and expert insights into Africa's booming
+              e-commerce scene. Click here to download the latest issue.
+            </p>
+            <a
+              href="#"
+              className="bg-white text-gray-900 hover:bg-gray-100 font-medium py-2 px-6 rounded-md transition-colors inline-block"
+            >
+              Download
+            </a>
+          </motion.div>
+
+          {/* Image Block Animation */}
+          <motion.div
+            className="flex justify-center"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <img
+              src={magazine}
+              width={500}
+              height={300}
+              alt="magazine"
+              className="w-[80%] h-auto object-contain"
+            />
+          </motion.div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Business?</h2>
+      <div className="container mx-auto px-4 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Transform Your Business?
+          </h2>
           <p className="text-[#523523] mb-8 max-w-2xl mx-auto text-md">
             Join thousands of businesses already connecting and trading on <br /> FromAfrica
           </p>
@@ -385,11 +456,12 @@ const Home = () => {
           >
             Get started Now
           </a>
-        </div>
-      </section>
+        </motion.div>
+      </div>
+    </section>
 
       {/* Footer */}
-      <footer className="bg-[#5c3c28] text-white">
+      {/* <footer className="bg-[#5c3c28] text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -485,8 +557,8 @@ const Home = () => {
             <p>© 2025 fromafrica2b.com. All rights reserved.</p>
           </div>
         </div>
-      </footer>
-
+      </footer> */}
+       <Footer/>
       {/* Live Chat Button */}
       <div className="fixed bottom-0 right-6 z-50">
         <button className="bg-amber-500 hover:bg-amber-600 text-white rounded-full p-4 shadow-lg flex items-center">

@@ -88,7 +88,7 @@ const Footer = () => {
                             </div>
                           </div>
                   
-                          <div className="border-t border-[#6d4c31] mt-8 pt-6 text-sm text-center md:text-right">
+                          <div className="border-t border-[#6d4c31] mt-8 pt-6 text-sm text-center lg:text-center md:text-right">
                             © 2025 fromafricab2b.com. All rights reserved.
                           </div>
                         </div>

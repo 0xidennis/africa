@@ -30,10 +30,16 @@ export function AuthProvider({ children }) {
       });
 
       const data = await response.json();
+      console.log('Login response:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
+
+       // Validate required fields exist
+    // if (!data.email || !data.role || !data.token) {
+    //   throw new Error('Incomplete user data received from server');
+    // }
 
       // Set user data after successful login
       setUser({
