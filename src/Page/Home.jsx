@@ -4,7 +4,7 @@ import { Search, MessageCircle, CheckCircle, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion";
 import frame from '../assets/image/picture.png'
 import image from '../assets/image.png'
-import fram from '../assets/frame.png'
+import fram from '../assets/wold.png'
 import image27 from '../assets/image 27.png'
 import Layout from '../Layout/Layout'
 import Footer from '../Statics/Footer'
