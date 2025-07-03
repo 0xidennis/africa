@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from "react"
 import { Search, Phone, Video, Settings, Smile, Paperclip, VideoIcon, Send, Download } from "lucide-react"
 import MessageHeader from './MessageHeader'
-import BuyerNav from './BuyerNav'
-import BuyerSideBar from './BuyerSideBar'
+import BuyerNav from '../Buyerdash/BuyerNav'
+import BuyerSideBar from '../Buyerdash/BuyerSideBar'
 
 const ChatRoom = () => {
     const [selectedChat, setSelectedChat] = useState(0)
