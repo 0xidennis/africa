@@ -4,19 +4,19 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ProgressCard = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const cards = [
         {
           title: "Business Information",
           status: "completed",
           completed: true,
-          path: "/business-info" 
+          path: "/businessinfo" 
         },
         {
           title: "Company Information",
           status: "pending",
           completed: false,
-          path: "/company-info"
+          path: "/companyinfo"
         },
       ]
       const handleCardClick = (path) => {

@@ -16,9 +16,10 @@ export function AuthProvider({ children }) {
 
   
   // Login function
-  const login = async (email, password) => {
+  const login = async (email, password,userData) => {
     setLoading(true);
     setError(null);
+    
     
     try {
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/login', {
@@ -35,6 +36,7 @@ export function AuthProvider({ children }) {
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
+      
 
        // Validate required fields exist
     // if (!data.email || !data.role || !data.token) {

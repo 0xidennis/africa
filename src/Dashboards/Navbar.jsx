@@ -1,8 +1,21 @@
 import React from 'react'
 import { Search, Bell, Mail, Menu } from "lucide-react"
+import { useAuth } from '../context/AuthContext';
 import boy from '../assets/image/images 1.png'
 
 const Navbar = ({ onMenuClick }) => {
+  const { user } = useAuth();
+
+  // Function to get initials from fullName
+  const getInitials = (name) => {
+    if (!name) return 'AB'; // Default initials
+    return name
+      .split(' ')
+      .map(part => part[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
   return (
     <header className="bg-gray-50 px-4 lg:px-6 py-4">
     <div className="flex items-center justify-between">
@@ -33,7 +46,7 @@ const Navbar = ({ onMenuClick }) => {
           <Mail size={20} className="text-gray-600" />
         </button>
 
-        <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
+        {/* <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
           <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center">
             <span className="text-white font-semibold text-sm">AB</span>
           </div>
@@ -41,7 +54,22 @@ const Navbar = ({ onMenuClick }) => {
             <div className="font-semibold text-gray-900 text-sm">Ade Batife John</div>
             <div className="text-gray-500 text-xs">adebatifejohn@gmail.com</div>
           </div>
-        </div>
+        </div> */}
+             <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
+            <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center">
+              <span className="text-white font-semibold text-sm">
+                {getInitials(user?.fullName)}
+              </span>
+            </div>
+            <div className="hidden sm:block">
+              <div className="font-semibold text-gray-900 text-sm">
+                {user?.fullName || 'User'}
+              </div>
+              <div className="text-gray-500 text-xs">
+                {user?.email || 'user@example.com'}
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </header>

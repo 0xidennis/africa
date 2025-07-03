@@ -56,7 +56,7 @@ const Businexinfo =()=>{
       };
   
       await completeRegistration(completeUserData);
-      navigate('/dashboard');
+      navigate('/sellerdash');
     } catch (err) {
       console.error('Registration completion error:', err);
       setError(err.message || "Registration failed");

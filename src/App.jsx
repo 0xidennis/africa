@@ -21,6 +21,7 @@ import Overvew from './Dashboards/Overvew';
 import SellerProduct from './Dashboards/SellerProduct';
 import ProductForm from './Dashboards/ProductForm';
 import ChatRoom from './Dashboards/ChatRoom';
+import ProgressCard from './Dashboards/ProgressCard';
 
 const App = () => {
   return (
@@ -42,6 +43,8 @@ const App = () => {
           <Route path="/buyerdash" element={<BuyerDash/>} />
           <Route path="/messages" element={<ChatRoom/>} />
           <Route path="/orders" element={<Order/>} />
+          <Route path="/sellerdash" element={<SellerDash/>} />
+          <Route path="/progresscard" element={<ProgressCard/>} />
           
       < Route path="/Verification" element={<Verification/>}/>
     
