@@ -2,11 +2,14 @@ import React from 'react'
 import { useState } from "react"
 import { Search, Phone, Video, Settings, Smile, Paperclip, VideoIcon, Send, Download } from "lucide-react"
 import MessageHeader from './MessageHeader'
+import BuyerNav from './BuyerNav'
+import BuyerSideBar from './BuyerSideBar'
 
 const ChatRoom = () => {
     const [selectedChat, setSelectedChat] = useState(0)
   const [message, setMessage] = useState("")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const contacts = [
     {
@@ -108,6 +111,21 @@ const ChatRoom = () => {
 
   return (
     <div>
+         <div className="flex min-h-screen bg-gray-50">
+      {/* Sidebar */}
+      <BuyerSideBar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <BuyerNav onMenuClick={() => setSidebarOpen(true)} />
+        
+      </div>
+
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+      )}
+    </div>
         <MessageHeader/>
      <div className="flex h-screen bg-gray-50">
       {/* Sidebar - Contacts List */}
