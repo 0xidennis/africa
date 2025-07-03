@@ -2,7 +2,7 @@ import React from 'react'
 import image25 from '../assets/image 25.png'
 import { Search, MessageCircle, CheckCircle, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion";
-import frame from '../assets/image/fram.png'
+import frame from '../assets/image/picture.png'
 import image from '../assets/image.png'
 import fram from '../assets/frame.png'
 import image27 from '../assets/image 27.png'
@@ -16,7 +16,6 @@ import skinscare from '../assets/skinscare.png'
 import ship from '../assets/image/image 12.png'
 import sew from '../assets/image/sew.png'
 import magazine from '../assets/image/magazine.png'
-import logo from '../assets/logo/from.png'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import LoadingSpinner from '../Spinner/LoadingSpinner';
