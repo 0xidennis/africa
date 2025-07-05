@@ -3,6 +3,7 @@ import React, { createContext, useContext,useEffect,useState } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+// export const useProducts = () => useContext(ProductContext);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -350,12 +351,11 @@ const completeRegistration = async (completeUserData) => {
       }
     };
 
-    // Function to fetch all products
-  const fetchProducts = async () => {
+  const fetchProducts = async () =>{
     try {
       setLoading(true);
-      const response = await axios.get('/api/products');
-      setProducts(response.data);
+      const res = await axios.get("http://localhost:3000/api/v1/get-all-products");
+      setProducts(res.data);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -363,22 +363,20 @@ const completeRegistration = async (completeUserData) => {
     }
   };
 
-  // Function to add a new product
-  const addProduct = async (productData) => {
+  const addProduct = async (formData) => {
     try {
       setLoading(true);
-      const response = await axios.post( 'http://localhost:3000/api/v1/addProduct', productData);
-      setProducts(prev => [...prev, response.data]);
-      return response.data; // Return the created product
+      const res = await axios.post("http://localhost:3000/api/v1/addProduct", formData);
+      setProducts((prev) => [...prev, res.data]);
     } catch (err) {
       setError(err.message);
-      throw err; // Re-throw to handle in component
     } finally {
       setLoading(false);
     }
   };
-
-  ;
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const value = {
     user,

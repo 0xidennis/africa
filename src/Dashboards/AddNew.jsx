@@ -1,7 +1,9 @@
 import React from 'react'
 import { Search, MoreHorizontal, Download, Plus } from "lucide-react"
+import { useNavigate } from "react-router-dom";
 
 const AddNew = () => {
+  const navigate = useNavigate();
   return (
     <div>
         <div className="min-h-screen bg-gray-50">
@@ -45,7 +47,7 @@ const AddNew = () => {
         <div className="text-center max-w-md mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">No Product Available</h2>
           <p className="text-gray-600 mb-8 text-sm sm:text-base">Add new products to this section to get started</p>
-          <button className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200">
+          <button className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200" onClick={() => navigate("/productform")}>
             <Plus className="h-5 w-5 mr-2" />
             Add Products
           </button>

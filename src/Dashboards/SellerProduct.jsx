@@ -1,7 +1,10 @@
 import React from 'react'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, MoreHorizontal, Download, Grid3x3, List, Filter } from "lucide-react"
 import ProductHeader from './ProductHeader'
+import { useAuth} from '../context/AuthContext'
+import { useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom"
 
 const products = [
     {
@@ -80,18 +83,16 @@ const products = [
 
 const SellerProduct = () => {
     const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab,products, loading, error, fetchProducts] = useState("ALL PRODUCTS")
+  const [activeTab, setActiveTab] = useState("ALL PRODUCTS")
   const [selectedFilters, setSelectedFilters] = useState([])
   const [viewMode, setViewMode] = useState("grid")
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   // const { products, loading, error, fetchProducts } = useProducts();
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const { products, loading, error } = useAuth();
+  const navigate = useNavigate();
 
-  if (loading) return <div>Loading products...</div>;
-  if (error) return <div>Error: {error}</div>;
+ 
 
   const tabs = [
     { name: "ALL PRODUCTS", count: 120 },
@@ -109,7 +110,7 @@ const SellerProduct = () => {
     setSelectedFilters([])
   }
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = (products || []).filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesFilter = selectedFilters.length === 0 || selectedFilters.includes(product.category)
     const matchesTab =
@@ -118,6 +119,12 @@ const SellerProduct = () => {
       (activeTab === "DISABLED" && product.status === "Disabled")
     return matchesSearch && matchesFilter && matchesTab
   })
+  useEffect(() => {
+    if (!loading && products.length === 0) {
+      navigate("/sellerproductpage");
+    }
+  }, [products, loading, navigate]);
+  
   return (
     <div>
          <ProductHeader/>
@@ -148,9 +155,11 @@ const SellerProduct = () => {
                 <Download className="w-4 h-4" />
                 <span className="hidden sm:inline">Export Products</span>
               </button>
+              <Link to="/sellerform">
               <button className="px-4 py-2 bg-[#eba91c] text-white rounded-lg hover:bg-[#f3b530] transition-colors">
                 Add Product
               </button>
+              </Link>
             </div>
           </div>
         </div>

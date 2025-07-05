@@ -4,10 +4,11 @@ import { useState } from "react"
 import { ChevronDownIcon, XMarkIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline"
 import CreateFormHeader from './CreateFormHeader'
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from '../context/ProductContext';
+import { useAuth} from '../context/AuthContext';
+
 
 const ProductForm = () => {
-  const { addProduct } = useProducts();
+  const { addProduct } = useAuth();
   const navigate = useNavigate();
     const [formData, setFormData] = useState({
         productName: "",
@@ -28,82 +29,64 @@ const ProductForm = () => {
 
       
     
-      const [dragActive, setDragActive] = useState(false)
+      const [dragActive, setDragActive] = useState(false);
+      const [files, setFiles] = useState([]);
     
       const handleInputChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         setFormData((prev) => ({
           ...prev,
           [name]: value,
-        }))
-      }
+        }));
+      };
     
       const handleTagRemove = (tagToRemove) => {
         setFormData((prev) => ({
           ...prev,
           tags: prev.tags.filter((tag) => tag !== tagToRemove),
-        }))
-      }
+        }));
+      };
     
-      const handleDrag = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        if (e.type === "dragenter" || e.type === "dragover") {
-          setDragActive(true)
-        } else if (e.type === "dragleave") {
-          setDragActive(false)
-        }
-      }
+      const handleFileChange = (e) => {
+        const newFiles = Array.from(e.target.files);
+        setFiles((prev) => [...prev, ...newFiles]);
+      };
+    
+      const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(true);
+      };
+    
+      const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+      };
     
       const handleDrop = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setDragActive(false)
-        // Handle file drop logic here
-      }
-
-      
-  const handleFileChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    setFiles(prev => [...prev, ...newFiles]);
-  };
-     const [files , setFiles] = useState([])
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+    
+        const droppedFiles = Array.from(e.dataTransfer.files);
+        setFiles((prev) => [...prev, ...droppedFiles]);
+      };
+    
+      const handleCancel = () => {
+        navigate("/sellerproductpage");
+      };
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        try {
-          // Create FormData for file uploads
-          const formDataToSend = new FormData();
-          
-          // Append all form fields
-          Object.entries(formData).forEach(([key, value]) => {
-            if (key === 'tags') {
-              formDataToSend.append(key, JSON.stringify(value));
-            } else {
-              formDataToSend.append(key, value);
-            }
-          });
-          
-          // Append all files
-          files.forEach(file => {
-            formDataToSend.append('images', file);
-          });
     
-          // Add the product
-          await addProduct(formDataToSend);
-          
-          // Redirect to products page on success
-          navigate('/products');
-        } catch (error) {
-          console.error('Error adding product:', error);
-          // You can add error handling UI here
-        }
+        // Optional: You might want to attach files to formData here!
+        console.log(formData, files);
+    
+        await addProduct(formData);
+        navigate("/sellerproductpage");
       };
-      const handleCancel = () => {
-        console.log("Form cancelled")
-      }
-
+    
       
     
   return (
@@ -298,14 +281,15 @@ const ProductForm = () => {
                 className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                   dragActive ? "border-blue-400 bg-blue-50" : "border-gray-300 hover:border-gray-400"
                 }`}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragOver}
+                onDragLeave={handleDragLeave}
+                
                 onDrop={handleDrop}
               >
                 <CloudArrowUpIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                 <p className="text-gray-600">Drop files here or click to upload</p>
-                <input type="file" multiple accept="image/*" className="hidden" id="file-upload" />
+                <input type="file" multiple accept="image/*" className="hidden" id="file-upload"  onChange={handleFileChange} />
                 <label
                   htmlFor="file-upload"
                   className="cursor-pointer inline-block mt-2 text-blue-600 hover:text-blue-700"
@@ -316,6 +300,18 @@ const ProductForm = () => {
             </div>
           </div>
         </div>
+
+          {/* Show uploaded files */}
+          {files.length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="font-medium text-gray-800">Selected Files:</h4>
+                    <ul className="list-disc ml-6 text-sm text-gray-600">
+                      {files.map((file, idx) => (
+                        <li key={idx}>{file.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
         {/* Publish Section */}
         <div className="mt-8 pt-6 border-t border-gray-200">

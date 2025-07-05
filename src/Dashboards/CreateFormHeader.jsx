@@ -3,7 +3,7 @@ import React from 'react'
 const CreateFormHeader = () => {
   return (
     <div>
-          <div className="w-full bg-white ml-4 lg:ml-6">
+          <div className="w-full  bg-gray-50 ml-4 lg:ml-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
         {/* Breadcrumb Navigation */}
         <nav className="mb-6 sm:mb-8">

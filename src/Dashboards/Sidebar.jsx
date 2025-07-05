@@ -1,12 +1,13 @@
 import React, { useState, useEffect, } from "react";
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo/from.png'
 import { Building2, BarChart3, Package, MessageSquare, ShoppingCart, HelpCircle, ChevronDown, X } from "lucide-react"
 
 const Sidebar = ({ isOpen, onClose }) => {
   const menuItems = [
-    { icon: Building2, label: "Business", active: true },
+    { icon: Building2, label: "Business", active: true, path: "/business" },
     { icon: BarChart3, label: "Overview", active: false },
-    { icon: Package, label: "Product", active: false, hasDropdown: true },
+    { icon: Package, label: "Product", active: false, hasDropdown: true, path: "/sellerproduct" },
     { icon: MessageSquare, label: "Messages", active: false },
     { icon: ShoppingCart, label: "Order", active: false },
     { icon: HelpCircle, label: "Support", active: false },
@@ -39,6 +40,11 @@ const Sidebar = ({ isOpen, onClose }) => {
        {/* Navigation */}
        <nav className="flex-1 px-4 space-y-2">
          {menuItems.map((item, index) => (
+           <Link 
+           to={item.path} 
+           key={index}
+           className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}
+         >
            <div key={index}>
              <button
                className={`
@@ -53,6 +59,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                {item.hasDropdown && <ChevronDown size={16} />}
              </button>
            </div>
+           </Link>
          ))}
        </nav>
      </div>

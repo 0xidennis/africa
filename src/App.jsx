@@ -23,11 +23,14 @@ import ProductForm from './Dashboards/ProductForm';
 import ChatRoom from './Dashboards/ChatRoom';
 import ProgressCard from './Dashboards/ProgressCard';
 import SellerInfo from './Dashboards/SellerInfo';
+import SellerProductPage from './Page/SellerProductPage';
+import AddNew from './Dashboards/AddNew';
+import Sellerformpage from './Page/Sellerformpage';
 
 const App = () => {
   return (
     <div>
-         {/* <AuthProvider>
+         <AuthProvider>
     
       <Router>
       <Routes>
@@ -47,12 +50,18 @@ const App = () => {
           <Route path="/sellerdash" element={<SellerDash/>} />
           <Route path="/progresscard" element={<ProgressCard/>} />
           <Route path="/businessinfo" element={<SellerInfo/>} />
+          <Route path="/productform" element={<ProductForm/>} />
+          <Route path="/product" element={<Product/>} />
+          <Route path="/sellerproductpage" element={<SellerProductPage/>} />
+          <Route path="/sellerproduct" element={<SellerProduct/>} />
+          <Route path="/addnew" element={<AddNew/>} />
+          <Route path="/sellerform" element={<Sellerformpage/>} />
           
       < Route path="/Verification" element={<Verification/>}/>
     
       </Routes>
       </Router>
-      </AuthProvider> */}
+      </AuthProvider>
       {/* <RegisterTest/> */}
       {/* <Product/> */}
       {/* <BuyerDash/> */}
@@ -61,7 +70,7 @@ const App = () => {
       {/* <Chartbar/> */}
       {/* <Companyinfo/> */}
       {/* <SellerProduct/> */}
-      <ProductForm/>
+      {/* <ProductForm/> */}
       {/* <ChatRoom/> */}
       
 
