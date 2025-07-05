@@ -1,26 +1,35 @@
-import React from 'react'
-import { useState } from "react"
+
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth} from '../context/AuthContext';
 
 const SellerInfo = () => {
-    const [formData, setFormData] = useState({
-        businessName: "3C Fashion STore",
-        ownerName: "3C Fashion STore",
-        country: "Nigeria",
-        phoneNumber: "3C Fashion STore",
-        officeAddress: "3C Fashion STore",
-      })
-      const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
-      };
-      
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted:", formData);
-      };
+  const { registrationData, updateBusinessInfo, setActiveCard } = useAuth();
+  const navigate = useNavigate();
+  
+  const [formData, setFormData] = useState(registrationData.businessInfo);
+
+  useEffect(() => {
+    setActiveCard(0); // Set Business Info as active card
+  }, [setActiveCard]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateBusinessInfo(formData);
+      navigate('/progresscard');
+    } catch (error) {
+      console.error("Failed to save business info:", error);
+    }
+  };
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
       <div className="mb-6">

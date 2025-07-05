@@ -80,10 +80,18 @@ const products = [
 
 const SellerProduct = () => {
     const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab] = useState("ALL PRODUCTS")
+  const [activeTab, setActiveTab,products, loading, error, fetchProducts] = useState("ALL PRODUCTS")
   const [selectedFilters, setSelectedFilters] = useState([])
   const [viewMode, setViewMode] = useState("grid")
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  // const { products, loading, error, fetchProducts } = useProducts();
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  if (loading) return <div>Loading products...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   const tabs = [
     { name: "ALL PRODUCTS", count: 120 },

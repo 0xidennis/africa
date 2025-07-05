@@ -1,5 +1,6 @@
 // context/AuthContext.js
 import React, { createContext, useContext,useEffect,useState } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -9,6 +10,7 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState(null);
   const [emailForVerification, setEmailForVerification] = useState('');
   const [role, setRole] = useState(''); // 'seller' or 'buyer'
+  const [products, setProducts] = useState([]);
 
 
 
@@ -287,6 +289,95 @@ const completeRegistration = async (completeUserData) => {
       }
     }
 
+    const [registrationData, setRegistrationData] = useState({
+      businessInfo: {
+        businessName: "",
+        ownerName: "",
+        country: "",
+        phoneNumber: "",
+        officeAddress: "",
+        completed: false
+      },
+      companyInfo: {
+        companyName: "",
+        registrationNumber: "",
+        cacNumber: "",
+        certificate: "",
+        tin: "",
+        completed: false
+      }
+    });
+  
+    const [activeCard, setActiveCard] = useState(null);
+  
+    const updateBusinessInfo = async (data) => {
+      try {
+        // API call to save business info
+        const response = await axios.post('http://localhost:3000/api/v1/edit-business-info', data);
+        
+        setRegistrationData(prev => ({
+          ...prev,
+          businessInfo: {
+            ...data,
+            completed: true
+          }
+        }));
+        
+        return response.data;
+      } catch (error) {
+        console.error("Error saving business info:", error);
+        throw error;
+      }
+    };
+  
+    const updateCompanyInfo = async (data) => {
+      try {
+        // API call to save company info
+        const response = await axios.post('http://localhost:3000/api/v1/edit-company-info', data);
+        
+        setRegistrationData(prev => ({
+          ...prev,
+          companyInfo: {
+            ...data,
+            completed: true
+          }
+        }));
+        
+        return response.data;
+      } catch (error) {
+        console.error("Error saving company info:", error);
+        throw error;
+      }
+    };
+
+    // Function to fetch all products
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('/api/products');
+      setProducts(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Function to add a new product
+  const addProduct = async (productData) => {
+    try {
+      setLoading(true);
+      const response = await axios.post( 'http://localhost:3000/api/v1/addProduct', productData);
+      setProducts(prev => [...prev, response.data]);
+      return response.data; // Return the created product
+    } catch (err) {
+      setError(err.message);
+      throw err; // Re-throw to handle in component
+    } finally {
+      setLoading(false);
+    }
+  };
+
   ;
 
   const value = {
@@ -302,7 +393,15 @@ const completeRegistration = async (completeUserData) => {
     completeRegistration,
     role,
     setError,
-    setUser
+    setUser,
+    registrationData,
+        activeCard,
+        setActiveCard,
+        updateBusinessInfo,
+        updateCompanyInfo,
+        fetchProducts,
+        addProduct,
+        products
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -3,8 +3,12 @@ import React from 'react'
 import { useState } from "react"
 import { ChevronDownIcon, XMarkIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline"
 import CreateFormHeader from './CreateFormHeader'
+import { useNavigate } from 'react-router-dom';
+import { useProducts } from '../context/ProductContext';
 
 const ProductForm = () => {
+  const { addProduct } = useProducts();
+  const navigate = useNavigate();
     const [formData, setFormData] = useState({
         productName: "",
         productDescription: "",
@@ -21,6 +25,8 @@ const ProductForm = () => {
         visibility: "Public",
         publishSchedule: "",
       })
+
+      
     
       const [dragActive, setDragActive] = useState(false)
     
@@ -55,15 +61,50 @@ const ProductForm = () => {
         setDragActive(false)
         // Handle file drop logic here
       }
+
+      
+  const handleFileChange = (e) => {
+    const newFiles = Array.from(e.target.files);
+    setFiles(prev => [...prev, ...newFiles]);
+  };
+     const [files , setFiles] = useState([])
     
-      const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log("Form submitted:", formData)
-      }
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+          // Create FormData for file uploads
+          const formDataToSend = new FormData();
+          
+          // Append all form fields
+          Object.entries(formData).forEach(([key, value]) => {
+            if (key === 'tags') {
+              formDataToSend.append(key, JSON.stringify(value));
+            } else {
+              formDataToSend.append(key, value);
+            }
+          });
+          
+          // Append all files
+          files.forEach(file => {
+            formDataToSend.append('images', file);
+          });
     
+          // Add the product
+          await addProduct(formDataToSend);
+          
+          // Redirect to products page on success
+          navigate('/products');
+        } catch (error) {
+          console.error('Error adding product:', error);
+          // You can add error handling UI here
+        }
+      };
       const handleCancel = () => {
         console.log("Form cancelled")
       }
+
+      
     
   return (
     <div className='overflow-hidden'>
