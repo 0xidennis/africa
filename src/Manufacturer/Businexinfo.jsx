@@ -7,6 +7,15 @@ import { useAuth } from '../context/AuthContext';
 import { Link,useLocation,useNavigate} from 'react-router-dom';
 
 const Businexinfo =()=>{
+  const { 
+    tempSellerData,
+    completeSellerRegistration,
+    user, 
+    loading, 
+    error, 
+    completeRegistration, 
+    setError 
+  } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const personalInfo = location.state?.personalInfo;
@@ -15,7 +24,7 @@ const Businexinfo =()=>{
     if (!personalInfo) {
       navigate('/seller');
     }
-  }, [personalInfo, navigate]);
+  }, [tempSellerData, navigate]);
 
 
   const [formData, setFormData] = useState({
@@ -26,13 +35,7 @@ const Businexinfo =()=>{
     socialMedia: "",
   });
 
-  const { 
-    user, 
-    loading, 
-    error, 
-    completeRegistration, 
-    setError 
-  } = useAuth();
+ 
   
 
   const handleChange = (e) => {
@@ -43,23 +46,20 @@ const Businexinfo =()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!personalInfo) {
-      setError("Missing personal information. Please start from the beginning.");
-      return;
-    }
-
     try {
-      // Combine personal and business info
-      const completeUserData = {
-        ...personalInfo,
-        ...formData
-      };
-  
-      await completeRegistration(completeUserData);
+      // Verify password is still available
+      if (!tempSellerData?.password) {
+        throw new Error("Session expired. Please start registration again.");
+      }
+
+      // Submit all data
+      await completeSellerRegistration(formData);
+      
+      // Redirect to dashboard
       navigate('/sellerdash');
     } catch (err) {
-      console.error('Registration completion error:', err);
       setError(err.message || "Registration failed");
+      console.error('Registration error:', err);
     }
   };
 

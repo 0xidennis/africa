@@ -7,7 +7,7 @@ import Navbar from '../Dashboards/Navbar'
 const Sellerformpage = () => {
        const [sidebarOpen, setSidebarOpen] = useState(false)
   return (
-         <div>
+         
         <div>
          <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
@@ -23,7 +23,6 @@ const Sellerformpage = () => {
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
-    </div>
     </div>
     </div>
     

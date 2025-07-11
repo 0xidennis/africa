@@ -23,6 +23,7 @@ const Personalinfo = () => {
 
  // components/Personalinfo.js
 const { 
+  saveTempSellerData,
   user, 
   emailForVerification, 
   loading, 
@@ -54,7 +55,13 @@ const handleNext = (e) => {
   if (Object.values(newErrors).some(error => error)) {
     return;
   }
-
+  saveTempSellerData({
+    email,
+    role,
+    fullName: formData.fullName,
+    phoneNo: formData.phoneNo,
+    password: formData.password
+  });
   
   navigate('/businexinfo', { 
     state: { 

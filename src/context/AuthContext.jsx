@@ -6,12 +6,32 @@ const AuthContext = createContext();
 // export const useProducts = () => useContext(ProductContext);
 
 export function AuthProvider({ children }) {
+  const [registrationData, setRegistrationData] = useState({
+    businessInfo: {
+      businessName: "",
+      ownerName: "",
+      country: "",
+      phoneNumber: "",
+      officeAddress: "",
+      completed: false
+    },
+    companyInfo: {
+      companyName: "",
+      registrationNumber: "",
+      cacNumber: "",
+      certificate: "",
+      tin: "",
+      completed: false
+    }
+  });
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [emailForVerification, setEmailForVerification] = useState('');
   const [role, setRole] = useState(''); // 'seller' or 'buyer'
   const [products, setProducts] = useState([]);
+  const [tempSellerData, setTempSellerData] = useState(null);
+  
 
 
 
@@ -19,54 +39,30 @@ export function AuthProvider({ children }) {
 
   
   // Login function
-  const login = async (email, password,userData) => {
+  const login = async (email, password) => {
     setLoading(true);
     setError(null);
-    
-    
+  
     try {
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await response.json();
-      console.log('Login response:', data);
-
+  
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
-      
-
-       // Validate required fields exist
-    // if (!data.email || !data.role || !data.token) {
-    //   throw new Error('Incomplete user data received from server');
-    // }
-
-      // Set user data after successful login
-      setUser({
-        email: data.email,
-        role: data.role,
-        token: data.token,
-        fullName: data.fullName,
-        companyName: data.companyName
-      });
-      // store user data in localStorage
-      localStorage.setItem('user', JSON.stringify({
-        email: data.email,
-        role: data.role,
-        token: data.token,
-        fullName: data.fullName,
-        companyName: data.companyName
-      }));
-      
+  
+      setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
+  
       return data;
     } catch (err) {
       setError(err.message || 'An error occurred during login');
-      console.error('Login error:', err);
+      console.error(err);
       throw err;
     } finally {
       setLoading(false);
@@ -80,180 +76,178 @@ export function AuthProvider({ children }) {
     }
   }, []);
   // Registration function
-  const register = async (email, role ,) => {
+  const register = async (email, role) => {
     setLoading(true);
     setError(null);
-    setUser({ email, role }); // Ensure user always has email
-    
+  
     try {
-      // Call your registration API here
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/initiateRegistration', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, role }),
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok) {
         throw new Error(data.message || 'Registration failed');
       }
-      
-      // Store email and role for verification
+  
       setEmailForVerification(email);
       setRole(role);
-
-      // If registration is successful
-      setUser({ email, role });
+      setTempSellerData({ email, role });
+  
       return data;
     } catch (err) {
       setError(err.message || 'An error occurred during registration');
-      console.error('Registration error:', err);
-    } finally {
-      setLoading(false);
-    }
-  }
-  // Password confirmation function
-  const confirmPassword = async (email, password, confirmPassword) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      if (password !== confirmPassword) {
-        throw new Error("Passwords don't match");
-      }
-
-      const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          email,
-          password,
-          role: 'buyer' // Force buyer role as per requirements
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Password confirmation failed');
-      }
-
-      // Update user with complete registration status
-      setUser({ ...user, isComplete: true });
-      return data;
-    } catch (err) {
-      setError(err.message || 'An error occurred during password confirmation');
-      console.error('Password confirmation error:', err);
+      console.error(err);
       throw err;
     } finally {
       setLoading(false);
     }
-  }
-
-//    // context/AuthContext.js
-// const completeRegistration = async (personalInfo, businessInfo) => {
-//   setLoading(true);
-//   setError(null);
-  
-//   try {
-//     if (!user) {
-//       throw new Error("User information is missing");
-//     }
-
-//     const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ 
-//         ...user,
-//         ...personalInfo,
-//         ...businessInfo,
-//         role: user.role
-//       }),
-//     });
-
-//     const data = await response.json();
-
-//     if (!response.ok) {
-//       throw new Error(data.message || 'Registration completion failed');
-//     }
-
-//     // Update user with complete registration status
-//     setUser({ 
-//       ...user, 
-//       ...personalInfo,
-//       ...businessInfo,
-//       isRegistrationComplete: true 
-//     });
-    
-//     return data;
-//   } catch (err) {
-//     setError(err.message || 'An error occurred during registration completion');
-//     console.error('Registration completion error:', err);
-//     throw err;
-//   } finally {
-//     setLoading(false);
-//   }
-// }
-const completeRegistration = async (completeUserData) => {
-  try {
+  };
+  // Password confirmation function
+  const confirmPassword = async (email, password, confirmPasswordValue) => {
     setLoading(true);
-    // Send all user data to your backend
-    const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
+    setError(null);
+  
+    try {
+      if (password !== confirmPasswordValue) {
+        throw new Error("Passwords don't match");
+      }
+     // For buyers, include verification status
+     const payload = {
+      email,
+      password,
+      role,
+      isVerified: true // Assuming buyer verification happens during OTP step
+    };
+
+      const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({payload}),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || 'Password confirmation failed');
+      }
+            // Set user data for buyer
+            const userData = {
+              ...data.user,
+              isComplete: true,
+              isVerified: true
+            };
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData));      
+  
+      return data;
+    } catch (err) {
+      setError(err.message || 'An error occurred during password confirmation');
+      console.error(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+// Store temporary seller data during multi-step registration
+const saveTempSellerData = (data) => {
+  setTempSellerData(prev => ({ ...prev, ...data }));
+};
+
+// Complete seller registration
+const completeSellerRegistration = async (finalData) => {
+  setLoading(true);
+  setError(null);
+
+  try {
+    // Check if email is verified
+    if (!tempSellerData?.isVerified) {
+      throw new Error("Email must be verified before completing registration");
+    }
+    // Combine all data
+    const payload = {
+      ...tempSellerData, // personal info from first step
+      ...finalData,     // business info from second step
+      role: 'seller',
+      password: tempSellerData.password // include the password
+    };
+
+    const response = await fetch( 'https://fromafrica-backend.onrender.com/api/v1/register', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(completeUserData)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
 
-    // Handle response and login user
-    setUser(response.data);
-    return response.data;
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Registration failed');
+    }
+
+    // Set user data and mark as complete
+    const userData = {
+      ...data.user,
+      isComplete: true,
+      isVerified: true
+    };
+
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    
+    return data;
   } catch (err) {
-    setError(err.response?.data?.message || err.message);
+    setError(err.message || 'Registration failed');
+    console.error('Registration error:', err);
     throw err;
   } finally {
     setLoading(false);
   }
 };
 
+
+
+
+
   
     // Verification function
-    const verifyOtp = async (email, otp) => {
+    const verifyOtp = async (email,otp) => {
       setLoading(true);
       setError(null);
-      
+    
       try {
-        // Call your verification API here
+        if (!emailForVerification) {
+          throw new Error("No email found for verification");
+        }
         const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/verifyOtp', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, otp }),
         });
-  
+    
         const data = await response.json();
-  
+    
         if (!response.ok) {
           throw new Error(data.message || 'Verification failed');
         }
-  
-        // Set user data after successful verification
-        setUser({ email, role });
-        
+
+          // Update verification status in temp data if exists
+      if (tempSellerData?.email === email) {
+        setTempSellerData(prev => ({
+          ...prev,
+          isVerified: true
+        }));
+      }
+    
         return data;
       } catch (err) {
         setError(err.message || 'An error occurred during verification');
-        console.error('Verification error:', err);
-        throw err; // Re-throw to handle in component
+        console.error(err);
+        throw err;
       } finally {
         setLoading(false);
       }
@@ -290,24 +284,7 @@ const completeRegistration = async (completeUserData) => {
       }
     }
 
-    const [registrationData, setRegistrationData] = useState({
-      businessInfo: {
-        businessName: "",
-        ownerName: "",
-        country: "",
-        phoneNumber: "",
-        officeAddress: "",
-        completed: false
-      },
-      companyInfo: {
-        companyName: "",
-        registrationNumber: "",
-        cacNumber: "",
-        certificate: "",
-        tin: "",
-        completed: false
-      }
-    });
+
   
     const [activeCard, setActiveCard] = useState(null);
   
@@ -351,32 +328,98 @@ const completeRegistration = async (completeUserData) => {
       }
     };
 
-  const fetchProducts = async () =>{
-    try {
-      setLoading(true);
-      const res = await axios.get("http://localhost:3000/api/v1/get-all-products");
-      setProducts(res.data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchProducts = async () =>{
+  //   try {
+  //     setLoading(true);
+  //     const res = await axios.get("http://localhost:3000/api/v1/get-all-products");
+  //     setProducts(res.data);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  const addProduct = async (formData) => {
-    try {
-      setLoading(true);
-      const res = await axios.post("http://localhost:3000/api/v1/addProduct", formData);
-      setProducts((prev) => [...prev, res.data]);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  // const addProduct = async (formData) => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await axios.post("http://localhost:3000/api/v1/addProduct", formData);
+  //     setProducts((prev) => [...prev, res.data]);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+ /**
+ * Fetch all products from server
+ */
+//  const fetchProducts = async () => {
+//   try {
+//     setLoading(true);
+//     setError(null);
+
+//     const res = await fetch('http://localhost:3000/api/v1/my-products', {
+//       method: 'GET',
+//       headers: { "Content-Type": "application/json" },
+//     });
+
+//     if (!res.ok) {
+//       throw new Error(`HTTP error! Status: ${res.status}`);
+//     }
+
+//     const data = await res.json();
+//     setProducts(data);
+//   } catch (err) {
+//     console.error("Fetch error:", err);
+//     setError(err.message || "Failed to fetch products");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+// /**
+//  * Add a new product
+//  * After adding, re-fetch all products to sync state with server.
+//  */
+// const addProduct = async (formData) => {
+//   try {
+//     setLoading(true);
+//     setError(null);
+
+//     const res = await fetch("http://localhost:3000/api/v1/addProduct", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(formData),
+//     });
+
+//     if (!res.ok) {
+//       throw new Error(`Failed to add: ${res.status} ${res.statusText}`);
+//     }
+
+//     // Re-fetch to get updated list
+//     await fetchProducts();
+//   } catch (err) {
+//     console.error(err);
+//     setError(err.message || "Something went wrong");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+// /**
+//  * Initial load
+//  */
+// useEffect(() => {
+//   fetchProducts();
+// }, []);
+
 
   const value = {
     user,
@@ -388,7 +431,9 @@ const completeRegistration = async (completeUserData) => {
     sendOtp,
     emailForVerification,
     confirmPassword,
-    completeRegistration,
+    tempSellerData,
+    saveTempSellerData,
+    completeSellerRegistration,
     role,
     setError,
     setUser,
@@ -397,9 +442,9 @@ const completeRegistration = async (completeUserData) => {
         setActiveCard,
         updateBusinessInfo,
         updateCompanyInfo,
-        fetchProducts,
-        addProduct,
-        products
+        // fetchProducts,
+        // addProduct,
+        // products
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
