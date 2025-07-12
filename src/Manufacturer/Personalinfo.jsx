@@ -9,14 +9,14 @@ const Personalinfo = () => {
   const location = useLocation();
   const [formData, setFormData] = useState({
     fullName: "",
-    phoneNo: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
     fullName: "",
-    phoneNo: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
@@ -34,48 +34,7 @@ const handleChange = (e) => {
      const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 }
-// const { email, role } = location.state || {};
 
-// const handleChange = (e) => {
-//   const { name, value } = e.target;
-//   setFormData(prev => ({ ...prev, [name]: value }));
-// };
-// const handleNext = (e) => {
-//   e.preventDefault();
-
-//   // Validation
-//   const newErrors = {
-//     fullName: formData.fullName ? "" : "Full name is required",
-//     phoneNo: formData.phoneNo ? "" : "Phone number is required",
-//     password: formData.password ? "" : "Password is required",
-//     confirmPassword: formData.password === formData.confirmPassword ? "" : "Passwords do not match",
-//   };
-
-//   setErrors(newErrors);
-
-//   if (Object.values(newErrors).some(error => error)) {
-//     return;
-//   }
-//   saveTempSellerData({
-//     email,
-//     role,
-//     fullName: formData.fullName,
-//     phoneNo: formData.phoneNo,
-//     password: formData.password
-//   });
-  
-//   navigate('/businexinfo', { 
-//     state: { 
-//       personalInfo: {
-//         email,
-//         role,
-//         ...formData
-//       }
-//     } 
-//   });
-
- 
-// };
 const handleSubmit = (e) => {
   e.preventDefault();
   if (formData.password !== formData.confirmPassword) {
@@ -83,10 +42,10 @@ const handleSubmit = (e) => {
     return;
   }
   setPersonalInfo({
-    fullName,
-    password,
-    confirmPassword,
-    phoneNo,
+    fullName: formData.fullName,
+    password: formData.password,
+    confirmPassword: formData.confirmPassword,
+    phoneNumber: formData.phoneNumber,
   });
   navigate('/businexinfo');
 };
@@ -148,12 +107,12 @@ const handleSubmit = (e) => {
                <input id="countryCode" value="+234" readOnly className="w-20 p-2 border rounded bg-gray-200" />
                <input
                type='number'
-                 id="phoneNo"
-                 name="phoneNo"
+                 id="phoneNumber"
+                 name="phoneNumber"
                  placeholder="Phone No Here"
-                 value={formData.phoneNo}
+                 value={formData.phoneNumber}
                  onChange={handleChange}
-                 className={`w-full p-2 border rounded ${errors.phoneNo ? "border-red-500" : "border-gray-300"}`}
+                 className={`w-full p-2 border rounded ${errors.phoneNumber ? "border-red-500" : "border-gray-300"}`}
                />
              </div>
              {errors.phoneNo && <p className="text-red-500 text-sm">{errors.phoneNo}</p>}
