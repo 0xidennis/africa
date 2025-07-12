@@ -6,31 +6,14 @@ const AuthContext = createContext();
 // export const useProducts = () => useContext(ProductContext);
 
 export function AuthProvider({ children }) {
-  const [registrationData, setRegistrationData] = useState({
-    businessInfo: {
-      businessName: "",
-      ownerName: "",
-      country: "",
-      phoneNumber: "",
-      officeAddress: "",
-      completed: false
-    },
-    companyInfo: {
-      companyName: "",
-      registrationNumber: "",
-      cacNumber: "",
-      certificate: "",
-      tin: "",
-      completed: false
-    }
-  });
+  const [registrationData, setRegistrationData] = useState('');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [emailForVerification, setEmailForVerification] = useState('');
   const [role, setRole] = useState(''); // 'seller' or 'buyer'
   const [products, setProducts] = useState([]);
-  const [tempSellerData, setTempSellerData] = useState(null);
+  const [personalInfo, setPersonalInfo] = useState(null);
   
 
 
@@ -95,7 +78,7 @@ export function AuthProvider({ children }) {
   
       setEmailForVerification(email);
       setRole(role);
-      setTempSellerData({ email, role });
+     
   
       return data;
     } catch (err) {
@@ -160,22 +143,22 @@ const saveTempSellerData = (data) => {
 };
 
 // Complete seller registration
-const completeSellerRegistration = async (finalData) => {
+const completeSellerRegistration = async (businessInfo) => {
   setLoading(true);
   setError(null);
+  const payload = {
+    email: emailForVerification,
+    role,
+    password: personalInfo.password,
+    confirmPassword: personalInfo.confirmPassword,
+    fullName: personalInfo.fullName,
+    phoneNumber: personalInfo.phoneNumber,
+    businessInfo: {
+      ...businessInfo,
+      completed: true,
+    },};
 
   try {
-    // Check if email is verified
-    if (!tempSellerData?.isVerified) {
-      throw new Error("Email must be verified before completing registration");
-    }
-    // Combine all data
-    const payload = {
-      ...tempSellerData, // personal info from first step
-      ...finalData,     // business info from second step
-      role: 'seller',
-      password: tempSellerData.password // include the password
-    };
 
     const response = await fetch( 'https://fromafrica-backend.onrender.com/api/v1/register', {
       method: 'POST',
@@ -234,14 +217,7 @@ const completeSellerRegistration = async (finalData) => {
         if (!response.ok) {
           throw new Error(data.message || 'Verification failed');
         }
-
-          // Update verification status in temp data if exists
-      if (tempSellerData?.email === email) {
-        setTempSellerData(prev => ({
-          ...prev,
-          isVerified: true
-        }));
-      }
+   
     
         return data;
       } catch (err) {
@@ -431,7 +407,8 @@ const completeSellerRegistration = async (finalData) => {
     sendOtp,
     emailForVerification,
     confirmPassword,
-    tempSellerData,
+    personalInfo,
+    setPersonalInfo,
     saveTempSellerData,
     completeSellerRegistration,
     role,

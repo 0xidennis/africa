@@ -23,57 +23,68 @@ const Personalinfo = () => {
 
  // components/Personalinfo.js
 const { 
-  saveTempSellerData,
-  user, 
-  emailForVerification, 
-  loading, 
-  error, 
-  setError,
+ setPersonalInfo,
+ error,
+ loading,
   
 } = useAuth();
 
 const navigate = useNavigate();
-const { email, role } = location.state || {};
-
 const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData(prev => ({ ...prev, [name]: value }));
-};
-const handleNext = (e) => {
-  e.preventDefault();
+     const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+}
+// const { email, role } = location.state || {};
 
-  // Validation
-  const newErrors = {
-    fullName: formData.fullName ? "" : "Full name is required",
-    phoneNo: formData.phoneNo ? "" : "Phone number is required",
-    password: formData.password ? "" : "Password is required",
-    confirmPassword: formData.password === formData.confirmPassword ? "" : "Passwords do not match",
-  };
+// const handleChange = (e) => {
+//   const { name, value } = e.target;
+//   setFormData(prev => ({ ...prev, [name]: value }));
+// };
+// const handleNext = (e) => {
+//   e.preventDefault();
 
-  setErrors(newErrors);
+//   // Validation
+//   const newErrors = {
+//     fullName: formData.fullName ? "" : "Full name is required",
+//     phoneNo: formData.phoneNo ? "" : "Phone number is required",
+//     password: formData.password ? "" : "Password is required",
+//     confirmPassword: formData.password === formData.confirmPassword ? "" : "Passwords do not match",
+//   };
 
-  if (Object.values(newErrors).some(error => error)) {
-    return;
-  }
-  saveTempSellerData({
-    email,
-    role,
-    fullName: formData.fullName,
-    phoneNo: formData.phoneNo,
-    password: formData.password
-  });
+//   setErrors(newErrors);
+
+//   if (Object.values(newErrors).some(error => error)) {
+//     return;
+//   }
+//   saveTempSellerData({
+//     email,
+//     role,
+//     fullName: formData.fullName,
+//     phoneNo: formData.phoneNo,
+//     password: formData.password
+//   });
   
-  navigate('/businexinfo', { 
-    state: { 
-      personalInfo: {
-        email,
-        role,
-        ...formData
-      }
-    } 
-  });
+//   navigate('/businexinfo', { 
+//     state: { 
+//       personalInfo: {
+//         email,
+//         role,
+//         ...formData
+//       }
+//     } 
+//   });
 
  
+// };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setPersonalInfo({
+    fullName,
+    password,
+    confirmPassword,
+    phoneNo,
+  });
+  navigate('/businexinfo');
 };
 
   return (
@@ -113,7 +124,7 @@ const handleNext = (e) => {
            {error && <p className="text-red-500 mt-2">{error}</p>}
          </div>
    
-         <form onSubmit={handleNext}   className="space-y-6">
+         <form onSubmit={handleSubmit}   className="space-y-6">
            <div className="space-y-2">
              <label htmlFor="fullName" className="block text-md font-medium">Full Name</label>
              <input

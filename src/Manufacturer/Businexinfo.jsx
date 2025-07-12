@@ -10,56 +10,91 @@ const Businexinfo =()=>{
   const { 
     tempSellerData,
     completeSellerRegistration,
-    user, 
     loading, 
     error, 
-    completeRegistration, 
     setError 
   } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const personalInfo = location.state?.personalInfo;
-
-  useEffect(() => {
-    if (!personalInfo) {
-      navigate('/seller');
-    }
-  }, [tempSellerData, navigate]);
-
-
   const [formData, setFormData] = useState({
     companyName: "",
     country: "Nigeria",
     state: "",
     shippingAddress: "",
     socialMedia: "",
-  });
+    registrationNumber: "",
+    cacNumber: "",
+    certificate: "",
+    tin: "",
+    password:"",
+    });
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+     setFormData(prev => ({ ...prev, [name]: value }));
+ }
+  // const location = useLocation();
+  const navigate = useNavigate();
+  // const personalInfo = location.state?.personalInfo;
+
+  // useEffect(() => {
+  //   if (!personalInfo) {
+  //     navigate('/seller');
+  //   }
+  // }, [tempSellerData, navigate]);
+
+
+  // const [formData, setFormData] = useState({
+  //   companyName: "",
+  //   country: "Nigeria",
+  //   state: "",
+  //   shippingAddress: "",
+  //   socialMedia: "",
+  // });
 
  
   
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prev => ({ ...prev, [name]: value }));
+  // };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+    
+  //   try {
+  //     // Verify password is still available
+  //     if (!tempSellerData?.password) {
+  //       throw new Error("Session expired. Please start registration again.");
+  //     }
+
+  //     // Submit all data
+  //     await completeSellerRegistration(formData);
+      
+  //     // Redirect to dashboard
+  //     navigate('/sellerdash');
+  //   } catch (err) {
+  //     setError(err.message || "Registration failed");
+  //     console.error('Registration error:', err);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const businessData = {
+      companyName: formData.companyName,
+      country: formData.country,
+      state: formData.state,
+      shippingAddress: formData.shippingAddress,
+      socialMedia: formData.socialMedia,
+      registrationNumber: formData.registrationNumber,
+      cacNumber: formData.cacNumber,
+      certificate: formData.certificate,
+      tin: formData.tin,
+      password: formData.password
+    };
     try {
-      // Verify password is still available
-      if (!tempSellerData?.password) {
-        throw new Error("Session expired. Please start registration again.");
-      }
-
-      // Submit all data
-      await completeSellerRegistration(formData);
-      
-      // Redirect to dashboard
-      navigate('/sellerdash');
+      await completeSellerRegistration(businessData);
+      navigate('/dashboard');
     } catch (err) {
-      setError(err.message || "Registration failed");
-      console.error('Registration error:', err);
+      console.error(err);
     }
   };
 
