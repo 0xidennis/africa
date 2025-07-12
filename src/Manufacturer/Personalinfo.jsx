@@ -22,7 +22,7 @@ const Personalinfo = () => {
   });
 
  // components/Personalinfo.js
-const { 
+const {
  setPersonalInfo,
  error,
  loading,
@@ -78,6 +78,10 @@ const handleChange = (e) => {
 // };
 const handleSubmit = (e) => {
   e.preventDefault();
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
   setPersonalInfo({
     fullName,
     password,

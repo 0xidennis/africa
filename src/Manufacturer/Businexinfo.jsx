@@ -8,37 +8,36 @@ import { Link,useLocation,useNavigate} from 'react-router-dom';
 
 const Businexinfo =()=>{
   const { 
-    tempSellerData,
     completeSellerRegistration,
     loading, 
     error, 
-    setError 
+    setError ,
+    role,
+    emailForVerification,
+    personalInfo,
+    user
   } = useAuth();
+  
   const [formData, setFormData] = useState({
     companyName: "",
     country: "Nigeria",
     state: "",
     shippingAddress: "",
     socialMedia: "",
-    registrationNumber: "",
-    cacNumber: "",
-    certificate: "",
-    tin: "",
-    password:"",
     });
     const handleChange = (e) => {
       const { name, value } = e.target;
      setFormData(prev => ({ ...prev, [name]: value }));
  }
-  // const location = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   // const personalInfo = location.state?.personalInfo;
 
-  // useEffect(() => {
-  //   if (!personalInfo) {
-  //     navigate('/seller');
-  //   }
-  // }, [tempSellerData, navigate]);
+  useEffect(() => {
+    if (!personalInfo) {
+      navigate('/seller');
+    }
+  }, [personalInfo, navigate]);
 
 
   // const [formData, setFormData] = useState({
@@ -84,12 +83,9 @@ const Businexinfo =()=>{
       state: formData.state,
       shippingAddress: formData.shippingAddress,
       socialMedia: formData.socialMedia,
-      registrationNumber: formData.registrationNumber,
-      cacNumber: formData.cacNumber,
-      certificate: formData.certificate,
-      tin: formData.tin,
-      password: formData.password
+      
     };
+    
     try {
       await completeSellerRegistration(businessData);
       navigate('/dashboard');

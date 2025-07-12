@@ -59,9 +59,10 @@ export function AuthProvider({ children }) {
     }
   }, []);
   // Registration function
-  const register = async (email, role) => {
+  const register = async (email,role) => {
     setLoading(true);
     setError(null);
+   
   
     try {
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/initiateRegistration', {
@@ -137,11 +138,8 @@ export function AuthProvider({ children }) {
   };
 
 
-// Store temporary seller data during multi-step registration
-const saveTempSellerData = (data) => {
-  setTempSellerData(prev => ({ ...prev, ...data }));
-};
 
+console.log({ emailForVerification, role, personalInfo });
 // Complete seller registration
 const completeSellerRegistration = async (businessInfo) => {
   setLoading(true);
@@ -157,6 +155,7 @@ const completeSellerRegistration = async (businessInfo) => {
       ...businessInfo,
       completed: true,
     },};
+  
 
   try {
 
@@ -167,6 +166,7 @@ const completeSellerRegistration = async (businessInfo) => {
     });
 
     const data = await response.json();
+   
 
     if (!response.ok) {
       throw new Error(data.message || 'Registration failed');
@@ -202,6 +202,7 @@ const completeSellerRegistration = async (businessInfo) => {
       setLoading(true);
       setError(null);
     
+
       try {
         if (!emailForVerification) {
           throw new Error("No email found for verification");
@@ -213,6 +214,7 @@ const completeSellerRegistration = async (businessInfo) => {
         });
     
         const data = await response.json();
+       
     
         if (!response.ok) {
           throw new Error(data.message || 'Verification failed');
@@ -409,7 +411,6 @@ const completeSellerRegistration = async (businessInfo) => {
     confirmPassword,
     personalInfo,
     setPersonalInfo,
-    saveTempSellerData,
     completeSellerRegistration,
     role,
     setError,
