@@ -147,6 +147,7 @@ const handleSubmit = (e) => {
              <div className="flex gap-2">
                <input id="countryCode" value="+234" readOnly className="w-20 p-2 border rounded bg-gray-200" />
                <input
+               type='number'
                  id="phoneNo"
                  name="phoneNo"
                  placeholder="Phone No Here"

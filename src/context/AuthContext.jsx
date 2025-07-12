@@ -146,17 +146,22 @@ const completeSellerRegistration = async (businessInfo) => {
   setError(null);
   const payload = {
     email: emailForVerification,
-    role,
-    password: personalInfo.password,
+    password: personalInfo.password,role,
+    name: personalInfo.fullName,
+    phone: personalInfo.phoneNumber,
+    avatar: personalInfo.avatar || "", // optional
+    address: `${businessInfo.shippingAddress}, ${businessInfo.state}, ${businessInfo.country}`,
     confirmPassword: personalInfo.confirmPassword,
-    fullName: personalInfo.fullName,
-    phoneNumber: personalInfo.phoneNumber,
-    businessInfo: {
-      ...businessInfo,
-      completed: true,
+   
+    sellerDetails: {
+      companyName: businessInfo.companyName,
+      country: businessInfo.country,
+      state: businessInfo.state,
+      shippingAddress: businessInfo.shippingAddress,
+      socialMedia: businessInfo.socialMedia,
     },};
   
-
+    console.log("🚀 Sending payload to backend:", payload);
   try {
 
     const response = await fetch( 'https://fromafrica-backend.onrender.com/api/v1/register', {
