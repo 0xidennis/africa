@@ -6,7 +6,10 @@ const AuthContext = createContext();
 // export const useProducts = () => useContext(ProductContext);
 
 export function AuthProvider({ children }) {
-  const [registrationData, setRegistrationData] = useState('');
+  const [registrationData, setRegistrationData] = useState({
+    businessInfo: { completed: false },
+  companyInfo: { completed: false }
+  });
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -181,7 +184,8 @@ const completeSellerRegistration = async (businessInfo) => {
     const userData = {
       ...data.user,
       isComplete: true,
-      isVerified: true
+      isVerified: true,
+      companyName: businessInfo.companyName,
     };
 
     setUser(userData);

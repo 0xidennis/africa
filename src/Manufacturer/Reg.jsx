@@ -86,7 +86,7 @@ const Reg = () => {
                           className="hidden"
                         />
                         <div className={`w-4 h-4 rounded-full border ${role === 'seller' ? 'bg-[#eba91c] border-[#eba91c]' : 'border-gray-400'}`}></div>
-                        Seller/Manufacturer
+                        Seller
                       </label>
                     </div>
 

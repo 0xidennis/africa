@@ -88,7 +88,7 @@ const Businexinfo =()=>{
     
     try {
       await completeSellerRegistration(businessData);
-      navigate('/dashboard');
+      navigate('/sellerdash');
     } catch (err) {
       console.error(err);
     }
