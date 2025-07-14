@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
+    const [showInput, setShowInput] = useState(false);
 
   const categories = ['Clothing', 'Footwear', 'Accessories', 'Skincare', 'Bags', 'Traditionals'];
   return (
@@ -38,9 +39,26 @@ const Header = () => {
           {/* Auth Buttons */}
           <div className="flex items-center space-x-2 lg:space-x-4">
             {/* Mobile Search Button */}
-            <button className="md:hidden p-2 hover:bg-amber-800 rounded-lg transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
+            <div className="relative">
+      {/* Input appears when showInput === true */}
+      {showInput && (
+        <input
+          type="text"
+          placeholder="Search..."
+          className="w-full px-4 py-2 border border-gray-300 bg-white placeholder-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+        />
+      )}
+
+      {/* Mobile Search Button */}
+      {!showInput && (
+        <button
+          className="md:hidden p-2 hover:bg-white rounded-lg transition-colors"
+          onClick={() => setShowInput(true)}
+        >
+          <Search className="w-5 h-5" />
+        </button>
+      )}
+    </div>
 
             {/* Sign In Button */}
             <Link to="/signin">
