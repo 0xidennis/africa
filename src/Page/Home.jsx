@@ -19,6 +19,7 @@ import magazine from '../assets/image/magazine.png'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import LoadingSpinner from '../Spinner/LoadingSpinner';
+import PopularCategory from '../PopularCategory/PopularCategory';
 // import shoe from '../assets/shoe.png'
 
 const Home = () => {
@@ -299,6 +300,7 @@ const Home = () => {
         </div>
       </div>
     </section>
+    <PopularCategory/>
 
       {/* How It Works */}
       <section className="py-16 bg-white">
