@@ -455,12 +455,13 @@ const Home = () => {
           <p className="text-[#523523] mb-8 max-w-2xl mx-auto text-md">
             Join thousands of businesses already connecting and trading on <br /> FromAfrica
           </p>
+          <Link to="/reg">
           <a
-            href="#"
             className="bg-[#523523] hover:bg-black text-white font-medium py-3 px-8 rounded-md transition-colors inline-block"
           >
             Get started Now
           </a>
+          </Link>
         </motion.div>
       </div>
     </section>
