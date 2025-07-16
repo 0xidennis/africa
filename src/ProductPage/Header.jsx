@@ -1,7 +1,9 @@
 import React from 'react'
 import { motion } from "framer-motion";
+import { useParams } from 'react-router-dom';
 
 const Header = () => {
+  const {category} =useParams();
   return (
     <div>
   <motion.div 
@@ -32,7 +34,7 @@ const Header = () => {
           }
         }}
       >
-        Fashion Accessories & Footwear
+        {category ? `products in ${category}` : "All products"}
       </motion.h1>
     </div>
   </motion.div>

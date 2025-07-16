@@ -26,6 +26,8 @@ import SellerInfo from './Dashboards/SellerInfo';
 import SellerProductPage from './Page/SellerProductPage';
 import AddNew from './Dashboards/AddNew';
 import Sellerformpage from './Page/Sellerformpage';
+import ProductBeforeLogin from './ProductPage/ProductBeforeLogin';
+import NavbarBeforeLogin from './ProductPage/NavbarBeforeLogin';
 
 const App = () => {
   return (
@@ -56,6 +58,8 @@ const App = () => {
           <Route path="/sellerproduct" element={<SellerProduct/>} />
           <Route path="/addnew" element={<AddNew/>} />
           <Route path="/sellerform" element={<Sellerformpage/>} />
+          <Route path="/navbarbeforelogin" element={<NavbarBeforeLogin/>} />
+          <Route path="/productbeforelogin/:category" element={<ProductBeforeLogin/>} />
           
       < Route path="/Verification" element={<Verification/>}/>
     
@@ -72,6 +76,7 @@ const App = () => {
       {/* <SellerProduct/> */}
       {/* <ProductForm/> */}
       {/* <ChatRoom/> */}
+      {/* <ProductBeforeLogin/> */}
       
 
       

@@ -1,16 +1,9 @@
 import React from 'react';
 import car1 from '../assets/Cars/car1.png';
-import car2 from '../assets/Cars/car2.png';
-import car3 from '../assets/Cars/car3.png';
-import car4 from '../assets/Cars/car4.png';
 import accessory1 from '../assets/Vehicle accessories/accessory1.jpg';
-import accessory2 from '../assets/Vehicle accessories/accessory2.jpg';
 import accessory3 from '../assets/Vehicle accessories/accessory3.jpg';
-import accessory4 from '../assets/Vehicle accessories/accessory4.jpg';
 import Tools1 from '../assets/Vehicle Tools/Tools1.jpg';
-import Tools2 from '../assets/Vehicle Tools/Tools2.jpg';
 import Tools3 from '../assets/Vehicle Tools/Tools3.jpg';
-import Tools4 from '../assets/Vehicle Tools/Tools4.jpg';
 import Category from './Category';
 import menwears from '../assets/menwears.jpg'
 

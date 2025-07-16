@@ -30,12 +30,12 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
     const categories = [
-        { name: "Clothing", icon: <span className="text-2xl"><img src={vect} alt="" /></span> },
-        { name: "Footwear" , icon: <span className="text-2xl "><img src={shoe} alt="" /></span> },
-        { name: "Accessories", icon: <span className="text-2xl"><img src={watch} alt="" /></span> },
-        { name: "Skin Care", icon: <span className="text-2xl"><img src={skinscare} alt="" /></span> },
-        { name: "Bags", icon: <span className="text-2xl"><img src={bags} alt="" /></span> },
-        { name: "Traditional", icon: <span className="text-2xl"><img src={vect} alt="" /></span> },
+        { name: "Clothing", icon: <span className="text-2xl"><img src={vect} alt="" /></span>,link:"/productbeforelogin/clothing" },
+        { name: "Footwear" , icon: <span className="text-2xl "><img src={shoe} alt="" /></span>,link:"/productbeforelogin/footwear" },
+        { name: "Accessories", icon: <span className="text-2xl"><img src={watch} alt="" /></span>,link:"/productbeforelogin/accessories" },
+        { name: "Skin Care", icon: <span className="text-2xl"><img src={skinscare} alt="" /></span>,link:"/productbeforelogin/skinscare" },
+        { name: "Bags", icon: <span className="text-2xl"><img src={bags} alt="" /></span> ,link:"/productbeforelogin/bag"},
+        { name: "Traditional", icon: <span className="text-2xl"><img src={vect} alt="" /></span>,link:"/productbeforelogin/traditinal" },
       ]
 
   return (
@@ -68,12 +68,14 @@ const Home = () => {
               spirit of Africa home!
             </p>
             <div className="flex flex-wrap gap-4 align-center items-center">
+              <Link to="/productbeforelogin">
               <a
                 href="#"
                 className="bg-[#eba91c] hover:bg-amber-600 text-white font-medium py-2 px-6 rounded-md transition-colors"
               >
                 Start Sourcing
               </a>
+              </Link>
               <Link to="/reg">
                 <a
                   href="#"
@@ -199,9 +201,11 @@ const Home = () => {
         >
           <div className="text-amber-500 mb-2">{category.icon}</div>
           <h3 className="font-medium text-center mb-2">{category.name}</h3>
-          <a href="#" className="text-md text-[#523523] flex items-center">
+          <Link to={category.link}>
+          <a  className="text-md text-[#523523] flex items-center">
             Browse Product <ArrowRight className="h-3 w-3 ml-1" />
           </a>
+          </Link>
         </div>
       ))}
     </div>
