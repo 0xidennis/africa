@@ -1,13 +1,33 @@
 import React from 'react'
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { Search, User, UserPlus } from "lucide-react"
 import logo from '../assets/logo/from.png'
 import { Link } from 'react-router-dom'
+import { useDebounce } from '../DebounceHook/Debounce'
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] =useState("");
+  const [filteredProducts, setFilteredProducts] = useState("")
     const [showInput, setShowInput] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [products, setProducts]= useState([])
+
+    
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  useEffect(() => {
+    if (!debouncedSearchTerm) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const results = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+    );
+    setFilteredProducts(results);
+  }, [debouncedSearchTerm, products]);
 
   const categories = ['Clothing', 'Footwear', 'Accessories', 'Skincare', 'Bags', 'Traditionals'];
   return (
@@ -29,11 +49,35 @@ const Header = () => {
                 type="text"
                 placeholder="Search for products, brand or category"
                 className="w-full px-4 py-2 lg:py-3 pr-12 text-gray-800 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => debouncedSearchTerm && setShowDropdown(true)}
               />
               <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#523523] hover:bg-[#5c3c28] text-white p-2 rounded-md transition-colors">
                 <Search className="w-4 h-4 lg:w-5 lg:h-5" />
               </button>
             </div>
+                   {/* Dropdown */}
+                   {showDropdown && filteredProducts.length > 0 && (
+              <div className="absolute mt-1 w-full bg-white shadow-lg rounded-md max-h-64 overflow-y-auto z-50">
+                {filteredProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    onClick={() => handleSelectProduct(product)}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-gray-800"
+                  >
+                    <div className="font-medium">{product.name}</div>
+                    <div className="text-xs text-gray-500">{product.category}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {showDropdown && filteredProducts.length === 0 && (
+              <div className="absolute mt-1 w-full bg-white shadow-lg rounded-md text-gray-500 px-4 py-2">
+                No products found
+              </div>
+            )}
           </div>
 
           {/* Auth Buttons */}
