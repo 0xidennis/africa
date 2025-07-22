@@ -167,7 +167,7 @@ const ProductBeforeLogin = () => {
           const [currentPage, setCurrentPage] = useState(1)
       const [productsPerPage] = useState(8); // Number of products per page
     
-      const productRef = React.useRef(new Map());
+      const productRefs = React.useRef(new Map());
     
        // Calculate pagination
        const indexOfLastProduct = currentPage * productsPerPage;
@@ -444,6 +444,7 @@ const ProductBeforeLogin = () => {
     {filteredProducts.map((product, index) => (
       <motion.div
         key={product.id}
+        ref={(el) => productRefs.current.set(product.id, el)}
         className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
         variants={{
           hidden: { 
