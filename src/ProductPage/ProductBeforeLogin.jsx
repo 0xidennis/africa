@@ -167,6 +167,7 @@ const ProductBeforeLogin = () => {
           const [currentPage, setCurrentPage] = useState(1)
       const [productsPerPage] = useState(8); // Number of products per page
     
+      const productRef = React.useRef(new Map());
     
        // Calculate pagination
        const indexOfLastProduct = currentPage * productsPerPage;
@@ -186,6 +187,22 @@ const ProductBeforeLogin = () => {
           return matchesSearch && matchesMinPrice && matchesMaxPrice
         })
         
+        const handleSelectProduct = (product) => {
+          setSearchTerm(product.name);
+          const page = Math.ceil(product.id / productsPerPage);
+          setCurrentPage(page);
+        
+          setTimeout(() => {
+            const el = productRefs.current.get(product.id);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth", block: "center" });
+              el.classList.add("ring-4", "ring-[#eba91c]");
+              setTimeout(() => {
+                el.classList.remove("ring-4", "ring-[#eba91c]");
+              }, 2000);
+            }
+          }, 100);
+        };
        
         const handlePrevious = () => {
           if (currentPage > 1) {
@@ -248,6 +265,12 @@ const ProductBeforeLogin = () => {
         hidden: { opacity: 0 }
       }
     
+      useEffect(()=>{
+      localStorage.setItem("allProducts", JSON.stringify(products));
+
+      },[])
+       
+
        // Number of categories to show initially
       const initialVisibleCount = 5;
       const visibleSubCategories = showAllSubCategories 
@@ -260,7 +283,7 @@ const ProductBeforeLogin = () => {
     <div className='bg-gray-50'>
         <NavbarBeforeLogin/>
         <SubNav/>
-        <Header/>
+        <Header  searchTerm={searchTerm} setSearchTerm={setSearchTerm}   onSelectProduct={handleSelectProduct}/>
          <div className="min-h-screen bg-gray-50 mt-5">
             <div className='flex gap-15 lg:ml-30 lg:-mb-7'>
             <h3 className=" font-semibold text-gray-800 mb-3 hidden lg:flex z-10"> All Categories</h3>

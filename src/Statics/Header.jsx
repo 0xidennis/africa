@@ -5,19 +5,19 @@ import logo from '../assets/logo/from.png'
 import { Link } from 'react-router-dom'
 import { useDebounce } from '../DebounceHook/Debounce'
 
-const Header = () => {
-  const [searchTerm, setSearchTerm] =useState("");
-  const [filteredProducts, setFilteredProducts] = useState("")
+const Header = ({ searchTerm, setSearchTerm, onProductSelect  }) => {
+  // const [searchTerm, setSearchTerm] =useState("");
     const [showInput, setShowInput] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [products, setProducts]= useState([])
+    const [filteredProducts, setfilteredProducts]= useState([])
 
     
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
     if (!debouncedSearchTerm) {
-      setFilteredProducts(products);
+      setfilteredProducts(products);
       return;
     }
 
@@ -26,7 +26,7 @@ const Header = () => {
         product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
         product.category.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
     );
-    setFilteredProducts(results);
+    setfilteredProducts(results);
   }, [debouncedSearchTerm, products]);
 
   const categories = ['Clothing', 'Footwear', 'Accessories', 'Skincare', 'Bags', 'Traditionals'];
@@ -89,6 +89,8 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search..."
+          value={searchTerm}
+          onChange={(e)=> setSearchTerm(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 bg-white placeholder-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       )}
