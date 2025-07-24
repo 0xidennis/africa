@@ -1,7 +1,7 @@
 // context/AuthContext.js
 import React, { createContext, useContext,useEffect,useState } from 'react';
 import axios from 'axios';
-import cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 
 const AuthContext = createContext();
 // export const useProducts = () => useContext(ProductContext);
@@ -74,9 +74,12 @@ export function AuthProvider({ children }) {
     setError(null);
   
     try {
+      
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json'
+           ,'Authorization': `Bearer ${Cookies.get('authToken')}`},
+
         body: JSON.stringify({ email, password }),
       });
   
@@ -86,8 +89,9 @@ export function AuthProvider({ children }) {
         throw new Error(data.message || 'Login failed');
       }
   
-      setUser(data);
-      localStorage.setItem('user', JSON.stringify(data));
+      setUser(data.user);
+      Cookies.set('user', JSON.stringify(data.user), { expires: 7 });
+      Cookies.set('authToken', data.token, { expires: 7 });
   
       return data;
     } catch (err) {
@@ -126,7 +130,7 @@ export function AuthProvider({ children }) {
   
       setEmailForVerification(email);
       setRole(role);
-     
+      Cookies.set('registrationData', JSON.stringify({ email, role }), { expires: 7 });
   
       return data;
     } catch (err) {
@@ -469,6 +473,13 @@ const completeSellerRegistration = async (businessInfo) => {
 // useEffect(() => {
 //   fetchProducts();
 // }, []);
+
+useEffect(()=>{
+  const storedUser=localStorage.getItem('user');
+  if (storedUser){
+    
+  }
+})
 
 
   const value = {
