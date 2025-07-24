@@ -8,7 +8,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [registrationData, setRegistrationData] = useState({
     businessInfo: { completed: false },
-  companyInfo: { completed: false }
+  companyInfo: { completed: false },
   });
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,6 +17,106 @@ export function AuthProvider({ children }) {
   const [role, setRole] = useState(''); // 'seller' or 'buyer'
   const [products, setProducts] = useState([]);
   const [personalInfo, setPersonalInfo] = useState(null);
+  
+  const [formData, setFormData] = useState({
+    nameSurname:'',
+    country:'nigeria',
+    address:'',
+    email:'',
+    phoneNumber:'',
+    buyerCode:'',
+
+  });
+
+  const [regista, setRegista]= useState({
+    businessInfo:{
+      bussinessName:'',
+      fullName:'',
+      country:'',
+      phoneName:'',
+      address:'',
+    }
+  })
+
+  const updateSeller = async (businessInfo) => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/edit-business-info",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(businessInfo)
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to update business info.");
+      }
+
+      // update context with latest info
+      setRegistrationData((prev) => ({
+        ...prev,
+        businessInfo
+      }));
+
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+ 
+  const [success, setSuccess] = useState(false);
+
+  const handleInputChange =(e)=>{
+    const {name , value} = e.target;
+    setFormData((prev) =>({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const updateBuyer =async (e) =>{
+    setLoading (true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const params = new URLSearchParams(formData).toString();
+      console.log(params)
+      const response = await fetch(
+        `https://fromafrica-backend.onrender.com/v1/update-buyer?${params}`,
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to update buyer info.");
+      }
+
+      setSuccess("Buyer info updated successfully!");
+    } catch (err) {
+      setError(err.message);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }
   
 
 
@@ -277,20 +377,35 @@ const completeSellerRegistration = async (businessInfo) => {
   
     const updateBusinessInfo = async (data) => {
       try {
-        // API call to save business info
-        const response = await axios.post('http://localhost:3000/api/v1/edit-business-info', data);
-        
-        setRegistrationData(prev => ({
+        const response = await fetch(
+          'https://fromafrica-backend.onrender.com/api/v1/edit-business-info',
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          }
+        );
+    
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.message || 'Failed to update business info.');
+        }
+    
+        const result = await response.json();
+    
+        setRegistrationData((prev) => ({
           ...prev,
           businessInfo: {
             ...data,
-            completed: true
-          }
+            completed: true,
+          },
         }));
-        
-        return response.data;
+    
+        return result;
       } catch (error) {
-        console.error("Error saving business info:", error);
+        console.error('Error saving business info:', error);
         throw error;
       }
     };
@@ -298,7 +413,7 @@ const completeSellerRegistration = async (businessInfo) => {
     const updateCompanyInfo = async (data) => {
       try {
         // API call to save company info
-        const response = await axios.post('http://localhost:3000/api/v1/edit-company-info', data);
+        const response = await axios.post('https://fromafrica-backend.onrender.com/edit-company-info', data);
         
         setRegistrationData(prev => ({
           ...prev,
@@ -429,6 +544,16 @@ const completeSellerRegistration = async (businessInfo) => {
         setActiveCard,
         updateBusinessInfo,
         updateCompanyInfo,
+        formData,
+        handleInputChange,
+        updateBuyer,
+        success,
+        updateSeller,
+        regista,
+        setRegista,
+        registrationData,
+        setRegistrationData,
+        
         // fetchProducts,
         // addProduct,
         // products

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from "react"
 import { Search, User, UserPlus } from "lucide-react"
 import logo from '../assets/logo/from.png'
+import { Link } from 'react-router-dom'
 
 
 
@@ -14,9 +15,11 @@ const NavbarBeforeLogin = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
+          <Link to="/">
           <div className="flex-shrink-0">
             <img src={logo} alt="" />
           </div>
+          </Link>
 
           {/* Search Bar - Hidden on mobile, shown on tablet and up */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-4 lg:mx-8">
@@ -57,16 +60,20 @@ const NavbarBeforeLogin = () => {
     </div>
 
             {/* Sign In Button */}
+            `<Link to="/signin">
             <button className="flex items-center space-x-1 lg:space-x-2 px-3 lg:px-4 py-2 hover:bg-amber-800 rounded-lg transition-colors">
               <User className="w-4 h-4 lg:w-5 lg:h-5" />
               <span className="hidden sm:inline text-sm lg:text-base">Sign In</span>
             </button>
+            </Link>`
 
             {/* Sign Up Button */}
+            <Link to="/reg">
             <button className="flex items-center space-x-1 lg:space-x-2 px-3 lg:px-4 py-2 bg-[#eba91c] hover:bg-[#eba91c] rounded-lg transition-colors">
               <UserPlus className="w-4 h-4 lg:w-5 lg:h-5" />
               <span className="hidden sm:inline text-sm lg:text-base">Sign Up</span>
             </button>
+            </Link>
           </div>
         </div>
 

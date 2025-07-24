@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import boy from '../assets/image/images 1.png'
 
 const Navbar = ({ onMenuClick }) => {
-  const { user } = useAuth();
+  const { user } = useAuth() || {};
 
   // Function to get initials from fullName
   const getInitials = (name) => {

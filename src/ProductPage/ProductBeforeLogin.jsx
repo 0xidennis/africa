@@ -13,7 +13,7 @@ import facecap from "../assets/image/facecap.png"
 import boot from "../assets/image/boot.png"
 import { motion, AnimatePresence } from "framer-motion"
 import NavbarBeforeLogin from './NavbarBeforeLogin'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 
 const products = [
@@ -530,6 +530,7 @@ const ProductBeforeLogin = () => {
             </div>
 
             {product.isGoldSupplier && (
+              <Link to="/signin">
               <motion.span 
                 className="bg-[#eba91c] text-white text-md px-2 py-1 rounded"
                 whileHover={{ scale: 1.05 }}
@@ -537,6 +538,7 @@ const ProductBeforeLogin = () => {
               >
                 Chat Supplier
               </motion.span>
+              </Link>
             )}
           </div>
         </div>

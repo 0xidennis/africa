@@ -51,9 +51,9 @@ const Signin = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden ">
       {/* Header */}
-      <header className="bg-white p-1.5">
+      <header className="bg-white p-1.5 fixed left-0 right-0 z-10 top-0">
         <Link to="/">
           <div className="container mx-auto">
             <img src={logo} width={80} height={40} alt="" className='mt-2 ml-5' />
@@ -132,7 +132,7 @@ const Signin = () => {
 
                 <div className="mt-4 text-center">
                   <span className="text-gray-600">Don't have an account, </span>
-                  <Link to="/register" className="text-[#eba91c] hover:underline">
+                  <Link to="/reg" className="text-[#eba91c] hover:underline">
                     Create Account
                   </Link>
                 </div>

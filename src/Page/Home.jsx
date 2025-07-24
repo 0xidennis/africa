@@ -39,9 +39,7 @@ const Home = () => {
       ]
 
   return (
-    <>{loading ? (
-      <LoadingSpinner />
-    ) : (
+    <>
     <div className='overflow-x-hidden min-h-screen '>
         <Layout/>
         <main className="min-h-screen">
@@ -68,7 +66,7 @@ const Home = () => {
               spirit of Africa home!
             </p>
             <div className="flex flex-wrap gap-4 align-center items-center">
-              <Link to="/productbeforelogin">
+              <Link to="/signing">
               <a
                 href="#"
                 className="bg-[#eba91c] hover:bg-amber-600 text-white font-medium py-2 px-6 rounded-md transition-colors"
@@ -574,7 +572,7 @@ const Home = () => {
       </div>
     </main>
     </div>
-    )}
+    
     </>
   )
 }

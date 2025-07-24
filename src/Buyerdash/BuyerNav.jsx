@@ -2,7 +2,9 @@ import React from 'react'
 
 
   import { Search,Bell,Mail,Menu} from "lucide-react"
+import { useAuth } from '../context/AuthContext'
 const BuyerNav = ({ onMenuClick }) => {
+  const {user} =useAuth()
   return (
     <div className='relative z-10 '>
         <header className="fixed top-0 left-0 right-0 bg-gray-50   lg:ml-64 z-50">
@@ -50,8 +52,8 @@ const BuyerNav = ({ onMenuClick }) => {
               alt="Profile"
             />
             <div className="hidden sm:block text-right">
-              <div className="text-sm font-medium text-gray-900">Ade Batife John</div>
-              <div className="text-xs text-gray-500">adebatifejohn@gmail.com</div>
+              <div className="text-sm font-medium text-gray-900">{user?.name || "user"}</div>
+              <div className="text-xs text-gray-500">{user?.email || "example@gmail"}</div>
             </div>
            
           </div>

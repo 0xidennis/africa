@@ -60,13 +60,12 @@ const Header = ({ searchTerm, setSearchTerm, onProductSelect  }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={() => debouncedSearchTerm && setShowDropdown(true)}
               />
-               {!showInput && (
-              <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#523523] hover:bg-[#5c3c28] text-white p-2 rounded-md transition-colors"
-              onClick={() => setShowInput(true)}>
+               
+              <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#523523] hover:bg-[#5c3c28] text-white p-2 rounded-md transition-colors">
                 <Search className="w-4 h-4 lg:w-5 lg:h-5" />
               </button>
             
-          )}
+        
           </div>
                    {/* Dropdown */}
                    {showDropdown && (
@@ -111,7 +110,7 @@ const Header = ({ searchTerm, setSearchTerm, onProductSelect  }) => {
       {/* Mobile Search Button */}
         <button
           className="md:hidden p-2 hover:bg-white rounded-lg transition-colors"
-          onClick={() => setShowInput(true)}
+        
         >
           <Search className="w-5 h-5" />
         </button>

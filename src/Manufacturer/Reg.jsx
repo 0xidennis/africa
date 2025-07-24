@@ -33,9 +33,9 @@ const Reg = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden ">
       {/* Header */}
-      <header className="bg-white p-1.5">
+      <header className="bg-white p-1.5 fixed top-0 left-0 right-0 z-10">
         <Link to="/">
           <div className="container mx-auto">
             <img src={logo} width={80} height={40} alt="" className='mt-2 ml-5' />
@@ -135,7 +135,7 @@ const Reg = () => {
                   <div className="text-center text-md">
                     <p className='mb-6 text-black'>
                       Already have an account,{" "}
-                      <Link to="/login" className="text-[#eba91c] hover:underline">
+                      <Link to="/signin" className="text-[#eba91c] hover:underline">
                         Log in
                       </Link>
                     </p>
