@@ -375,7 +375,8 @@ const completeSellerRegistration = async (businessInfo) => {
           headers:{
            'content-type':'application/json',
            'Authorization': `Bearer ${token}`,
-          }
+          },
+          body:JSON.stringify(data)
 
         });
         

@@ -18,29 +18,17 @@ const Companyinfo = () => {
     }));
   };
 
-  const handleFileUpload = async (e, fieldName) => {
+  const handleFileUpload = (e, fieldName) => {
     const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      
-      // Upload file to your API endpoint
-      const response = await axios.post('YOUR_FILE_UPLOAD_ENDPOINT', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      
+    if (file) {
       setFormData(prev => ({
         ...prev,
-        [fieldName]: response.data.fileUrl // Assuming your API returns the file URL
+        [fieldName]: file, // Store actual file object
       }));
-    } catch (error) {
-      console.error(`Error uploading ${fieldName}:`, error);
     }
   };
+      
+    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +66,7 @@ const Companyinfo = () => {
                 <label className="block mb-2 font-medium">CAC Number (Required)</label>
                 <div className="relative border rounded-md">
                   <input
-                    type="text"
+                    type="file"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'cacNumber')}
@@ -94,7 +82,7 @@ const Companyinfo = () => {
                 <label className="block mb-2 font-medium">Certificate of Registration</label>
                 <div className="relative border rounded-md">
                   <input
-                    type="text"
+                    type="file"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'certificateOfRegistration')}
@@ -109,13 +97,16 @@ const Companyinfo = () => {
                 <label className="block mb-2 font-medium">Tax Identification Number TIN (Required)</label>
                 <div className="relative border rounded-md">
                   <input
-                    type="text"
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'taxIdentificationNumber')}
                     value={formData.taxIdentificationNumber || ''}
+                    id='tin-upload'
                   />
-                  <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <button className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  onClick={() =>document.getElementById('tin-upload').click()}>
                     <Upload size={18} />
                   </button>
                 </div>
