@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { CheckCircle, Circle } from "lucide-react"
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
 const ProgressCard = () => {
-  const navigate = useNavigate();
   const { registrationData, activeCard, setActiveCard } = useAuth();
 
   const cards = [
@@ -13,19 +11,19 @@ const ProgressCard = () => {
       title: "Business Information",
       status: registrationData.businessInfo.completed ? "completed" : "pending",
       completed: registrationData.businessInfo.completed,
-      path: "/businessinfo" 
+      
     },
     {
       title: "Company Information",
       status: registrationData.companyInfo.completed ? "completed" : "pending",
       completed: registrationData.companyInfo.completed,
-      path: "/companyinfo"
+      
     },
   ];
 
   const handleCardClick = (path, index) => {
+    if (index === 1 && !registrationData.businessInfo.completed) return;
     setActiveCard(index);
-    navigate(path);
   };
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:w-120">

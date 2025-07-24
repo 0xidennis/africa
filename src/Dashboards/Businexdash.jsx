@@ -5,9 +5,11 @@ import WelcomeSection from "./WelcomeSection";
 import ProgressCard from "./ProgressCard";
 import SellerInfo from "./SellerInfo";
 import SignedAggre from "../Buyerdash/SignedAggre";
+import Companyinfo from "./Companyinfo";
+import { useAuth } from "../context/AuthContext";
 
 const Businexdash = () => {
-  
+  const {activeCard,registrationData} = useAuth();
     
   return (
 
@@ -15,7 +17,9 @@ const Businexdash = () => {
       <div className="max-w-6xl mx-auto space-y-6">
         <WelcomeSection />
         <ProgressCard/>
-        <SellerInfo/>
+        {activeCard === 0 && <SellerInfo />}
+        {activeCard === 1 && registrationData.businessInfo.completed && <Companyinfo />}
+      
         <SignedAggre />
       </div>
     </main>

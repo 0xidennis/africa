@@ -18,6 +18,7 @@ export function AuthProvider({ children }) {
   const [role, setRole] = useState(''); // 'seller' or 'buyer'
   const [products, setProducts] = useState([]);
   const [personalInfo, setPersonalInfo] = useState(null);
+  const [activeCard, setActiveCard] = useState(0)
   
   const [formData, setFormData] = useState({
     nameSurname:'',
@@ -80,9 +81,7 @@ export function AuthProvider({ children }) {
       
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'
-           ,'Authorization': `Bearer ${Cookies.get('authToken')}`},
-
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
   
@@ -91,12 +90,11 @@ export function AuthProvider({ children }) {
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
-  
+      Cookies.set('authToken', data.user?.token, {path: '/'}); 
       setUser(data.user);
-      Cookies.set('user', JSON.stringify(data.user), { expires: 7 });
-      Cookies.set('authToken', data.token, { expires: 7 });
+     
   
-      return data;
+      return data?.user;
     } catch (err) {
       setError(err.message || 'An error occurred during login');
       console.error(err);
@@ -107,9 +105,9 @@ export function AuthProvider({ children }) {
   };
    // Add this to check for existing session on app load
    useEffect(() => {
-    const cookieUser = Cookies.getItem('user');
+    const cookieUser = Cookies.get('user');
     if (cookieUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(JSON.parse(cookieUser));
     }
   }, []);
   // Registration function
@@ -324,14 +322,12 @@ const completeSellerRegistration = async (businessInfo) => {
       }
     }
 
-
-  
-    const [activeCard, setActiveCard] = useState(null);
   
     const updateBusinessInfo = async (data) => {
 
       try {
         const token = Cookies.get('authToken');
+        console.log('Auth Token (updateBusinessInfo):', token);
         if (!token) throw new Error('No authentication token found');
         const response = await fetch(
           'https://fromafrica-backend.onrender.com/api/v1/edit-business-info',
@@ -344,6 +340,7 @@ const completeSellerRegistration = async (businessInfo) => {
             body: JSON.stringify(data),
           }
         );
+        // console.log('Auth Token(from cookies):', Cookies.get('authToken'));
     
         if (!response.ok) {
           const errData = await response.json();
@@ -366,6 +363,7 @@ const completeSellerRegistration = async (businessInfo) => {
         throw error;
       }
     };
+    
   
     const updateCompanyInfo = async (data) => {
       try {
@@ -489,7 +487,7 @@ const completeSellerRegistration = async (businessInfo) => {
 // }, []);
 
 useEffect(()=>{
-  const storedUser=localStorage.getItem('user');
+  const storedUser=Cookies.get('user');
   if (storedUser){
     setUser(JSON.parse(storedUser));
   }

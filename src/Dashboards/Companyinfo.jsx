@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {  Upload } from "lucide-react"
-import { useNavigate } from 'react-router-dom';
+import {  Upload } from "lucide-react";
 import { useAuth } from '../context/AuthContext';
 
 const Companyinfo = () => {
   const { registrationData, updateCompanyInfo, setActiveCard } = useAuth();
-  const navigate = useNavigate();
   const [formData, setFormData] = useState(registrationData.companyInfo);
 
   useEffect(() => {
-    setActiveCard(1); // Set Company Info as active card
+    setActiveCard(1); 
   }, [setActiveCard]);
 
   const handleInputChange = (e) => {
@@ -48,7 +46,7 @@ const Companyinfo = () => {
     e.preventDefault();
     try {
       await updateCompanyInfo(formData);
-      navigate('/progresscard');
+      console.log("Company info updated successfully", formData);
     } catch (error) {
       console.error("Failed to save company info:", error);
     }
@@ -67,8 +65,9 @@ const Companyinfo = () => {
                 <input
                   type="text"
                   placeholder="Company Name"
-                  defaultValue="3C Fashion Store"
                   className="w-full p-3 border rounded-md"
+                  onChange={handleInputChange}
+                  value={formData.companyName || ''}
                 />
               </div>
               <div>
@@ -82,7 +81,8 @@ const Companyinfo = () => {
                     type="text"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
-                    readOnly
+                    onChange={(e) =>handleFileUpload(e, 'cacNumber')}
+                    value={formData.cacNumber || ''}
                   />
                   <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
                     <Upload size={18} />
@@ -96,7 +96,8 @@ const Companyinfo = () => {
                     type="text"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
-                    readOnly
+                    onChange={(e) =>handleFileUpload(e, 'certificateOfRegistration')}
+                  value={formData.certificateOfRegistration || ''}
                   />
                   <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
                     <Upload size={18} />
@@ -110,7 +111,8 @@ const Companyinfo = () => {
                     type="text"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
-                    readOnly
+                    onChange={(e) =>handleFileUpload(e, 'taxIdentificationNumber')}
+                    value={formData.taxIdentificationNumber || ''}
                   />
                   <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
                     <Upload size={18} />
@@ -120,7 +122,8 @@ const Companyinfo = () => {
             </div>
 
             <div className="flex justify-end mt-8">
-              <button className="px-8 py-2 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-md">
+              <button className="px-8 py-2 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-md"
+                onClick={handleSubmit}>
                 Submit
               </button>
             </div>

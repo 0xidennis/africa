@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Products from '../assets/image/Products.png';
 import logo from '../assets/logo/from.png';
+import Cookies from 'js-cookie';
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -37,14 +38,19 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
+     const user= await login(email, password);
+     console.log('Login successful:', user);
+     if (user?._id) {
+      navigate('/sellerdash');
+
+
+     }
       // Redirect based on role
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user.role === 'seller') {
-        navigate('/dashboard');
-      } else {
-        navigate('/buyerdash');
-      }
+    
+      // if (user.role === 'seller') {
+      // } else {
+      //   navigate('/sellerdash');
+      // }
     } catch (err) {
       console.error('Login failed:', err);
     }

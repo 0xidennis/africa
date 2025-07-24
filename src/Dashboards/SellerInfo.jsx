@@ -1,11 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth} from '../context/AuthContext';
 
 const SellerInfo = () => {
   const { registrationData, updateBusinessInfo, setActiveCard } = useAuth();
-  const navigate = useNavigate();
   
   const [formData, setFormData] = useState(registrationData.businessInfo);
 
@@ -25,10 +23,11 @@ const SellerInfo = () => {
     e.preventDefault();
     try {
       await updateBusinessInfo(formData);
-      navigate('/progresscard');
+      console.log("Business info updated successfully", formData);
     } catch (error) {
       console.error("Failed to save business info:", error);
     }
+    
   };
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
