@@ -70,10 +70,11 @@ const Companyinfo = () => {
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'cacNumber')}
-                    value={formData.cacNumber || ''}
+                    accept=".jpg,.jpeg,.png,.pdf"
                     id='cac-upload'
                   />
-                  <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <button className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  onClick={() =>document.getElementById('cac-upload').click()}>
                     <Upload size={18} />
                   </button>
                 </div>
@@ -83,12 +84,15 @@ const Companyinfo = () => {
                 <div className="relative border rounded-md">
                   <input
                     type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'certificateOfRegistration')}
-                  value={formData.certificateOfRegistration || ''}
+                 
+                  id='certificate-upload'
                   />
-                  <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <button className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  onClick={() =>document.getElementById('certificate-upload').click()}>
                     <Upload size={18} />
                   </button>
                 </div>
@@ -102,7 +106,6 @@ const Companyinfo = () => {
                     placeholder="Upload .jpg or PDF"
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'taxIdentificationNumber')}
-                    value={formData.taxIdentificationNumber || ''}
                     id='tin-upload'
                   />
                   <button className="absolute right-3 top-1/2 transform -translate-y-1/2"
