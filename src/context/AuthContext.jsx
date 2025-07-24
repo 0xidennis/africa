@@ -36,6 +36,8 @@ export function AuthProvider({ children }) {
     setSuccess(false);
 
     try {
+      const token = Cookies.get('authToken'); 
+      if (!token) throw new Error("No auth token found");
       const params = new URLSearchParams(formData).toString();
       console.log(params)
       const response = await fetch(
@@ -44,6 +46,7 @@ export function AuthProvider({ children }) {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
           },
         }
       );
@@ -104,8 +107,8 @@ export function AuthProvider({ children }) {
   };
    // Add this to check for existing session on app load
    useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    const cookieUser = Cookies.getItem('user');
+    if (cookieUser) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
@@ -155,7 +158,7 @@ export function AuthProvider({ children }) {
       email,
       password,
       role,
-      isVerified: true // Assuming buyer verification happens during OTP step
+      isVerified: true ,
     };
 
       const response = await fetch('https://fromafrica-backend.onrender.com/api/v1/register', {
@@ -177,6 +180,7 @@ export function AuthProvider({ children }) {
             };
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData));      
+            Cookies.set('user', JSON.stringify(userData), { expires: 7 });
   
       return data;
     } catch (err) {
@@ -238,6 +242,7 @@ const completeSellerRegistration = async (businessInfo) => {
 
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
+    Cookies.set('user',JSON.stringify(userData), {expires:7})
     
     return data;
   } catch (err) {
@@ -277,7 +282,7 @@ const completeSellerRegistration = async (businessInfo) => {
           throw new Error(data.message || 'Verification failed');
         }
    
-    
+       Cookies.set('AuthToken', data.token,{expires:7})
         return data;
       } catch (err) {
         setError(err.message || 'An error occurred during verification');
@@ -364,8 +369,17 @@ const completeSellerRegistration = async (businessInfo) => {
   
     const updateCompanyInfo = async (data) => {
       try {
+        const token = Cookies.get('authToken');
+        if (!token) throw new Error('No authentication token found');
         // API call to save company info
-        const response = await axios.post('https://fromafrica-backend.onrender.com/edit-company-info', data);
+        const response = await fetch('https://fromafrica-backend.onrender.com/edit-company-info', {
+          method:'PUT',
+          headers:{
+           'content-type':'application/json',
+           'Authorization': `Bearer ${token}`,
+          }
+
+        });
         
         setRegistrationData(prev => ({
           ...prev,
@@ -479,7 +493,7 @@ useEffect(()=>{
   if (storedUser){
     setUser(JSON.parse(storedUser));
   }
-})
+},[])
 
 const logout = () => {
   setUser(null);
