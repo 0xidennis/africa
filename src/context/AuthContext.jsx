@@ -190,7 +190,7 @@ export function AuthProvider({ children }) {
 
 
 
-console.log({ emailForVerification, role, personalInfo });
+// console.log({ emailForVerification, role, personalInfo });
 // Complete seller registration
 const completeSellerRegistration = async (businessInfo) => {
   setLoading(true);
@@ -477,9 +477,15 @@ const completeSellerRegistration = async (businessInfo) => {
 useEffect(()=>{
   const storedUser=localStorage.getItem('user');
   if (storedUser){
-    
+    setUser(JSON.parse(storedUser));
   }
 })
+
+const logout = () => {
+  setUser(null);
+  Cookies.remove('user');
+  Cookies.remove('authToken');
+};
 
 
   const value = {
@@ -498,6 +504,7 @@ useEffect(()=>{
     role,
     setError,
     setUser,
+    logout,
     registrationData,
         activeCard,
         setActiveCard,
