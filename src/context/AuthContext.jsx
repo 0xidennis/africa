@@ -493,12 +493,7 @@ const completeSellerRegistration = async (businessInfo) => {
         updateBusinessInfo,
         updateCompanyInfo,
         formData,
-        handleInputChange,
         updateBuyer,
-        success,
-        updateSeller,
-        regista,
-        setRegista,
         registrationData,
         setRegistrationData,
         
