@@ -83,6 +83,7 @@ const Companyinfo = () => {
                     className="w-full p-3 pr-10 border-none"
                     onChange={(e) =>handleFileUpload(e, 'cacNumber')}
                     value={formData.cacNumber || ''}
+                    id='cac-upload'
                   />
                   <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
                     <Upload size={18} />
