@@ -1,6 +1,7 @@
 // context/AuthContext.js
 import React, { createContext, useContext,useEffect,useState } from 'react';
 import axios from 'axios';
+import cookies from 'js-cookie'
 
 const AuthContext = createContext();
 // export const useProducts = () => useContext(ProductContext);
@@ -28,64 +29,7 @@ export function AuthProvider({ children }) {
 
   });
 
-  const [regista, setRegista]= useState({
-    businessInfo:{
-      bussinessName:'',
-      fullName:'',
-      country:'',
-      phoneName:'',
-      address:'',
-    }
-  })
-
-  const updateSeller = async (businessInfo) => {
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
-
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/edit-business-info",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(businessInfo)
-        }
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || "Failed to update business info.");
-      }
-
-      // update context with latest info
-      setRegistrationData((prev) => ({
-        ...prev,
-        businessInfo
-      }));
-
-      setSuccess(true);
-    } catch (err) {
-      setError(err.message);
-      console.error(err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
  
-  const [success, setSuccess] = useState(false);
-
-  const handleInputChange =(e)=>{
-    const {name , value} = e.target;
-    setFormData((prev) =>({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const updateBuyer =async (e) =>{
     setLoading (true);
     setError(null);
@@ -376,13 +320,17 @@ const completeSellerRegistration = async (businessInfo) => {
     const [activeCard, setActiveCard] = useState(null);
   
     const updateBusinessInfo = async (data) => {
+
       try {
+        const token = Cookies.get('authToken');
+        if (!token) throw new Error('No authentication token found');
         const response = await fetch(
           'https://fromafrica-backend.onrender.com/api/v1/edit-business-info',
           {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
+               "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(data),
           }
