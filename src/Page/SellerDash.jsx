@@ -3,6 +3,7 @@ import { useState } from "react"
 import Sidebar from '../Dashboards/Sidebar'
 import Navbar from '../Dashboards/Navbar'
 import Businexdash from '../Dashboards/Businexdash'
+import { Outlet } from 'react-router-dom'
 const SellerDash = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
   return (
@@ -14,7 +15,10 @@ const SellerDash = () => {
       {/* Main content area */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
-        <Businexdash />
+        {/* <Businexdash /> */}
+        <main className='flex-1 overflow-y-auto p-4 lg:p-6'> 
+        <Outlet/>
+        </main>
       </div>
 
       {/* Mobile sidebar overlay */}

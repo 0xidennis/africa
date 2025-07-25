@@ -36,7 +36,21 @@ const App = () => {
     
       <Router>
       <Routes>
+      <Route path="/sellerdash" element={<SellerDash />}>
+      <Route index element={<Businexdash />} />
+    
+          <Route path="messages" element={<ChatRoom/>} />
+          {/* <Route path="orders" element={<Order/>} /> */}
+          <Route path="progresscard" element={<ProgressCard/>} />
+          <Route path="businessinfo" element={<SellerInfo/>} />
+          <Route path="productform" element={<ProductForm/>} />
+          <Route path="sellerproductpage" element={<SellerProductPage/>} />
+          <Route path="sellerproduct" element={<SellerProduct/>} />
+          <Route path="addnew" element={<AddNew/>} />
+          <Route path="sellerform" element={<Sellerformpage/>} />
+      </Route>
          <Route path="/" element={<Home />} />
+         <Route path="/buyerdash" element={<BuyerDash/>} />
           <Route path="/signin" element={<Signin/>} />
           <Route path="/reg" element={<Reg />} />
           <Route path="/buyer" element={<Buyerverif/>} />
@@ -46,18 +60,9 @@ const App = () => {
           <Route path="/chartbar" element={<Chartbar/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/seller" element={<Personalinfo/>} />
-          <Route path="/buyerdash" element={<BuyerDash/>} />
-          <Route path="/messages" element={<ChatRoom/>} />
-          <Route path="/orders" element={<Order/>} />
-          <Route path="/sellerdash" element={<SellerDash/>} />
-          <Route path="/progresscard" element={<ProgressCard/>} />
-          <Route path="/businessinfo" element={<SellerInfo/>} />
-          <Route path="/productform" element={<ProductForm/>} />
+         
           <Route path="/product" element={<Product/>} />
-          <Route path="/sellerproductpage" element={<SellerProductPage/>} />
-          <Route path="/sellerproduct" element={<SellerProduct/>} />
-          <Route path="/addnew" element={<AddNew/>} />
-          <Route path="/sellerform" element={<Sellerformpage/>} />
+        
           <Route path="/navbarbeforelogin" element={<NavbarBeforeLogin/>} />
           <Route path="/productbeforelogin/:category" element={<ProductBeforeLogin/>} />
           

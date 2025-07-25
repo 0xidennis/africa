@@ -55,7 +55,7 @@ const Companyinfo = () => {
                   placeholder="Company Name"
                   className="w-full p-3 border rounded-md"
                   onChange={handleInputChange}
-                  value={formData.companyName || ''}
+
                 />
               </div>
               <div>
@@ -99,7 +99,7 @@ const Companyinfo = () => {
               </div>
               <div>
                 <label className="block mb-2 font-medium">Tax Identification Number TIN (Required)</label>
-                <div className="relative border rounded-md">
+                <div className="relative border border-grey rounded-md">
                   <input
                     type="file"
                     accept=".pdf,.jpg,.jpeg,.png"

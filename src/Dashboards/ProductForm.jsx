@@ -90,7 +90,7 @@ const ProductForm = () => {
       
     
   return (
-    <div className='overflow-y-auto h-screen p-4 lg:p-6'>
+    <div className='overflow-y-auto  p-4 lg:p-6-'>
         <CreateFormHeader/>
      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-sm">
       <form onSubmit={handleSubmit} className="p-6 lg:p-8">

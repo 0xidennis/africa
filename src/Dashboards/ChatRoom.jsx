@@ -111,15 +111,8 @@ const ChatRoom = () => {
 
   return (
     <div>
-         <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <BuyerSideBar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <BuyerNav onMenuClick={() => setSidebarOpen(true)} />
-        
-      </div>
+         <div className="flex  bg-gray-50">
+    
 
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (

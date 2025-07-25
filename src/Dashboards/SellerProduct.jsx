@@ -120,7 +120,7 @@ const SellerProduct = () => {
     return matchesSearch && matchesFilter && matchesTab
   })
   useEffect(() => {
-    if (!loading && products.length === 0) {
+    if (!loading && products && products.length === 0) {
       navigate("/sellerproductpage");
     }
   }, [products, loading, navigate]);
@@ -155,7 +155,7 @@ const SellerProduct = () => {
                 <Download className="w-4 h-4" />
                 <span className="hidden sm:inline">Export Products</span>
               </button>
-              <Link to="/sellerform">
+              <Link to="/sellerdash/sellerform">
               <button className="px-4 py-2 bg-[#eba91c] text-white rounded-lg hover:bg-[#f3b530] transition-colors">
                 Add Product
               </button>

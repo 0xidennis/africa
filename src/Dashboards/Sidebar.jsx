@@ -5,12 +5,12 @@ import { Building2, BarChart3, Package, MessageSquare, ShoppingCart, HelpCircle,
 
 const Sidebar = ({ isOpen, onClose }) => {
   const menuItems = [
-    { icon: Building2, label: "Business", active: true, path: "/business" },
-    { icon: BarChart3, label: "Overview", active: false },
-    { icon: Package, label: "Product", active: false, hasDropdown: true, path: "/sellerproduct" },
-    { icon: MessageSquare, label: "Messages", active: false },
-    { icon: ShoppingCart, label: "Order", active: false },
-    { icon: HelpCircle, label: "Support", active: false },
+    { icon: Building2, label: "Business", active: true, path: "" },
+    { icon: BarChart3, label: "Overview", active: false,path: "/sellerdash/overview" },
+    { icon: Package, label: "Product", active: false, hasDropdown: true, path: "/sellerdash/sellerproduct" },
+    { icon: MessageSquare, label: "Messages", active: false,path: "/sellerdash/messages" },
+    { icon: ShoppingCart, label: "Order", active: false,path: "/sellerdash/orders" },
+    { icon: HelpCircle, label: "Support", active: false,path: "/sellerdash/support" },
   ]
   
   return (
@@ -39,17 +39,17 @@ const Sidebar = ({ isOpen, onClose }) => {
 
        {/* Navigation */}
        <nav className="flex-1 px-4 space-y-2">
-         {menuItems.map((item, index) => (
+         {menuItems.map((item) => (
            <Link 
            to={item.path} 
-           key={index}
+           key={item.label}
            className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}
          >
-           <div key={index}>
+           <div key={item.label} className="mb-2">
              <button
                className={`
                w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-colors
-               ${item.active ? "bg-[#885434] text-white" : "text-white hover:bg-rgba(235, 169, 28, 0.2) hover:text-white"}
+               ${item.active ? " text-white" : "text-white hover:bg-rgba(235, 169, 28, 0.2) hover:text-white"}
              `}
              >
                <div className="flex items-center space-x-3">

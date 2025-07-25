@@ -8,6 +8,7 @@ import SignedAggre from "../Buyerdash/SignedAggre";
 import Companyinfo from "./Companyinfo";
 import { useAuth } from "../context/AuthContext";
 
+
 const Businexdash = () => {
   const {activeCard,registrationData} = useAuth();
     
@@ -19,7 +20,7 @@ const Businexdash = () => {
         <ProgressCard/>
         {activeCard === 0 && <SellerInfo />}
         {activeCard === 1 && registrationData.businessInfo.completed && <Companyinfo />}
-      
+        
         <SignedAggre />
       </div>
     </main>
