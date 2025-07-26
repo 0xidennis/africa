@@ -2,6 +2,7 @@
 import React, { createContext, useContext,useEffect,useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import { data } from 'react-router-dom';
 
 const AuthContext = createContext();
 // export const useProducts = () => useContext(ProductContext);
@@ -395,97 +396,80 @@ const completeSellerRegistration = async (businessInfo) => {
       }
     };
 
-  // const fetchProducts = async () =>{
-  //   try {
-  //     setLoading(true);
-  //     const res = await axios.get("http://localhost:3000/api/v1/get-all-products");
-  //     setProducts(res.data);
-  //   } catch (err) {
-  //     setError(err.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
-  // const addProduct = async (formData) => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await axios.post("http://localhost:3000/api/v1/addProduct", formData);
-  //     setProducts((prev) => [...prev, res.data]);
-  //   } catch (err) {
-  //     setError(err.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
+ 
+ // Fetch all products from server
 
- /**
- * Fetch all products from server
- */
-//  const fetchProducts = async () => {
-//   try {
-//     setLoading(true);
-//     setError(null);
+ const fetchProducts = async () => {
+  try {
+    setLoading(true);
+    setError(null);
+     const token = Cookies.get('authToken');
 
-//     const res = await fetch('http://localhost:3000/api/v1/my-products', {
-//       method: 'GET',
-//       headers: { "Content-Type": "application/json" },
-//     });
+    const res = await fetch('https://fromafrica-backend.onrender.com/api/v1/my-products', {
+      method: 'GET',
+      headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${token}` // Include auth token
+       },
+    
+    });
 
-//     if (!res.ok) {
-//       throw new Error(`HTTP error! Status: ${res.status}`);
-//     }
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
 
-//     const data = await res.json();
-//     setProducts(data);
-//   } catch (err) {
-//     console.error("Fetch error:", err);
-//     setError(err.message || "Failed to fetch products");
-//   } finally {
-//     setLoading(false);
-//   }
-// };
+    const data = await res.json();
+    setProducts(data);
+  } catch (err) {
+    console.error("Fetch error:", err);
+    setError(err.message || "Failed to fetch products");
+  } finally {
+    setLoading(false);
+  }
+};
 
-// /**
-//  * Add a new product
-//  * After adding, re-fetch all products to sync state with server.
-//  */
-// const addProduct = async (formData) => {
-//   try {
-//     setLoading(true);
-//     setError(null);
 
-//     const res = await fetch("http://localhost:3000/api/v1/addProduct", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(formData),
-//     });
+// Function to add a new product
+const addProduct = async (formData) => {
+  try {
+    setLoading(true);
+    setError(null);
+      // ✅ Safely get token from user context
+      const token = Cookies.get("authToken");
+      // console.log("Auth Token (addProduct):", token);
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
 
-//     if (!res.ok) {
-//       throw new Error(`Failed to add: ${res.status} ${res.statusText}`);
-//     }
+    const res = await fetch("https://fromafrica-backend.onrender.com/api/v1/addProduct", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`, // Include auth token,
+        
+      },
+      body: formData,
+    });
 
-//     // Re-fetch to get updated list
-//     await fetchProducts();
-//   } catch (err) {
-//     console.error(err);
-//     setError(err.message || "Something went wrong");
-//   } finally {
-//     setLoading(false);
-//   }
-// };
+    if (!res.message) {
+      const errorText = await res.text();
+      throw new Error(data.message`Failed to add: ${res.status} ${res.statusText}`);
+    }
+
+    // Re-fetch to get updated list
+    await fetchProducts();
+  } catch (err) {
+    console.log("Add Product Error:", err.message);
+    setError(err.message || "Something went wrong");
+  } finally {
+    setLoading(false);
+  }
+};
 
 // /**
-//  * Initial load
-//  */
-// useEffect(() => {
-//   fetchProducts();
-// }, []);
+ //  * Fetch all products from the server
+useEffect(() => {
+  fetchProducts();
+}, []);
 
 useEffect(()=>{
   const storedUser=Cookies.get('user');
@@ -524,13 +508,14 @@ const logout = () => {
         updateBusinessInfo,
         updateCompanyInfo,
         formData,
+        setFormData,
         updateBuyer,
         registrationData,
         setRegistrationData,
         
-        // fetchProducts,
-        // addProduct,
-        // products
+        fetchProducts,
+        addProduct,
+        products
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

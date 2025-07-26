@@ -38,19 +38,17 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     const user= await login(email, password);
-     console.log('Login successful:', user);
-     if (user?._id) {
-      navigate('/sellerdash');
-
-
-     }
+      const loggedInUser = await login (email, password);
       // Redirect based on role
     
-      // if (user.role === 'seller') {
-      // } else {
-      //   navigate('/sellerdash');
-      // }
+      if (loggedInUser?.role === 'seller') {
+        navigate('/sellerdash');
+      } else if (loggedInUser?.role === 'buyer') {
+        navigate('/buyerdash');
+      } else{
+        console.warn("Unknown user");
+        navigate('/'); // Fallback for unknown roles
+      }
     } catch (err) {
       console.error('Login failed:', err);
     }
