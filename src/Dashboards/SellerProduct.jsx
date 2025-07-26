@@ -6,80 +6,80 @@ import { useAuth} from '../context/AuthContext'
 import { useNavigate } from "react-router-dom";
 import {Link} from "react-router-dom"
 
-// const products = [
-//     {
-//       id: 1,
-//       name: "Straw Fedora Hat",
-//       category: "ACCESSORIES",
-//       price: 99.99,
-//       date: "12.03.2023",
-//       status: "Available",
-//       image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 2,
-//       name: "Hammered Drop Earrings",
-//       category: "ACCESSORIES",
-//       price: 89.99,
-//       date: "02.03.2023",
-//       status: "Available",
-//       image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 3,
-//       name: "Square Sunglasses",
-//       category: "ACCESSORIES",
-//       price: 299.9,
-//       date: "20.03.2023",
-//       status: "Disabled",
-//       image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 4,
-//       name: "Printed Maxi A-Line Skirt",
-//       category: "CLOTHES",
-//       price: 150.0,
-//       date: "20.03.2023",
-//       status: "Available",
-//       image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 5,
-//       name: "Leather Cross Body Bag",
-//       category: "ACCESSORIES",
-//       price: 74.69,
-//       date: "20.03.2023",
-//       status: "Available",
-//       image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 6,
-//       name: "Non Wired Sports Top",
-//       category: "SPORTSWEAR",
-//       price: 55.5,
-//       date: "20.03.2023",
-//       status: "Disabled",
-//       image: "https://images.unsplash.com/photo-1506629905607-d9c297d3f5f5?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 7,
-//       name: "Leather Flat Sandals",
-//       category: "CLOTHES",
-//       price: 120.99,
-//       date: "20.03.2023",
-//       status: "Available",
-//       image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=300&fit=crop",
-//     },
-//     {
-//       id: 8,
-//       name: "Oversized Sunglasses",
-//       category: "ACCESSORIES",
-//       price: 123.99,
-//       date: "20.03.2023",
-//       status: "Available",
-//       image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&h=300&fit=crop",
-//     },
-//   ]
+const products = [
+    {
+      id: 1,
+      name: "Straw Fedora Hat",
+      category: "ACCESSORIES",
+      price: 99.99,
+      date: "12.03.2023",
+      status: "Available",
+      image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=300&h=300&fit=crop",
+    },
+    {
+      id: 2,
+      name: "Hammered Drop Earrings",
+      category: "ACCESSORIES",
+      price: 89.99,
+      date: "02.03.2023",
+      status: "Available",
+      image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=300&h=300&fit=crop",
+    },
+    {
+      id: 3,
+      name: "Square Sunglasses",
+      category: "ACCESSORIES",
+      price: 299.9,
+      date: "20.03.2023",
+      status: "Disabled",
+      image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop",
+    },
+    {
+      id: 4,
+      name: "Printed Maxi A-Line Skirt",
+      category: "CLOTHES",
+      price: 150.0,
+      date: "20.03.2023",
+      status: "Available",
+      image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300&h=300&fit=crop",
+    },
+    {
+      id: 5,
+      name: "Leather Cross Body Bag",
+      category: "ACCESSORIES",
+      price: 74.69,
+      date: "20.03.2023",
+      status: "Available",
+      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop",
+    },
+    {
+      id: 6,
+      name: "Non Wired Sports Top",
+      category: "SPORTSWEAR",
+      price: 55.5,
+      date: "20.03.2023",
+      status: "Disabled",
+      image: "https://images.unsplash.com/photo-1506629905607-d9c297d3f5f5?w=300&h=300&fit=crop",
+    },
+    {
+      id: 7,
+      name: "Leather Flat Sandals",
+      category: "CLOTHES",
+      price: 120.99,
+      date: "20.03.2023",
+      status: "Available",
+      image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=300&fit=crop",
+    },
+    {
+      id: 8,
+      name: "Oversized Sunglasses",
+      category: "ACCESSORIES",
+      price: 123.99,
+      date: "20.03.2023",
+      status: "Available",
+      image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&h=300&fit=crop",
+    },
+  ]
 
 const SellerProduct = () => {
     const [searchTerm, setSearchTerm] = useState("")
@@ -87,11 +87,13 @@ const SellerProduct = () => {
   const [selectedFilters, setSelectedFilters] = useState([])
   const [viewMode, setViewMode] = useState("grid")
   const [showMobileFilters, setShowMobileFilters] = useState(false)
-  // const { products, loading, error, fetchProducts } = useProducts();
+ 
 
-  const { products, loading, error } = useAuth();
-  const navigate = useNavigate();
-
+  const { products, loading, error,fetchProducts } = useAuth();
+  
+  useEffect(() => {
+    fetchProducts(); // Load when page loads
+  }, []);
  
 
   const tabs = [
@@ -119,11 +121,11 @@ const SellerProduct = () => {
       (activeTab === "DISABLED" && product.status === "Disabled")
     return matchesSearch && matchesFilter && matchesTab
   });
-  useEffect(() => {
-    if (!loading && products && products.length === 0) {
-      navigate("/sellerproductpage");
-    }
-  }, [products, loading, navigate]);
+  // useEffect(() => {
+  //   if (!loading && products && products.length === 0) {
+  //     navigate("/sellerproductpage");
+  //   }
+  // }, [products, loading, navigate]);
   
   return (
     <div>

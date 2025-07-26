@@ -7,7 +7,7 @@ const Sellerformpage = () => {
   return (
          
         <div>
-         <div className="bg-gray-50">
+         <div className="bg-gray-50 overflow-hidden">
     
        
         <ProductForm/>

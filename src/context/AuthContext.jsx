@@ -414,12 +414,11 @@ const completeSellerRegistration = async (businessInfo) => {
     
     });
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${res.status}`);
-    }
-
     const data = await res.json();
-    setProducts(data);
+    if (!res.ok) throw new Error(data.message || 'Failed to fetch products');
+
+    
+    setProducts(data.products);
   } catch (err) {
     console.error("Fetch error:", err);
     setError(err.message || "Failed to fetch products");
@@ -434,9 +433,9 @@ const addProduct = async (formData) => {
   try {
     setLoading(true);
     setError(null);
-      // ✅ Safely get token from user context
+      //  Safely get token from user context
       const token = Cookies.get("authToken");
-      // console.log("Auth Token (addProduct):", token);
+      
       if (!token) {
         throw new Error("No authentication token found");
       }
@@ -450,9 +449,9 @@ const addProduct = async (formData) => {
       body: formData,
     });
 
-    if (!res.message) {
-      const errorText = await res.text();
-      throw new Error(data.message`Failed to add: ${res.status} ${res.statusText}`);
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.message ||`Failed to add: ${res.status} ${res.statusText}`);
     }
 
     // Re-fetch to get updated list

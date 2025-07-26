@@ -141,7 +141,7 @@ const ProductForm = () => {
   };
 
   return (
-    <div className="overflow-y-auto  p-4 lg:p-0">
+    <div className="overflow-hidden  p-4 lg:p-0">
       <CreateFormHeader />
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-sm">
         <form

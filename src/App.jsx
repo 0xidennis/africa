@@ -71,17 +71,7 @@ const App = () => {
       </Routes>
       </Router>
       </AuthProvider>
-      {/* <RegisterTest/> */}
-      {/* <Product/> */}
-      {/* <BuyerDash/> */}
-      {/* <Order/> */}
-      {/* <SellerDash/> */}
-      {/* <Chartbar/> */}
-      {/* <Companyinfo/> */}
-      {/* <SellerProduct/> */}
-      {/* <ProductForm/> */}
-      {/* <ChatRoom/> */}
-      {/* <ProductBeforeLogin/> */}
+    
       
 
       
